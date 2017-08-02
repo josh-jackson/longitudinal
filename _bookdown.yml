@@ -1,4 +1,6 @@
 book_filename: “Longitudinal”
+repo: https://github.com/josh-jackson/longitudinal/
+output_dir: _book
 language:
   ui:
     chapter_name: "Chapter "

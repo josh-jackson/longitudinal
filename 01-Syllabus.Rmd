@@ -1,13 +1,3 @@
----
-title: "Quantitative Methods II, Psych 5067"
-author: 'null'
-date: 'null'
-output:
-  html_document: default
-  pdf_document: default
----
-<br>  
-
 # Syllabus
 
 

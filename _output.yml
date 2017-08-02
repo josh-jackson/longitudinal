@@ -6,13 +6,6 @@ bookdown::gitbook:
         <li>LDA</li>
       after: |
         <li>Applied Longitudinal Data Analysis</li>
-    edit: 
-    download: ["pdf", "epub"]
-bookdown::pdf_book:
-  includes:
-    in_header: preamble.tex
-  latex_engine: xelatex
-  citation_package: natbib
-  keep_tex: yes
-bookdown::html_book:
-  css: style.css
+
+
+

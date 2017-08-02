@@ -1,11 +1,19 @@
 bookdown::gitbook:
   css: style.css
+  split_by: chapter
   config:
     toc:
+      collapse: subsection
       before: |
-        <li>LDA</li>
+        <li>ALDA</li>
       after: |
         <li>Applied Longitudinal Data Analysis</li>
-
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  citation_package: natbib
+bookdown::epub_book:
+  stylesheet: style.css
 
 

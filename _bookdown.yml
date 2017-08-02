@@ -1,6 +1,5 @@
 book_filename: “Longitudinal”
-repo: https://github.com/josh-jackson/longitudinal/
-output_dir: _book
-language:
-  ui:
-    chapter_name: "Chapter "
+chapter_name: "Chapter "
+repo: https://github.com/josh-jackson/longitudinal
+output_dir: docs
+rmd_files: ["index.Rmd", "01-Syllabus.Rmd", "02-LDA-class-outline.Rmd", "03-Growth-curves.Rmd"]

@@ -8,6 +8,7 @@ date: "2017-08-03"
 description: "Applied Longitudinal Data Analysis"
 documentclass: book
 github-repo: josh-jackson/longitudinal
+url: 'https://josh-jackson.github.io/longitudinal/'
 link-citations: true
 output: "bookdown::gitbook"
 site: "bookdown::bookdown_site"

@@ -1,14 +1,14 @@
 {
     "collab_server" : "",
-    "contents" : "--- \nauthor: \"Josh Jackson\"\nbiblio-style: apalike\nbibliography: \n  - book.bib\n  - packages.bib\ndate: \"`r Sys.Date()`\"\ndescription: \"Applied Longitudinal Data Analysis\"\ndocumentclass: book\ngithub-repo: josh-jackson/longitudinal\nlink-citations: true\noutput: \"bookdown::gitbook\"\nsite: \"bookdown::bookdown_site\"\ntitle: \"Applied Longitudinal Data Analysis\"\n---\n\n\n\n\n",
+    "contents" : "--- \nauthor: \"Josh Jackson\"\nbiblio-style: apalike\nbibliography: \n  - book.bib\n  - packages.bib\ndate: \"`r Sys.Date()`\"\ndescription: \"Applied Longitudinal Data Analysis\"\ndocumentclass: book\ngithub-repo: josh-jackson/longitudinal\nlink-citations: true\noutput: \"bookdown::gitbook\"\nsite: \"bookdown::bookdown_site\"\ntitle: \"Applied Longitudinal Data Analysis\"\n---\n\n\n\nApplied Longitudinal Data Analysis\n\n\n",
     "created" : 1501706441972.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "1292999494",
+    "hash" : "4254984942",
     "id" : "8173067A",
-    "lastKnownWriteTime" : 1501774836,
-    "last_content_update" : 1501774836,
+    "lastKnownWriteTime" : 1501778903,
+    "last_content_update" : 1501778903742,
     "path" : "~/Box Sync/5165 Applied Longitudinal Data Analysis/Longitudinal/index.Rmd",
     "project_path" : "index.Rmd",
     "properties" : {

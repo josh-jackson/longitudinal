@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "# Growth curves\n\n",
+    "created" : 1501707888983.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "507531690",
+    "id" : "FC620908",
+    "lastKnownWriteTime" : 1501709518,
+    "last_content_update" : 1501709518025,
+    "path" : "~/Box Sync/5165 Applied Longitudinal Data Analysis/Longitudinal/03-Growth-curves.Rmd",
+    "project_path" : "03-Growth-curves.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

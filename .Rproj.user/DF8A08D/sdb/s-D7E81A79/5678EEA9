@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "# Syllabus\n\n\n\n####People#### \n**Instructor**: Joshua Jackson  \n**Office**: 315B  \n**Office hours**: 10-11 Wednesday and by appointment  \n\n**Course Descrition** \n\nThis course covers modern methods of handling longitudinal, repeated measures. The class will introduce the rationale of measuring change and stability over time to study phenomena, as well as how within-person designs can increase statistical power and precision compared to more traditional designs. Most the course will use multi-level models and latent (growth) curve models to specify patterns of change across time. Additional topics include: visualization, measurement invariance, time-to- event models and power. PREREQ: Use of R will be required, Familiarity with MLM and/or Structural Equation Models.\n\n**Class textbook** \n\nReadings will be provided\n\n**Grading** \n\nTBA\n\n**Schedule**\n\n| Week | Date  |  Topic                                                     | Readings             |\n-------|-------|------------------------------------------------------------|----------------------|\n| 1    | 1/17  | Motivation, terms, concepts and graphing                                 |                      |\n| 2    | 1/24  | Growth curves; MLM in R: packages and procedures       |                      |\n| 3    | 2/2   |  Conditional (Leve 1 and 2 predictors) MLM models     |                      |\n| 4    | 2/7   |  Polynomial, piecewise and spline models                    |        |\n| 5    | 2/14  |  Intensive data anlysis/within person fluctuations p1 |                      |\n| 6    | 2/21  |  Intensive data anlysis/within person fluctuations p2  |                      |\n| 7    | 2/28  |  Experimental approaches and 2 wave data  |                      |\n| 8    | 3/7   |  Dyadic Models                               |                      |\n| 9    | 3/14  | **Spring Break!**                     |                      |\n| 10   | 3/21  |  SEM and Latent Grown (curve) Models                     |                      |\n| 11   | 3/28  |  Scaling, MI, and Second order Model                 |                      |\n| 12   | 4/4   |  Multiple group models                        |                      |\n| 13   | 4/11  |  Flexible SEM models (LCM, STATE-TRAIT; ALT-SR)           |                      |\n| 14   | 4/18  |  Mixture Models                                       |                      |\n| 15   | 4/25  |  Biometric or Survival or ? or catch up       |                      |\n",
+    "created" : 1501704011090.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "809391382",
+    "id" : "5678EEA9",
+    "lastKnownWriteTime" : 1501709379,
+    "last_content_update" : 1501709379953,
+    "path" : "~/Box Sync/5165 Applied Longitudinal Data Analysis/Longitudinal/01-Syllabus.Rmd",
+    "project_path" : "01-Syllabus.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

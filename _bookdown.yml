@@ -3,5 +3,5 @@ chapter_name: "Chapter "
 repo: https://github.com/josh-jackson/longitudinal
 output_dir: docs
 rmd_files: ["index.Rmd", "01-Syllabus.Rmd", "02-LDA-class-outline.Rmd", "03-Growth-curves.Rmd"]
-clean: [packages.bib, book down.bbl]
+clean: [packages.bib, bookdown.bbl]
 new_session: yes

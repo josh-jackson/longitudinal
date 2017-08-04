@@ -4,7 +4,7 @@ biblio-style: apalike
 bibliography: 
   - book.bib
   - packages.bib
-date: "2017-08-03"
+date: "2017-08-04"
 description: "Applied Longitudinal Data Analysis"
 documentclass: book
 github-repo: josh-jackson/longitudinal

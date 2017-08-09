@@ -2,7 +2,7 @@
 
 
 
-####People#### 
+ 
 **Instructor**: Joshua Jackson  
 **Office**: 315B  
 **Office hours**: 10-11 Wednesday and by appointment  
@@ -15,9 +15,17 @@ This course covers modern methods of handling longitudinal, repeated measures. T
 
 Readings will be provided
 
-**Grading** 
+**Structure of class**
 
-TBA
+Each class will cover a specific type of longitudinal model. During that class, I (josh) will provide an overview of the important considerations or motivation for this analysis. Then we will switch to walking through code and results. For each topic I will select (in advance) someone who will meet with me outside of class time to go over analyses for that topic using their own dataset. That person will be in charge of providing background information on the dataset and discussing the progress of their data analytic plan. Final code will be shared to the class via Github. 
+
+If you are not presenting you will need to run the analyses using your own dataset or one that is appropriate for the techinique. These are due before the start of the next class.  
+
+**Grading** 
+Grading consists of 3 aspects: 
+1. Weekly projects uploaded to github (60% of grade)
+2. Class presentation based on your data (20%)
+3. Final paper covering the method and results of your main longitudinal hypothesis(es) (20%)
 
 **Schedule**
 

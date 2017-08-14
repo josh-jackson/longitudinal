@@ -1,8 +1,6 @@
 # Syllabus
 
 
-
- 
 **Instructor**: Joshua Jackson  
 **Office**: 315B  
 **Office hours**: 10-11 Wednesday and by appointment  
@@ -31,18 +29,18 @@ Grading consists of 3 aspects:
 
 | Week | Date  |  Topic                                                     | Readings             |
 -------|-------|------------------------------------------------------------|----------------------|
-| 1    | 1/17  | Motivation, terms, concepts and graphing                                 |                      |
-| 2    | 1/24  | Growth curves; MLM in R: packages and procedures       |                      |
-| 3    | 2/2   |  Conditional (Leve 1 and 2 predictors) MLM models     |                      |
-| 4    | 2/7   |  Polynomial, piecewise and spline models                    |        |
-| 5    | 2/14  |  Intensive data anlysis/within person fluctuations p1 |                      |
-| 6    | 2/21  |  Intensive data anlysis/within person fluctuations p2  |                      |
-| 7    | 2/28  |  Experimental approaches and 2 wave data  |                      |
-| 8    | 3/7   |  Dyadic Models                               |                      |
-| 9    | 3/14  | **Spring Break!**                     |                      |
-| 10   | 3/21  |  SEM and Latent Grown (curve) Models                     |                      |
-| 11   | 3/28  |  Scaling, MI, and Second order Model                 |                      |
-| 12   | 4/4   |  Multiple group models                        |                      |
-| 13   | 4/11  |  Flexible SEM models (LCM, STATE-TRAIT; ALT-SR)           |                      |
-| 14   | 4/18  |  Mixture Models                                       |                      |
-| 15   | 4/25  |  Biometric or Survival or ? or catch up       |                      |
+| 1    | 8/31  | Motivation, terms, concepts and graphing                                 |                      |
+| 2    | 9/7  | Growth curves; MLM in R: packages and procedures       |                      |
+| 3    | 9/14   |  Conditional (Leve 1 and 2 predictors) MLM models     |                      |
+| 4    | 9/21   |  **Class canceled**                   |        |
+| 5    | 9/28  |  Polynomial, piecewise and spline models   |                      |
+| 6    | 10/05  | Intensive data anlysis/within person fluctuations p1  |                      |
+| 7    | 10/12  | Intensive data anlysis/within person fluctuations p2   |                      |
+| 8    | 10/19   |   Experimental approaches and 2 wave data                              |                      |
+| 9    | 10/26  |    Dyadic Models                 |                      |
+| 10   | 11/2  |  SEM and Latent Grown (curve) Models                     |                      |
+| 11   | 11/9  |  Scaling, MI, and Second order Model                 |                      |
+| 12   | 11/16   |  Multiple group models                        |                      |
+| 13   | 11/23  |  **Tofurkey day**            |                      |
+| 14   | 11/30  |  Flexible SEM models (LCM, STATE-TRAIT; ALT-SR)                                     |                      |
+| 15   | 12/7  |  Mixture Models   |                      |

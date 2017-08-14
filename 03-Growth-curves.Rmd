@@ -1,2 +1,36 @@
 # Growth curves
 
+## Between person models and cross sectional data
+
+You already know this, but it gives us a chance to review regression
+
+
+## Within person models e.g., 2-level models
+
+### Empty model
+
+### ICC
+
+### Adding time
+
+### random versus fixed
+
+#### Coding time
+
+#### Accelerated longitudinal study
+
+## Variance components
+
+### Variance decomposition
+
+### Residual structure
+
+## Estimation
+
+## Prediction of individual random effects
+
+
+
+
+
+

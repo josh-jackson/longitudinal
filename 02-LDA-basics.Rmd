@@ -9,7 +9,7 @@ At least 6 reasons:
 
 2. Inter-individual differences in intraindividual change. Does everyone change the same? Do some people start higher but change less? Do some increase while some decrease? 
 
-3. Examine joint relationship among intraindividual change for two or more constructs. If variable X goes up does variable Y also go up across time? Does this always happen or only during certain times? Is this assocaition due to a third variable or does it mean that change occurs for similar reasons?  
+3. Examine joint relationship among intraindividual change for two or more constructs. If variable X goes up does variable Y also go up across time? Does this always happen or only during certain times? Is this association due to a third variable or does it mean that change occurs for similar reasons?  
 
 4. Determinants of intraindividual change. What are the repeated experiences that can push construct X around. Do these have similar effects at all times? 
 
@@ -17,46 +17,153 @@ At least 6 reasons:
 
 6. Inter-individual differences in intraindividual fluctuation and determinants of intraindividual fluctuation. Does everyone vary the same? Why are some more variable than others? 
 
-### Types of change
+### Types of change (most common)
 
 There are many ways to think of change and stability. We will only have time to go into a few of these types, but it is helpful to think about what type you are interested in when you plan a project or sit down to analyze data. 
 
-1. Differential / rank order consitency/ rank order stability
+1. Differential / rank order consistency/ rank order stability. Goes by many names but in the end it is just a correlation. This is a group/sample/population level variable and indexes the relative standing of a person with regard to the rest o f the members in the sample. Does not take into account mean structure. Best used with heterotypic continuity where the construct may be the same but the measurement of the construct changes e.g., childhood IQ or acting out in school versus when you are an adult. 
 
-2. Mean level/ absolute change
+A specialized case of this is ipsative change, which looks at the rank order of constructs within a person. This is not done on a single variable (depression) but on a broad number of them (all PD symptoms). 
 
-3. Individual differences in change
+2. Mean level/ absolute change. Takes into account mean structure and indexes absolute levels of a construct. A strong assumption is that the construct means (not a pun) the same thing across time. That is, my measure of depression is interpreted the same for a 40 year old and a 90 year old if I want to look at absolute differences between the two ages. 
 
-4. Ipsative Change
+Mean level change is not dependent at all on rank order consistency. Can have no mean level change and high rank order consistency and vice versa. 
 
-5. Heterotypic change
+3. Individual differences in change. Rank order and mean level provide an index of change and or stability for the sample. Here this provides an assessment of change for an individual. For example, if it is typical to decline in cognitive ability do some people buck the trend and stay at their past level? Individual differences in change get at both mean level changes as well as the tendency of the sample to show stability. It is the type of change that we will focus on the most. 
+
 
 ### Between person versus within person
 
-Or in other words these are the shortened version of interindividaul differences in change versus intraindividaul differences. Refers to across people versus within a particular person. Often we are interested in both simultaneously. 
+Or in other words these are the shortened version of interindividaul differences in change versus intraindividaul differences in change. Refers to across people versus within a particular person. Often we are interested in both simultaneously. Related to Level 1 and Level 2 (for those of you familiar with this terminology). 
 
-Related to Fixed effects and Random effects, and with Level 1 and Level 2 (for those of you familiar with this terminology). 
+We may be interested in understanding only between person variability, within person variability or both. When trying to understand within person variability it is typically the case that predictors of between person effects are constant (between person) variables (e.g., gender) that does not change from assessment to assessment. In contrast, within person variability is best understood by time varying predictors (within person variables e.g., daily mood). We will incorporate both time invariant (between person) and time varying (within person) predictors into our eventual model. 
 
 ### Trajectories, curves, change, growth... oh my
 
-How do we refer to 'change'? Usually it is easier to refer to pictorially or in terms of an equation. Putting a word onto it usually causes some confusion, which is why there are a lot of redundent terms in the literature. All of these might refer to the same thing when used within a model. However, the names of some models use these terms differently and thus can refer to different models or conditions that you are working with. In this class I will try to point out the important differences but you will be fine if you supplement your terms with graphs or equations.
-
+How do we refer to 'change'? Usually it is easier to refer to pictorially or in terms of an equation. Putting a word onto it usually causes some confusion, which is why there are a lot of redundant terms in the literature. All of these might refer to the same thing when used within a model. However, the names of some models use these terms differently and thus can refer to different models or conditions that you are working with. In this class I will try to point out the important differences but you will be fine if you supplement your terms with graphs or equations.
 
 ## Data analysis and data structures
 
 ### Modeling frameworks: MLM & SEM
 In this class (and in the field) two primary techniques are used with longitudinal models: MLM and SEM. At some levels they are completely equivalent. At others, one is better than the other and vice versa. 
 
-MLM/HLM is a simple extension of regression. As a result it is easy to interpret and impliment. In terms of longituduinal data it is easier to run models when the time of measurement differs from person to person. For this class we will use lme4 as our MLM program but there are many others we could use e.g., nlme. 
+MLM/HLM is a simple extension of regression. As a result it is easy to interpret and implement. In terms of longitudinal data it is easier to run models when the time of measurement differs from person to person. For this class we will use lme4 as our MLM program but there are many others we could use e.g., nlme. 
 
 SEM is related to regression in that regression is a subset of SEM techniques. In other words, an SEM program could run a simple regression analysis. 
 
+The primary advantage of MLM is that you may have assessment waves that vary in length between participants. An assumption of SEM models is that everyone has the same amount of time between assessment waves (though this can be somewhat relaxed). MLM is also better suited for complex error structures and complex nesting above and beyond assessments within person. It is also easier to model interactions. 
+
+SEM primary advantage is the ability to account for measurement error via latent assessment of the repeated measures. Other advantages include the ability to model multiple DVs at once, and do so in a flexible manner to look at, for example, the associations between change in one construct and change in the another. Another major advantage is the ability to look at latent groups via latent class or mixture models.
+
+Bottom line: MLM is probably best suited for "basic" growth models. More complex analyses of change would benefit from an SEM approach. 
+
 ### Wide and Long form
 
-```{r, eval = FALSE}
-library(tidyr)
+Depending on what type of analysis you want to perform you may need to restructure your data. I recommend the combination of tidyr and dplyr (among others) to restructure and manage your dataframes. The first decision you need to make is whether you want your data structured in a long or a wide format. There are multiple names to refer to these two types: multivariate vs univariate, person-level vs person-period, etc but they all refer to the same idea. How to structure your data depends on both what level of analysis (individual, dyad, household) and what type of analyses (MLM/SEM). Typically our focus is on individuals. 
+
+Wide form is common among non-longitudinal data. It has one line per individual with all of their repeated measures in the same row, each with some name to distinguish which assessment wave the data came from. In general, this format is used for SEM. 
+
+```{r, echo = FALSE, message=FALSE}
+library(tidyverse)
+wide<- tribble(
+  ~ID, ~ext_1, ~ext_2, ~ext_3,
+  1, 4, 4,4,
+  2, 6, 5,4,
+  3, 4,5,6
+)
+wide
 ```
 
+In contrast, long format has a row per observation. Thus, participants likely have many rows, each one referring to a different assessment wave. There are fewer variables in this format which makes organization somewhat easier. Thus this has been referred to as "Tidy" data. Graphing with ggplot is facilitated when using tidy data such as being in the long format. 
+
+```{r, echo = FALSE}
+
+long<- tribble(
+  ~ID, ~time, ~ext,
+  1, 1,4,
+  1, 2,4,
+  1, 3,4,
+  2, 1,6,
+  2, 2,5,
+  2, 3,4,
+  3, 1,4,
+  3, 2,5,
+  3, 3,6
+)
+long
+```
+
+
+How do you go back and forth? To do so use the gather and spread functions of tidyr package. Gather goes from wide to long.
+
+```{r}
+library(tidyr)
+
+wide_to_long <- wide %>% 
+  gather(ext_1:ext_3,key = "time", value = "ext") 
+wide_to_long
+
+```
+
+This is equivalent code
+```{r, eval=FALSE}
+wide_to_long <- wide %>% 
+  gather(-ID,key = "time", value = "ext") %>% 
+  arrange(ID)
+```
+
+
+The separate function could be used to get only the assessment wave number. This might be useful when combining data together or for creating a common time metric for everyone.
+
+```{r}
+wide_to_long2 <- wide_to_long %>% 
+  separate(time, into = c("omit", "wave"), sep = "_", convert = TRUE) %>% 
+  select(-omit) %>% 
+  arrange(ID)
+wide_to_long2
+
+# Note that the seperate function will identify non numeric characters and use that to seperate the values. You can omit the sep = function to check yourself. 
+```
+
+
+One issue that comes up here is that we have differing dates for each assessment. Ideally we would like to utilize that extra information. 
+
+
+```{r, echo=FALSE}
+wide.date<- tribble(
+~ID, ~ext_1, ~ext_2, ~ext_3, ~date_1, ~date_2, ~date_3,
+  1, 4, 4,4, '1/1/10', '5/1/10', '8/1/10',
+  2, 6, 5,4, '1/6/10', '4/10/10', '9/1/10',
+  3, 4,5,6, '1/8/10', '4/25/10', '9/13/10'
+)
+wide.date
+```
+
+How do we fix it? The same way we would with multiple variables we want to convert. Wave, along with ID helps us keep track of what variables go with which person at which time. Together, the two serve as a unique identifier. To better understand the code go through each line to see what the intervening data frame looks like. 
+
+
+```{r}
+long.date <- wide.date %>% 
+  gather(-ID, key = "time", value = "value") %>% 
+  separate(time, into = c("variable", "wave")) %>% 
+  spread(variable,value) 
+long.date
+
+```
+
+One difficulty of creating a wave variable is whether or not the variables are named in a manner such that 1) assessment wave is easily identifiable (e.g. does _a always refer to the first wave whereas _b always refer to the second?) and 2) if that is consistent across variables. Having a wave identifier for your variables is important/necessary. Having an easily selected one (ie at the end of the variable name, hopefully separated by an underscore or a period). If assessment wave separators are embedded within the variable name it will be harder to covert your data. Often, variable data is attached at the end of a name such as SWB_4 to refer to the fourth item in a scale. This may obscure wave identification as in SWB_A_4. A similar naming problem can occur with multiple reports e.g,. SWB_4_parent. I recommend putting wave identification last. The difficulties become partly moot when working in long format as opposed to wide. 
+
+In the above code we used spread to go from long to wide as a means of creating a long dataset where there were multiple variables. Technically this is not a tidy dataset in that it comprises of both long and wide information, but it is the typical format used for MLM analyses. 
+
+Going from long to wide uses spread function as seen above, which we will utilize when converting our MLM models to SEM models. 
+
+```{r}
+long_to_wide <- long %>% 
+  spread(time, ext)
+long_to_wide
+```
+
+Note that this is technically the dataframe format that we want. The problem is that our variable names are numeric. This often causes problems.  When working with tibbles use backticks ' to refer to the column e.g., select('1')
 
 #### meaningful time metric
 
@@ -74,7 +181,7 @@ waves versus dates
 
 ### Graphing
 
-```{r, eval=FALSE}
+```{r, eval = FALSE}
 library(ggplot2)
 ```
 
@@ -117,13 +224,39 @@ spaghetti plots
 average trend
 
 
+## What does this look like? 
+
+A fancy regression equation. That is it. Seriously. 
+
+What is different? Extra error terms, mostly. For regression, we think of error as existing in one big bucket. For MLMs (and other longitudinal models) we will be breaking up unexplained variance (error) into multiple buckets. 
+
+This is where fixed effects and random effects come into play. We will discuss this more next class, but the just is that fixed effects are the regression coefficients you are used to. Fixed effects index group level change. Random effects vary among individuals (in the longitudinal models we are talking about) and index variation from the group. For our purposes this is most easily seen thinking about an average group trajectory (fixed effect) and the random effect indexes how much variability there is around that group level effect. 
+
 ## Design considerations
 
 ### number of assessment waves
 
-### measuremnt reliability and validity
+Remember high school algebra: two points define a line. But, that assumes we can measure without error. Three assessment points will better define changes in psychological variables. 
 
-### reliability of (rate of) change
+
+### measuremnt 
+#### scale of measurement
+What does it mean for categorical variables to change over time? 
+
+Can ranks, such as in preference for school subjects, 
+
+How would dichotomous responses impact ability to measure change?
+
+Can I analyze childhood and adult variables simultaneously if assess the same construct, even though they may be measured differently? 
+
+#### standardizing
+Why would z-scoring your variables be problematic? 
+
+
+#### reliability 
+The goal of longitudinal analyses is to understand why some construct changes or stays the same across time. A major difficulty in addressing this goal is whether you are able to accurately assess the construct of interest. One of the key characteristics (but not the only characteristic) is whether or not your assessment would be consistent if you gave an alternative measure or if you retook it immediately after your first assessment. This is known as reliability of measurement. To the extent that your measure is reliable it assesses true score variance as opposed to error variance. The amount of error score variance assessed is important given that error variance will masquerade as change across time given that error can correlate with anything else. The more error in your measurement the more change you will find. Of course this is unreliable change -- change that is not true change, just stochastic noise.
+
+To ensure that your rate of change is reliable assessed, a few thoughts must go into measurement of your variable of interest as well as the number of assessment waves.
 
 
 ## Threats to validity
@@ -131,13 +264,29 @@ average trend
 ### Missing data
 
 #### types of missing data
+On a scale from 1 to you're completely screwed, how confident are you that the missingness is not related to your study variables? 
+
+Missing completely at random (MCAR)
+
+Missing at random (MAR)
+
+Not missing at random (NMAR)
+
 #### how to handle missing data
 
-###  History 
+Listwise? Nah
+
+Full information maximum likelihood and other ML approaches? Sure. 
+Multiple imputation? Cannot hurt. 
+
+###  History/cohort 
 ###  Maturation 
 ###  Testing 
 ###  Selection 
 ###  Attrition/Mortality
+
+
+## Why not RM ANOVA? 
 
 
 

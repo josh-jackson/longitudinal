@@ -36,11 +36,13 @@ Grading consists of 3 aspects:
 | 5    | 9/28  |  Polynomial, piecewise and spline models   |                      |
 | 6    | 10/05  | Intensive data anlysis/within person fluctuations p1  |                      |
 | 7    | 10/12  | Intensive data anlysis/within person fluctuations p2   |                      |
-| 8    | 10/19   |   Experimental approaches and 2 wave data                              |                      |
-| 9    | 10/26  |    Dyadic Models                 |                      |
-| 10   | 11/2  |  SEM and Latent Grown (curve) Models                     |                      |
-| 11   | 11/9  |  Scaling, MI, and Second order Model                 |                      |
-| 12   | 11/16   |  Multiple group models                        |                      |
+| 8    | 10/19   |   Bayesian estimation                             |                      |
+| 9    | 10/26  |    SEM and Latent Grown (curve) Models                  |                      |
+| 10   | 11/2  |  Scaling, MI, and Second order Model                      |                      |
+| 11   | 11/9  |   Multiple group models               |                      |
+| 12   | 11/16   |  Dyadic Models                        |                      |
 | 13   | 11/23  |  **Tofurkey day**            |                      |
 | 14   | 11/30  |  Flexible SEM models (LCM, STATE-TRAIT; ALT-SR)                                     |                      |
 | 15   | 12/7  |  Mixture Models   |                      |
+
+Other topics: Longitudinal mediation (and multilevel mediation), two wave data, experimental approaches 

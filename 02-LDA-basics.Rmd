@@ -167,41 +167,80 @@ Note that this is technically the dataframe format that we want. The problem is 
 
 #### meaningful time metric
 
-dates versus weeks
-```{r}
+Time is the most important part of longitudinal analyses. Without some sort of explicit operationalization of time or thought into how you handle time in your analyses you are not conducting longitudinal analyses. The key to interpretting your output is to know how you handled your time variable. What units is it in? Does everyone have the same differences between assessments? Is time something you are explicitly interested in or merely there as a means to collect repeated measures? We will discuss more of these as the semester progresses. Right now however an important distinction is what should the scale of our x-axis variable, time, be in? 
 
-```
+At one level, the distinction is relevent to what is the process that is changing someone? Is it a naturally occuring devlopmental process? Then maybe age is the best metric. What about tracking childs cognitive ability, something that might be influenced by level of schooling? Here grade may be more important than age. Another common metric is time in study. This may be usefull if you are running an intervention or if you want to put everyone on the same starting metric and then control for nuisance variables like age or schooling level. Similarly, year of study as a prime time candidate may be useful if you are working from panel studies and interested in historical events and or cohort effects.  As seen above,a  wave variable (ie study measurement occastion) may be good enough to use as a time metric (though this makes some assumptions about the regularity of assessments both within and across people). 
 
-waves versus dates
-```{r}
-
-```
-
-
+Depending on your choice of time metric you may see different rates of change and variability in change. For psychological applications the most common would be age and time in study (followed by grades for assessments of kids). Age is nice because it captures a number of developmental processes thought to drive change (maturation, history, time-in-study) but does not identify a single reason. Time in study is the opposite in that it does not index any other type of change but that simplicity aides in testing different reasons for change (e.g, age moderation).    
 
 ### Graphing
 
-```{r, eval = FALSE}
+
+```{r}
 library(ggplot2)
 ```
 
-
 ## Putting it together example
+Using some resting state imaging data
+```{r, echo = FALSE, message=FALSE}
+example <- read_csv("~/Box Sync/5165 Applied Longitudinal Data Analysis/Longitudinal/example.csv")
+
+```
+
+
+```{r}
+gg1 <- ggplot(example,
+   aes(x = week, y = SMN7, group = ID)) + geom_point()  
+print(gg1)
+
+```
 
 ### a person level
 
-nonlinear smoothing
-
 ```{r}
-
+gg2 <- ggplot(example,
+   aes(x = week, y = SMN7, group = ID)) + geom_line()  
+gg2
 ```
 
 
-linear smoothing
+faceting
+
+```{r}
+gg3 <- ggplot(example,
+   aes(x = week, y = SMN7, group = ID)) + geom_line() +  geom_point() + facet_wrap( ~ ID)
+gg3
+```
+
+```{r}
+gg4 <- ggplot(example,
+   aes(x = week, y = SMN7, group = ID)) + geom_line() + facet_grid(. ~ group)
+gg4
+```
 
 ```{r}
 
+gg5 <-  gg2 + aes(colour = factor(ID)) + guides(colour=FALSE) 
+gg5
 ```
+
+
+```{r}
+set.seed(11)
+ex.random <- example %>% 
+  select(ID) %>% 
+  distinct %>% 
+  sample_n(10) 
+
+example2 <-
+  left_join(ex.random, example)  
+  
+gg6 <- ggplot(example2,
+   aes(x = week, y = SMN7, group = ID)) +  geom_point() + stat_smooth(method="lm") + facet_wrap( ~ID)
+gg6
+
+```
+
 
 lets look at individual level regressions
 
@@ -210,18 +249,35 @@ lets look at individual level regressions
 library(tidyverse)
 library(broom)
 
+regressions <- example2 %>% 
+  group_by(ID) %>% 
+  do(tidy(lm(SMN7 ~ week, data=.)))
+
+regressions
 
 ```
 
-
-### between person level
-
-spaghetti plots 
 ```{r}
-
+regressions %>% 
+  group_by(term) %>% 
+  summarise(avg.reg = mean(estimate))
 ```
+
+
 
 average trend
+
+```{r}
+gg7 <-  gg1 <- ggplot(example, aes(x = week, y = SMN7)) + geom_point() + stat_smooth() 
+gg7
+```
+
+
+```{r}
+gg8 <-  gg1 <- ggplot(example, aes(x = week, y = SMN7)) + geom_point() + stat_smooth(method = "lm") + facet_grid(. ~ group)
+gg8
+
+```
 
 
 ## What does this look like? 
@@ -266,11 +322,13 @@ To ensure that your rate of change is reliable assessed, a few thoughts must go 
 #### types of missing data
 On a scale from 1 to you're completely screwed, how confident are you that the missingness is not related to your study variables? 
 
-Missing completely at random (MCAR)
+Missing completely at random (MCAR) means that the missingness pattern is due entirely to randomness
 
-Missing at random (MAR)
+Missing at random (MAR) means that there is conditional randomness. Missingness may be due to other variables in the dateset. Pretty standard for longitudinal data. 
 
-Not missing at random (NMAR)
+Not missing at random (NMAR) means that the missingness is systematic based on the missing values and not associated with measures variables. For example, in a study of reading ability, kids with low reading ability drop out, due to not liking to take tests on reading ability. However, if reading ability is assocaited with other variables in the model, then this missingness becomes closer in kind of MAR, and thus somewhat less problematic. 
+
+Typically, we make the assumption we are working under MAR and thus we will have unbiased estimates when predictors of missingness are incorporated into the model. 
 
 #### how to handle missing data
 
@@ -279,15 +337,51 @@ Listwise? Nah
 Full information maximum likelihood and other ML approaches? Sure. 
 Multiple imputation? Cannot hurt. 
 
-###  History/cohort 
-###  Maturation 
-###  Testing 
-###  Selection 
 ###  Attrition/Mortality
+Major contributor to missing data
+
+###  History/cohort 
+Know that the processes driving change can be due to a specific event or cohort
+
+###  Maturation 
+Change may occur because of natural processes. Thus if you just follow someone across time they will likely change irregardless of say, if they are in the control group
+
+###  Testing 
+Having people take the same survey, test or interview multiple times may lead them to respond differently. Does that change result from development or does it result from them being familiar with the test? 
+
+###  Selection 
+If you are looking at life events, know that life events are not distributed randomly. Moreover, people who stay in studies and even sign up for studies are different from those that do not. As a result, it is often hard to make internally valid inferences with longitudinal data. 
 
 
 ## Why not RM ANOVA? 
 
+1. Cannot handle missing data
 
+2. Assumes rate of change is the same for all individuals. 
+
+3. Time is usally done with orthogonal polynomials, making it difficult to interpret or to model non-linear. In other words, you have flexibility on how you want to model time. 
+
+4. Accounting for correlation across time uses up many paramters, MLM is more efficient.
+
+5. Can accomidate differences in time between assessment waves across participants
+
+6. Handles arious types of predictors - continuous vs nominal & static vs dynamic
+
+
+## Now you try
+
+1. Move your data into a long format and a wide format. Did you have any specific challenges that you encountered? If so, discuss them. 
+
+2. Create a wave variable and date variable (if applicable).
+
+3. What is your sample size for each wave of assessment? 
+
+4. Take the date variable and convert it to a different date format such as time in study or age (if appropriate). What scale is most suitable for your analyses? (weeks/months/years?)
+
+5. Graph your data using the different time metrics, fitting individual curves for each person.
+
+6. Create an overall average trend of your data (split up into groups if appropriate). Attempt to color your individual data points and/or shade different lines (highlight some particiapnts, highlight the average trend line but not the individual level lines)
+
+7. Look at the correlations of your DV across time
 
 

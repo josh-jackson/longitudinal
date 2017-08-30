@@ -117,7 +117,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#putting-it-together-example"><i class="fa fa-check"></i><b>2.3</b> Putting it together example</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#a-person-level"><i class="fa fa-check"></i><b>2.3.1</b> a person level</a></li>
-<li class="chapter" data-level="2.3.2" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#between-person-level"><i class="fa fa-check"></i><b>2.3.2</b> between person level</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#what-does-this-look-like"><i class="fa fa-check"></i><b>2.4</b> What does this look like?</a></li>
 <li class="chapter" data-level="2.5" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#design-considerations"><i class="fa fa-check"></i><b>2.5</b> Design considerations</a><ul>
@@ -126,13 +125,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#threats-to-validity"><i class="fa fa-check"></i><b>2.6</b> Threats to validity</a><ul>
 <li class="chapter" data-level="2.6.1" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#missing-data"><i class="fa fa-check"></i><b>2.6.1</b> Missing data</a></li>
-<li class="chapter" data-level="2.6.2" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#historycohort"><i class="fa fa-check"></i><b>2.6.2</b> History/cohort</a></li>
-<li class="chapter" data-level="2.6.3" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#maturation"><i class="fa fa-check"></i><b>2.6.3</b> Maturation</a></li>
-<li class="chapter" data-level="2.6.4" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#testing"><i class="fa fa-check"></i><b>2.6.4</b> Testing</a></li>
-<li class="chapter" data-level="2.6.5" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#selection"><i class="fa fa-check"></i><b>2.6.5</b> Selection</a></li>
-<li class="chapter" data-level="2.6.6" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#attritionmortality"><i class="fa fa-check"></i><b>2.6.6</b> Attrition/Mortality</a></li>
+<li class="chapter" data-level="2.6.2" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#attritionmortality"><i class="fa fa-check"></i><b>2.6.2</b> Attrition/Mortality</a></li>
+<li class="chapter" data-level="2.6.3" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#historycohort"><i class="fa fa-check"></i><b>2.6.3</b> History/cohort</a></li>
+<li class="chapter" data-level="2.6.4" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#maturation"><i class="fa fa-check"></i><b>2.6.4</b> Maturation</a></li>
+<li class="chapter" data-level="2.6.5" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#testing"><i class="fa fa-check"></i><b>2.6.5</b> Testing</a></li>
+<li class="chapter" data-level="2.6.6" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#selection"><i class="fa fa-check"></i><b>2.6.6</b> Selection</a></li>
 </ul></li>
 <li class="chapter" data-level="2.7" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#why-not-rm-anova"><i class="fa fa-check"></i><b>2.7</b> Why not RM ANOVA?</a></li>
+<li class="chapter" data-level="2.8" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#now-you-try"><i class="fa fa-check"></i><b>2.8</b> Now you try</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html"><i class="fa fa-check"></i><b>3</b> Growth curves</a><ul>
 <li class="chapter" data-level="3.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#between-person-models-and-cross-sectional-data"><i class="fa fa-check"></i><b>3.1</b> Between person models and cross sectional data</a></li>
@@ -325,8 +325,9 @@ long_to_wide</code></pre></div>
 <p>Note that this is technically the dataframe format that we want. The problem is that our variable names are numeric. This often causes problems. When working with tibbles use backticks ‘to refer to the column e.g., select(’1’)</p>
 <div id="meaningful-time-metric" class="section level4">
 <h4><span class="header-section-number">2.2.2.1</span> meaningful time metric</h4>
-<p>dates versus weeks</p>
-<p>waves versus dates</p>
+<p>Time is the most important part of longitudinal analyses. Without some sort of explicit operationalization of time or thought into how you handle time in your analyses you are not conducting longitudinal analyses. The key to interpretting your output is to know how you handled your time variable. What units is it in? Does everyone have the same differences between assessments? Is time something you are explicitly interested in or merely there as a means to collect repeated measures? We will discuss more of these as the semester progresses. Right now however an important distinction is what should the scale of our x-axis variable, time, be in?</p>
+<p>At one level, the distinction is relevent to what is the process that is changing someone? Is it a naturally occuring devlopmental process? Then maybe age is the best metric. What about tracking childs cognitive ability, something that might be influenced by level of schooling? Here grade may be more important than age. Another common metric is time in study. This may be usefull if you are running an intervention or if you want to put everyone on the same starting metric and then control for nuisance variables like age or schooling level. Similarly, year of study as a prime time candidate may be useful if you are working from panel studies and interested in historical events and or cohort effects. As seen above,a wave variable (ie study measurement occastion) may be good enough to use as a time metric (though this makes some assumptions about the regularity of assessments both within and across people).</p>
+<p>Depending on your choice of time metric you may see different rates of change and variability in change. For psychological applications the most common would be age and time in study (followed by grades for assessments of kids). Age is nice because it captures a number of developmental processes thought to drive change (maturation, history, time-in-study) but does not identify a single reason. Time in study is the opposite in that it does not index any other type of change but that simplicity aides in testing different reasons for change (e.g, age moderation).</p>
 </div>
 </div>
 <div id="graphing" class="section level3">
@@ -336,18 +337,106 @@ long_to_wide</code></pre></div>
 </div>
 <div id="putting-it-together-example" class="section level2">
 <h2><span class="header-section-number">2.3</span> Putting it together example</h2>
+<p>Using some resting state imaging data</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(example,
+   <span class="kw">aes</span>(<span class="dt">x =</span> week, <span class="dt">y =</span> SMN7, <span class="dt">group =</span> ID)) +<span class="st"> </span><span class="kw">geom_point</span>()  
+<span class="kw">print</span>(gg1)</code></pre></div>
+<pre><code>## Warning: Removed 9 rows containing missing values (geom_point).</code></pre>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <div id="a-person-level" class="section level3">
 <h3><span class="header-section-number">2.3.1</span> a person level</h3>
-<p>nonlinear smoothing</p>
-<p>linear smoothing</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(example,
+   <span class="kw">aes</span>(<span class="dt">x =</span> week, <span class="dt">y =</span> SMN7, <span class="dt">group =</span> ID)) +<span class="st"> </span><span class="kw">geom_line</span>()  
+gg2</code></pre></div>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>faceting</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg3 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(example,
+   <span class="kw">aes</span>(<span class="dt">x =</span> week, <span class="dt">y =</span> SMN7, <span class="dt">group =</span> ID)) +<span class="st"> </span><span class="kw">geom_line</span>() +<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">facet_wrap</span>( ~<span class="st"> </span>ID)
+gg3</code></pre></div>
+<pre><code>## Warning: Removed 9 rows containing missing values (geom_point).</code></pre>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg4 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(example,
+   <span class="kw">aes</span>(<span class="dt">x =</span> week, <span class="dt">y =</span> SMN7, <span class="dt">group =</span> ID)) +<span class="st"> </span><span class="kw">geom_line</span>() +<span class="st"> </span><span class="kw">facet_grid</span>(. ~<span class="st"> </span>group)
+gg4</code></pre></div>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg5 &lt;-<span class="st">  </span>gg2 +<span class="st"> </span><span class="kw">aes</span>(<span class="dt">colour =</span> <span class="kw">factor</span>(ID)) +<span class="st"> </span><span class="kw">guides</span>(<span class="dt">colour=</span><span class="ot">FALSE</span>) 
+gg5</code></pre></div>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">11</span>)
+ex.random &lt;-<span class="st"> </span>example %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(ID) %&gt;%<span class="st"> </span>
+<span class="st">  </span>distinct %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">sample_n</span>(<span class="dv">10</span>) 
+
+example2 &lt;-
+<span class="st">  </span><span class="kw">left_join</span>(ex.random, example)  </code></pre></div>
+<pre><code>## Joining, by = &quot;ID&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg6 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(example2,
+   <span class="kw">aes</span>(<span class="dt">x =</span> week, <span class="dt">y =</span> SMN7, <span class="dt">group =</span> ID)) +<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">stat_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>) +<span class="st"> </span><span class="kw">facet_wrap</span>( ~ID)
+gg6</code></pre></div>
+<pre><code>## Warning in qt((1 - level)/2, df): NaNs produced
+
+## Warning in qt((1 - level)/2, df): NaNs produced
+
+## Warning in qt((1 - level)/2, df): NaNs produced
+
+## Warning in qt((1 - level)/2, df): NaNs produced
+
+## Warning in qt((1 - level)/2, df): NaNs produced</code></pre>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>lets look at individual level regressions</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(broom)</code></pre></div>
-</div>
-<div id="between-person-level" class="section level3">
-<h3><span class="header-section-number">2.3.2</span> between person level</h3>
-<p>spaghetti plots</p>
+<span class="kw">library</span>(broom)
+
+regressions &lt;-<span class="st"> </span>example2 %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(ID) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">do</span>(<span class="kw">tidy</span>(<span class="kw">lm</span>(SMN7 ~<span class="st"> </span>week, <span class="dt">data=</span>.)))
+
+regressions</code></pre></div>
+<pre><code>## # A tibble: 20 x 6
+## # Groups:   ID [10]
+##       ID        term     estimate   std.error  statistic    p.value
+##    &lt;int&gt;       &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+##  1     6 (Intercept)  0.043751626 0.019715849  2.2191095 0.26953127
+##  2     6        week -0.011495133 0.016432601 -0.6995322 0.61139970
+##  3    29 (Intercept)  0.110400000         NaN        NaN        NaN
+##  4    29        week -0.033032982         NaN        NaN        NaN
+##  5    48 (Intercept)  0.113337786 0.006560796 17.2750049 0.03681099
+##  6    48        week  0.030970692 0.003240913  9.5561620 0.06637719
+##  7    54 (Intercept)  0.129501865 0.014599949  8.8700220 0.07147028
+##  8    54        week -0.015721671 0.005719476 -2.7487959 0.22212408
+##  9    66 (Intercept)  0.069222338 0.034173465  2.0256166 0.29193874
+## 10    66        week  0.007679576 0.009070045  0.8466966 0.55272806
+## 11    87 (Intercept)  0.078700000         NaN        NaN        NaN
+## 12    87        week -0.022742308         NaN        NaN        NaN
+## 13    89 (Intercept)  0.079337057 0.020886636  3.7984602 0.16388088
+## 14    89        week  0.001695623 0.015490902  0.1094593 0.93059237
+## 15   120 (Intercept)  0.127500000         NaN        NaN        NaN
+## 16   120        week  0.040389344         NaN        NaN        NaN
+## 17   174 (Intercept)  0.158100000         NaN        NaN        NaN
+## 18   174        week -0.010711592         NaN        NaN        NaN
+## 19   205 (Intercept)  0.195400000         NaN        NaN        NaN
+## 20   205        week -0.026256661         NaN        NaN        NaN</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">regressions %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(term) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">avg.reg =</span> <span class="kw">mean</span>(estimate))</code></pre></div>
+<pre><code>## # A tibble: 2 x 2
+##          term      avg.reg
+##         &lt;chr&gt;        &lt;dbl&gt;
+## 1 (Intercept)  0.110525067
+## 2        week -0.003922511</code></pre>
 <p>average trend</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg7 &lt;-<span class="st">  </span>gg1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(example, <span class="kw">aes</span>(<span class="dt">x =</span> week, <span class="dt">y =</span> SMN7)) +<span class="st"> </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">stat_smooth</span>() 
+gg7</code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39;</code></pre>
+<pre><code>## Warning: Removed 9 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 9 rows containing missing values (geom_point).</code></pre>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg8 &lt;-<span class="st">  </span>gg1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(example, <span class="kw">aes</span>(<span class="dt">x =</span> week, <span class="dt">y =</span> SMN7)) +<span class="st"> </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">stat_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) +<span class="st"> </span><span class="kw">facet_grid</span>(. ~<span class="st"> </span>group)
+gg8</code></pre></div>
+<pre><code>## Warning: Removed 9 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 9 rows containing missing values (geom_point).</code></pre>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 </div>
 </div>
 <div id="what-does-this-look-like" class="section level2">
@@ -389,9 +478,10 @@ long_to_wide</code></pre></div>
 <div id="types-of-missing-data" class="section level4">
 <h4><span class="header-section-number">2.6.1.1</span> types of missing data</h4>
 <p>On a scale from 1 to you’re completely screwed, how confident are you that the missingness is not related to your study variables?</p>
-<p>Missing completely at random (MCAR)</p>
-<p>Missing at random (MAR)</p>
-<p>Not missing at random (NMAR)</p>
+<p>Missing completely at random (MCAR) means that the missingness pattern is due entirely to randomness</p>
+<p>Missing at random (MAR) means that there is conditional randomness. Missingness may be due to other variables in the dateset. Pretty standard for longitudinal data.</p>
+<p>Not missing at random (NMAR) means that the missingness is systematic based on the missing values and not associated with measures variables. For example, in a study of reading ability, kids with low reading ability drop out, due to not liking to take tests on reading ability. However, if reading ability is assocaited with other variables in the model, then this missingness becomes closer in kind of MAR, and thus somewhat less problematic.</p>
+<p>Typically, we make the assumption we are working under MAR and thus we will have unbiased estimates when predictors of missingness are incorporated into the model.</p>
 </div>
 <div id="how-to-handle-missing-data" class="section level4">
 <h4><span class="header-section-number">2.6.1.2</span> how to handle missing data</h4>
@@ -399,24 +489,49 @@ long_to_wide</code></pre></div>
 <p>Full information maximum likelihood and other ML approaches? Sure. Multiple imputation? Cannot hurt.</p>
 </div>
 </div>
+<div id="attritionmortality" class="section level3">
+<h3><span class="header-section-number">2.6.2</span> Attrition/Mortality</h3>
+<p>Major contributor to missing data</p>
+</div>
 <div id="historycohort" class="section level3">
-<h3><span class="header-section-number">2.6.2</span> History/cohort</h3>
+<h3><span class="header-section-number">2.6.3</span> History/cohort</h3>
+<p>Know that the processes driving change can be due to a specific event or cohort</p>
 </div>
 <div id="maturation" class="section level3">
-<h3><span class="header-section-number">2.6.3</span> Maturation</h3>
+<h3><span class="header-section-number">2.6.4</span> Maturation</h3>
+<p>Change may occur because of natural processes. Thus if you just follow someone across time they will likely change irregardless of say, if they are in the control group</p>
 </div>
 <div id="testing" class="section level3">
-<h3><span class="header-section-number">2.6.4</span> Testing</h3>
+<h3><span class="header-section-number">2.6.5</span> Testing</h3>
+<p>Having people take the same survey, test or interview multiple times may lead them to respond differently. Does that change result from development or does it result from them being familiar with the test?</p>
 </div>
 <div id="selection" class="section level3">
-<h3><span class="header-section-number">2.6.5</span> Selection</h3>
-</div>
-<div id="attritionmortality" class="section level3">
-<h3><span class="header-section-number">2.6.6</span> Attrition/Mortality</h3>
+<h3><span class="header-section-number">2.6.6</span> Selection</h3>
+<p>If you are looking at life events, know that life events are not distributed randomly. Moreover, people who stay in studies and even sign up for studies are different from those that do not. As a result, it is often hard to make internally valid inferences with longitudinal data.</p>
 </div>
 </div>
 <div id="why-not-rm-anova" class="section level2">
 <h2><span class="header-section-number">2.7</span> Why not RM ANOVA?</h2>
+<ol style="list-style-type: decimal">
+<li><p>Cannot handle missing data</p></li>
+<li><p>Assumes rate of change is the same for all individuals.</p></li>
+<li><p>Time is usally done with orthogonal polynomials, making it difficult to interpret or to model non-linear. In other words, you have flexibility on how you want to model time.</p></li>
+<li><p>Accounting for correlation across time uses up many paramters, MLM is more efficient.</p></li>
+<li><p>Can accomidate differences in time between assessment waves across participants</p></li>
+<li><p>Handles arious types of predictors - continuous vs nominal &amp; static vs dynamic</p></li>
+</ol>
+</div>
+<div id="now-you-try" class="section level2">
+<h2><span class="header-section-number">2.8</span> Now you try</h2>
+<ol style="list-style-type: decimal">
+<li><p>Move your data into a long format and a wide format. Did you have any specific challenges that you encountered? If so, discuss them.</p></li>
+<li><p>Create a wave variable and date variable (if applicable).</p></li>
+<li><p>What is your sample size for each wave of assessment?</p></li>
+<li><p>Take the date variable and convert it to a different date format such as time in study or age (if appropriate). What scale is most suitable for your analyses? (weeks/months/years?)</p></li>
+<li><p>Graph your data using the different time metrics, fitting individual curves for each person.</p></li>
+<li><p>Create an overall average trend of your data (split up into groups if appropriate). Attempt to color your individual data points and/or shade different lines (highlight some particiapnts, highlight the average trend line but not the individual level lines)</p></li>
+<li><p>Look at the correlations of your DV across time</p></li>
+</ol>
 
 </div>
 </div>

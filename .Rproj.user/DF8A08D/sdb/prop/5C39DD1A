@@ -1,2 +1,5 @@
 {
+    "docOutlineSize" : "158",
+    "docOutlineVisible" : "1",
+    "ignored_words" : "ie,Xj,covariance,autoregressive,lmer,lme,lm,CIs,weibull,ggplot,dplyr,purrr,mlm,catepilar,Counterintutitively,anova,Akaike,pbkrtest,newdata\n"
 }

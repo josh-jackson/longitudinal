@@ -4,33 +4,636 @@
 
 You already know this, but it gives us a chance to review regression
 
+$$ {Y}_{i} = b_{0} + b_{1}X_{1} + b_{2}X_{2} + b_{3}X_{3}+... +\epsilon_{i} $$
+
+$$ \hat{Y}_{i} = b_{0} + b_{1}X_{1} + b_{2}X_{2} + b_{3}X_{3}+... $$
+
+Parameters are considered fixed where one regression value corresponds to everyone. I.e., that association between X1 and Y is the same for everyone. 
+
+Each person has a Y, denoted by the subscript i, and each has a residual associated with them, also designated by i. 
+
+
+```{r,message = FALSE, warning=FALSE}
+library(readr,)
+example <- read_csv("~/Box Sync/5165 Applied Longitudinal Data Analysis/Longitudinal/example.csv")
+example$ID <- as.factor(example$ID)
+
+```
+
+Lets look at some data
+```{r, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+gg1 <- ggplot(example,
+   aes(x = week, y = SMN7)) + geom_point() + stat_smooth(method = "lm")   
+print(gg1)
+
+
+```
+
+What happens if we run a regression? 
+
+```{r}
+regression <- lm(SMN7 ~ week, data = example)
+summary(regression)
+
+```
 
 ## Within person models e.g., 2-level models
 
+```{r, warning=FALSE}
+library(tidyverse)
+gg2 <- ggplot(example,
+   aes(x = week, y = SMN7, group = ID)) + geom_point() + stat_smooth(method = "lm", se = FALSE)   
+
+gg3 <- gg2 +  stat_smooth(data = example, aes(x = week, y = SMN7, group=1, colour="#990000"), method = "lm", size = 3, se=FALSE)
+print(gg3)
+
+
+```
+
+Each person has multiple assessments, so we now need to distinguish between people and their assessments. Failing to distinguish would lead to violation of independence, an important assumption of the standard regression model. 
+
+As seen in the graph above, what we have now is both individual level slopes as well as an average level slope. The average level slope is going to be the average of the individual level slopes, which will look like our average slope ignoring all dependencies. Same for the intercept. 
+
+
+```{r, echo = FALSE}
+library(tidyverse)
+library(broom)
+
+set.seed(11)
+ex.random <- example %>%
+  dplyr::select(ID)%>% 
+  distinct %>% 
+  sample_n(10) 
+
+example2 <-
+  left_join(ex.random, example)  
+
+```
+
+
+```{r}
+regressions <- example2 %>% 
+  group_by(ID) %>% 
+  do(tidy(lm(SMN7 ~ week, data = .)))
+
+head(regressions)
+```
+
+
+We also have variation around that mean. This variation is lost when we have a between subjects only model that ignores the individual level. This variation will be called Random Effects
+
+Note, there is another source of error, the within-subjects error that can be seen in the below graph. This error is assumed to be random. We will discuss this error more in depth later. 
+
+```{r}
+example3 <- example2 %>% 
+  filter(ID == "66") 
+```
+
+
+```{r}
+gg4 <-  ggplot(example3, aes(x = week, y = SMN7, group = ID)) +  geom_point() + stat_smooth(method = "lm")
+
+gg4
+```
+
+### random effects
+Within subjects variability in either staring value or slope is referenced in terms of random effects. How do we represent this in our equation? Easy, we just say that the typical regression parameters we have are not the same for everyone -- that they are random (in contrast to fixed).  
+ 
+In general, when would we want to use random effects? If there is some sort of selection (random or not) of many possible values of the predictor (e.g., stimuli are 3 random depression drugs, three semi random chosen levels of a drug). With longitudinal data this is people. 
+
+What situations are necessary for random effects? For longitudinal models, there needs to be multiple assessments per your grouping category (people, schools, neighborhoods).  
+
+Random as in they are sampled from some population and thus can vary. This means that your parameters (traditional regression parameters) are estimates and thus have error associated with them. This error is not like like a standard residual, which represents error for your overall model. Nor is it like the standard error for a point estimate. Random effects can best be thought of as deviation of individual regression lines from the group regression line. 
+
+To facilitate the multiple assessments per person we will now use both i and j subscripts. We will see that the random effects are part of the overall error term in the model. Counterintutitively, the main focus of these types of models will be the fixed effects, with less attention paid to the random effects. That said, the random effects are necessary to account for dependency in the data. One can think about these models as normal fixed effects regressions, with the random effects there to account for the longitudinal nature of the data. They are made up of a number of standard regression equations, each for a single individual. Doing so side steps the trouble of having correlated errors, and thus allows us to interpret our findings without concern. 
+
 ### Empty model
+
+Level 1
+  $$ {Y}_{ij} = \beta_{0j}  +\varepsilon_{ij} $$
+Note that we have multiple responses per individual j, noted with an i to refer to specific times. Level 1 is considered the within person model. 
+
+Also note that the intercept has a subscript. In typical regression it does not. This suggests that not everyone has the same intercept. 
+  
+  
+Level 2
+  $$ {\beta}_{0j} = \gamma_{00} + U_{0j} $$
+Level 2 takes the intercept (or other parameter) at level 1 and breaks it down into an equation for each individual, j. An overall group average (the gamma) and a residual term specific to deviation around the intercept (see below). 
+
+
+And two variance components:
+1. a random effect of the intercept
+$$ {U}_{0j} \sim \mathcal{N}(0, \tau_{00}^{2})  $$
+The subscript of the $U_{0j}$ refers to the number of the parameter where 0 is the intercept, 1 is the first regression coefficient, and so on. The second refers to the individual, j.
+
+This random effect is normally distributed with a mean of zero and a variance of $\tau$
+
+2. the residual error term
+$$ {R}_{ij} \sim \mathcal{N}(0, \sigma^{2})  $$
+Much like in normal regression there is an error term for all of the variation we cannot account for. What is unique here is that we took that normal variation and split it into two components. One that is attributable to variation around the intercept ${U}_{0j}$ and a catch all residual. 
+
+Technically this is not a growth model, nor one that is inherently longitudinal. However, it does serve as a nice starting point to identify random effects.
+
+###  Putting it together
+
+  $$ {Y}_{ij} = \gamma_{00} + U_{0j}  + \varepsilon_{ij} $$
 
 ### ICC
 
-### Adding time
+ICC: 
 
-### random versus fixed
+$$\frac{U_{0j}}{U_{0j}+ \varepsilon_{ij}}$$
 
-#### Coding time
 
-#### Accelerated longitudinal study
+- % variation between vs within person variance
 
-## Variance components
 
-### Variance decomposition
+## Adding time
 
-### Residual structure
+Level 1:
+ 
+$$ {Y}_{ij} = \beta_{0j}  + \beta_{1j}X_{1j} + \varepsilon_{ij} $$
+  
+  Note how similar this looks like to a normal regression equation. Again, the differences are due to those pesky subscripts. Like before, think of this as a normal regression equation at the level of a person. Each person would have one of these equations with, in addition to a unique Y, X and residual, a unique $\beta_{0}$ and $\beta_{1}$. 
+  
+ Level 2:  
+$$ {\beta}_{0j} = \gamma_{00} + U_{0j}$$  
+  
+Level 2 takes the parameters at level 1 and decomposes them into a fixed component that reflects that average and then the individual deviations around that fixed effect.
+
+$$ {\beta}_{1j} = \gamma_{10} $$  
+The new level 2 term refers to the first predictor in the level 1 regression equation ie the slope. This slope is fixed in that the level 2 equation only has a gamma term and no U residual term. 
+  
+Putting it together: 
+  $$ {Y}_{ij} = \gamma_{00} + \gamma_{10} (X_{1j})+ U_{0j}  + \varepsilon_{ij} $$
+Note that in computing a single individuals Y, it depends on the two fixed effects, the Xj, and the random effect for the intercept. 
+
+What does this look like graphically?
+ 
+Can you draw out the sources of error? The random effects for each participant? The fixed effects? 
+
+
+What happens when we add a random slope? 
+Level 1:
+ 
+$$ {Y}_{ij} = \beta_{0j}  + \beta_{1j}X_{1j} + \varepsilon_{ij} $$
+Level 2:  
+$$ {\beta}_{0j} = \gamma_{00} + U_{0j}$$  
+
+$$ {\beta}_{1j} = \gamma_{10} + U_{1j} $$  
+
+
+  $$ {Y}_{ij} = \gamma_{00} + \gamma_{10}(X_{1j})+ U_{0j} + U_{1j} + \varepsilon_{ij} $$
+  
+
+Can think of a persons score divided up into a fixed component as well as the random component. 
+
+These random effects are likely related to one another. For example, if someone starts high on a construct they are then less likely to increase across time. This negative correlation can be seen in the residual structure, where the random effects are again normally distributed with a mean of zero, but this time one must also consider covariance in addition to variance. 
+
+$$ \begin{pmatrix} {U}_{0j} \\ {U}_{1j} \end{pmatrix}
+\sim \mathcal{N} \begin{pmatrix} 
+  0,     & \tau_{00}^{2} & \tau_{01}\\ 
+  0, & \tau_{01} & \tau_{10}^{2}
+\end{pmatrix} $$
+
+
+Note that it is possible to have a different error structure, one where there is no relationship between the intercept and the slope. We will discuss this more later in the semester. Right now just know that the default is to have correlated random effects. 
+
+We also have the within subject variance term that accounts for deviations that are not accounted for by time variable and other level 1 predictors. 
+
+$$ {R}_{ij} \sim \mathcal{N}(0, \sigma^{2})  $$
+
+Note that it is possible to model these level 1 residuals with different structures. This specification implies that there is no correlation across an individuals residuals, once you account for level 1 predictors (ie growth trajectories). Having a specific level 1 autoregressive or other type of pattern is common in other treatments of longitudinal models (panel models) but is not necessary with growth models (but possible). 
+
+This is the basic format of the growth model. It will be expanded later on by adding variables to the level 1 model and to the level 2 model. Adding to the level 1 model is only possible with repeated variables. 
+
+Level 1 regression coefficients are added to the level 2 model. These coefficients are decomposed into a fixed effect, a random effect (possibly), and between person predictors. As with any regression model, each of these only have a single error term. 
+
+### Calculation of individaul level random effects
+
+Random effects are often thought in terms of variance components. We can see this if we think of individual level regressions for each person where we then have a mean and a variance for both the intercept or the slope. The greater the variance around the intercept and the slope means that not everyone starts at the same position and not everyone changes at the same rate. 
+
+If you want to look at a specific person's random effect you can think of it as a deviation from the fixed effect where subject 6's intercept can be thought of as
+
+$$ {\beta}_{06} = \gamma_{00} \pm U_{06}$$ 
+e.g 2.2 = 3 - .8
+
+
+### random effects and residual (standard) assumptions
+
+Joint normal distribution of random effects  
+Normally distributed residual  
+Constant variance over time  
+Random effects and residual are uncorrelated  
+Both have a mean of zero  
+  
+Random effects and residual size will depend on predictors in the model.   
+
+
+
+
+## working with models in R
+### basic lmer code
+The basic function we will work with is lmer from the lme4 package
+
+```{r}
+library(lme4)
+```
+
+The package was developed to be similar to the lm function. The code will be similar to the formula for the combined model
+
+Code for empty model
+
+```{r, eval= FALSE}
+
+lmer(Y ~ 1 + (1 | subjects), data=example)
+```
+
+Level 1
+  $$ {Y}_{ij} = \beta_{0j}  +\varepsilon_{ij} $$
+ Level 2
+ $$ {\beta}_{0j} = \gamma_{00} + U_{0j} $$
+ 
+ 
+ Combined 
+ $$ {Y}_{ij} = \gamma_{00} + U_{0j}  + \varepsilon_{ij} $$
+ 
+1 is the way to reference the intercept. All additional fixed effects go outside the parentheses. Inside the parentheses are the random effects and residual terms. To the right of the vertical line is our level 1 residual term, which references the grouping variable. In this case, as with almost all longitudinal work, is the subject ID. To the left of the vertical line is the random effects we want to estimate. Right now this estimates only one random effect, one for the intercept.
+
+It is possible to suppress a random intercept by putting a zero instead of a 1. If you do not put anything there the 1 is implied. 
+
+
+```{r, eval = FALSE}
+lmer(y ~ 1 + time + (1 + time | subjects), data=data)
+
+lmer(y ~ time + (time | subjects), data=data)
+# both are equivalent
+```
+
+### Example
+
+
+```{r}
+mod.1 <- lmer(SMN7 ~ 1 + (1 | ID), data=example)
+summary(mod.1)
+```
+
+
+
+How to calculate ICC? 
+
+```{r}
+0.001823/(0.001823 + 0.001302)
+```
+
+
+### exploring beyond the summary
+
+```{r}
+class(mod.1)
+```
+
+
+what do the random effects look like? 
+
+```{r, message = FALSE}
+library(sjPlot)
+sjp.lmer(mod.1, facet.grid = FALSE, 
+          sort = "sort.all")
+```
+
+
+```{r}
+head(ranef(mod.1))
+```
+
+
+```{r}
+head(coef(mod.1))
+```
+
+```{r}
+fixef(mod.1)
+```
+
+How do these relate? Lets calculate ID 6 intercept random effect
+```{r}
+#coef = fixef + raneff
+
+# 0.04724795  
+0.106972 -0.0597240676 
+
+```
+
+
+To get residuals and fitted scores
+```{r}
+library(broom)
+example.aug<- augment(mod.1, data = example)
+
+
+# .fitted	 = predicted values
+# .resid	= residuals/errors
+# .fixed	 = predicted values with no random effects
+
+```
+
+
+### adding time
+
+```{r}
+mod.2 <- lmer(SMN7 ~ 1 + week + (week  | ID), data=example)
+summary(mod.2)
+```
+
+Random effects another way
+```{r}
+re2 <- ranef(mod.2)
+head(re2)
+```
+
+```{r}
+random_params <- tidy(mod.2, effect = "ran_modes")
+head(random_params)
+```
+
+Using simulations to get better estimates of confidence around our estimates
+```{r}
+library(merTools)
+FEsim(mod.2)
+```
+
+```{r}
+re.sim <- REsim(mod.2)
+head(re.sim)
+```
+
+Look through these different methods of getting random effects. Note that they are not all exactly the same. 
+
+This can be used to create CIs for each random effect (and fixed effect). What is the confidence interval around person 6's intercept estimate compared to person 2000 who has 25 repeated measurements? 
+
+caterpillar plots
+```{r}
+p1 <- plotREsim(re.sim)
+p1
+```
+
+Density of random effects
+```{r}
+p1.gg <- re.sim %>% 
+  filter(term == "week") 
+
+ggplot(p1.gg, aes(mean)) +
+  geom_density()
+```
+
+
+
+
+### comparing to a standard linear model
+
+```{r}
+lm.1 <- lm(SMN7 ~ 1 + week, data=example)
+summary(lm.1)
+```
+
+
+### Other types of models
+
+Depending on your DV, you might not want to have a Gaussian sampling distribution. Instead you may want something like a Poisson or a negative binomial if you are using some sort of count data. You can do this somewhat with lme4. However, the BRMS package -- which uses Bayesian estimation -- has many more possibilities: geometric, log normal, weibull, exponential, gamma, Beta, hurdle Poisson/gamma/negative binomial, zero inflated beta/Poisson/negative binomial, cumulative. Maybe we will fit some of these later in the semester. 
+
+
+## matrix notation (as a way to help understand what is going on)
+
+
+$$ y_{i} = X_{i}\beta + Z_{i}b_{i} + \varepsilon_{i} $$
+Lets assume we have four time points. This formula is equivalent to: 
+
+$$ \begin{bmatrix}
+    y_{1j}   \\
+    y_{2j}   \\
+    y_{3j}   \\
+    y_{4j}  
+\end{bmatrix} + 
+
+\begin{bmatrix}
+    1 & time_{1j}   \\
+    1 & time_{2j}   \\
+    1 & time_{3j}   \\
+    1 & time_{4j}  
+\end{bmatrix} 
+
+\begin{bmatrix}
+    \beta_{0}   \\
+    \beta_{1}   \\
+    \beta_{2}   \\
+    \beta_{3}  
+\end{bmatrix}
+
++ \begin{bmatrix}
+    1 & time_{1j}   \\
+    1 & time_{2j}   \\
+    1 & time_{3j}   \\
+    1 & time_{4j}  
+\end{bmatrix} 
+\begin{bmatrix}
+    b_{0j}   \\
+    b_{1j}   \\
+\end{bmatrix}
++
+ \begin{bmatrix}
+    \varepsilon_{1j}   \\
+    \varepsilon_{2j}   \\
+    \varepsilon_{3j}   \\
+    \varepsilon_{4j}  
+\end{bmatrix} $$
+
+
+
+X is the design matrix for fixed effects
+Z is the design matrix for random effects. 
+$/beta$ is a vector of fixed effects
+b is a vector of random effects
+$\varepsilon$ is a vector of residual error
+
+Note that all are subject specific (j) besides the vector of fixed effects
+
+The design matrix can be increased with the inclusion of other predictors (See next week)
+
+
+```{r}
+model.matrix(mod.2)
+```
+
 
 ## Estimation
 
-## Prediction of individual random effects
+REML vs ML
+
+
+
+## Testing significance (adapted from Ben Bolker)
+Methods for testing single parameters
+From worst to best:
+
+1. Wald Z-tests. Easy to compute. However, they are asymptotic approximations, assuming both that (1) the sampling distributions of the parameters are multivariate normal and that (2) the sampling distribution of the log-likelihood is (proportional to) χ2.
+2. Wald t-tests
+3. Likelihood ratio test.  
+4. Markov chain Monte Carlo (MCMC) or parametric bootstrap confidence intervals
+
+### P values are not included
+
+Authors are not convinced of the utility of the general approach of testing with reference to an approximate null distribution. In general, it is not clear that the null distribution of the computed ratio of sums of squares is really an F distribution, for any choice of denominator degrees of freedom. While this is true for special cases that correspond to classical experimental designs (nested, split-plot, randomized block, etc.), it is apparently not true for more complex designs (unbalanced, GLMMs, temporal or spatial correlation, etc.).
+
+tl;dr: it gets messy with more complex models
+
+If you really want p values
+```{r}
+# library(lmerTest)
+```
+
+### Likelhiood ratio test
+How much more likely the data is under a more complex model than under the simpler model (these models need to be nested to compare this).
+
+
+The distribution of D is approximately $\chi^2$ with df2-df1 degrees of freedom.
+
+```{r}
+mod.2r <- lmer(SMN7 ~ 1 + week + ( 1  | ID), data=example)
+summary(mod.2r)
+```
+
+```{r}
+anova(mod.2, mod.2r)
+```
+
+
+
+#### Likelihood tests for random effects
+
+Gets a little more complicated, but still doable with anova function. 
+
+However, the sampling distribution of variance estimates is in general strongly asymmetric: the standard error may be a poor characterization of the uncertainty. 
+
+### AIC and BIC
+AIC (Akaike’s Information Criterion) and the BIC (Bayesian Information Criterion) where “smaller is better.” As with the other types, these may give you wonky findings depending
+
+
+### MCMC
+
+```{r}
+#library(mcmcsamp)
+```
+
+### Bootstraps
+Parametric bootstrap: 
+
+```{r}
+confint(mod.1, method="boot", nsim=1000)
+summary(mod.1)
+
+# uses SDs of random effects
+# sigma = residual standard error
+```
+
+Comparing two models. fit the reduced model, then repeatedly simulate from it and compute the differences between the deviance of the reduced and the full model for each simulated data set. Compare this null distribution to the observed deviance difference. 
+This procedure is implemented in the pbkrtest package.
+
+
+
+```{r}
+library(pbkrtest)
+#pb <- PBmodcomp(mod.2,mod.2r)
+```
+
+
+### Predictions and prediction intervals
+Predict function is deterministic and uses only the fixed effects (i.e. does not include random effects in the predictions). It does not do prediction in the typical sense where you are predicting *new* individuals's scores. 
+
+Simulate is non-deterministic because it samples random effect values for all subjects and then samples from the conditional distribution. Simulation is needed to create true preditions. 
+
+Short of a fully Bayesian analysis, bootstrapping is the gold-standard for deriving prediction intervals/bands (ie where would a new person score given X), but the time required is typically high.
+
+In order to generate a proper prediction (for either a new person or a new observation within a person), a prediction must account for three sources of uncertainty in mixed models:
+
+1. the residual (observation-level) variance,
+2. the uncertainty in the fixed coefficients, and
+3. the uncertainty in the variance parameters for the random effects
+
+Does so by:
+1. extracting the fixed and random coefficients
+2. takes n draws from the multivariate normal distribution of the fixed and random coefficients (separately)
+3. calculates the linear predictor for each row in newdata based on these draws, and
+4. incorporates the residual variation  
+then: 
+5. returns newdata with the lower and upper limits of the prediction interval and the mean or median of the simulated predictions
+
+
+```{r}
+library(merTools)
+# see also their shiny app: shinyMer(mod.1)
+PI <- predictInterval(merMod = mod.2, newdata = example, level = 0.9, n.sims = 100, stat = "median", include.resid.var = TRUE)
+head(PI)
+```
+
+Nice for bringing in confidence bands around your prediction (And we might use this later)
+
+Broom offers the fitted (predicted) values already if you just want to plot your trajectory. But note that these are not typical prediction intervals (what happens if you get a new particpant with a certain value of X). The bands fit in ggplot are for predicted $\mu$|X
+
+```{r}
+P.gg <- ggplot(example.aug, aes(x= week, y = .fitted)) + geom_point() + stat_smooth(method = "lm")   
+
+P.gg
+
+```
 
 
 
 
 
+Can also explicitly simulate new data (rather than rely on another function to do so), which will be useful for power calculations later. In the simulated data, the subject means are different from the means in the original data because simulate samples by-subject random effect values using the variance components in the fitted model. 
+
+
+```{r, eval = FALSE}
+sim.1<- simulate(mod.2)
+head(sim.1)
+```
+
+
+### Coefficient of determination equivalents
+
+ Issue is: should you include or exclude variation of different random-effects terms?
+
+
+```{r}
+fixef(mod.2) / sigma(mod.2)
+
+```
+
+### batch analyses 
+
+Can easily do a lot of models simulataniously. You do not need to use for loops. 
+
+Check out dplyr::do as well as purrr::map. 
+
+
+##Now you try:
+
+1.Run linear models on all of your subjects (a basic regression). What is the average intercept, the average slope?  
+
+2. Now run a mlm/lmer model with only a random intercept. What is the ICC? What does residual variance look like compared to linear model? Create a graph to show this effect. 
+
+3. Introduce a fixed slope term. What is the difference in terms of the fixed effects estimates between this estimate and the previous? Of the residual standard error? Create a graph to show both fixed effects estimates and the CIs around them. 
+
+4. Run an additional model with a random slope. How does this change compare to the previous model? Should you keep the random slope or not?  
+
+5. Interpret the correlation between the slope and the intercept. 
+
+6. Create a density plot of the random effects from your final model. 
+
+7. Create a catepilar plot of the random effects. Is there any person that seems odd in terms of a large standard errors around intercept and slope estimates? 
+
+8. Create a plot of the trajectory, along with a spagehtti plot of each person's individual slope. Set the alpha level (transperancy) on the individual slopes to make them easier to see.  
 

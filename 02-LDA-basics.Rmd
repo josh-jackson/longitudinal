@@ -274,7 +274,7 @@ gg7
 
 
 ```{r}
-gg8 <-  gg1 <- ggplot(example, aes(x = week, y = SMN7)) + geom_point() + stat_smooth(method = "lm") + facet_grid(. ~ group)
+gg8 <-  ggplot(example, aes(x = week, y = SMN7)) + geom_point() + stat_smooth(method = "lm") + facet_grid(. ~ group)
 gg8
 
 ```

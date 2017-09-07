@@ -98,18 +98,16 @@ gg4 <-  ggplot(example3, aes(x = week, y = SMN7, group = ID)) +  geom_point() + 
 gg4
 ```
 
-<<<<<<< HEAD
+
 ### thinking about random effects
-=======
+
 ### random effects
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
 Within subjects variability in either staring value or slope is referenced in terms of random effects. How do we represent this in our equation? Easy, we just say that the typical regression parameters we have are not the same for everyone -- that they are random (in contrast to fixed).  
  
 In general, when would we want to use random effects? If there is some sort of selection (random or not) of many possible values of the predictor (e.g., stimuli are 3 random depression drugs, three semi random chosen levels of a drug). With longitudinal data this is people. 
 
 What situations are necessary for random effects? For longitudinal models, there needs to be multiple assessments per your grouping category (people, schools, neighborhoods).  
 
-<<<<<<< HEAD
 Random as in they are sampled from some population and thus can vary. This means that your parameters (traditional regression parameters) are estimates and thus have error associated with them. This error is not like like a standard residual, which represents error for your overall model. Nor is it like the standard error for a point estimate. Random effects can best be thought of as deviation of individual regression lines from the group regression line (though it technically is not this). 
 
 To facilitate the multiple assessments per person we will now use both i and j subscripts. We will see that the random effects are part of the overall error term in the model. Counterintutitively, the main focus of these types of models will be the fixed effects, with less attention paid to the random effects. That said, the random effects are necessary to account for dependency in the data. One can think about these models as normal fixed effects regressions, with the random effects there to account for the longitudinal nature of the data. They are made up of a number of standard regression equations, each for a single individual. Doing so side steps the trouble of having correlated errors, and thus allows us to interpret our findings without concern. 
@@ -145,13 +143,12 @@ Technically this is not a growth model, nor one that is inherently longitudinal.
 
   $$ {Y}_{ij} = \gamma_{00} + U_{0j}  + \varepsilon_{ij} $$
   
-=======
+
 Random as in they are sampled from some population and thus can vary. This means that your parameters (traditional regression parameters) are estimates and thus have error associated with them. This error is not like like a standard residual, which represents error for your overall model. Nor is it like the standard error for a point estimate. Random effects can best be thought of as deviation of individual regression lines from the group regression line. 
 
 To facilitate the multiple assessments per person we will now use both i and j subscripts. We will see that the random effects are part of the overall error term in the model. Counterintutitively, the main focus of these types of models will be the fixed effects, with less attention paid to the random effects. That said, the random effects are necessary to account for dependency in the data. One can think about these models as normal fixed effects regressions, with the random effects there to account for the longitudinal nature of the data. They are made up of a number of standard regression equations, each for a single individual. Doing so side steps the trouble of having correlated errors, and thus allows us to interpret our findings without concern. 
 
 ### Empty model
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
 
 Level 1
   $$ {Y}_{ij} = \beta_{0j}  +\varepsilon_{ij} $$
@@ -212,21 +209,19 @@ Putting it together:
   $$ {Y}_{ij} = \gamma_{00} + \gamma_{10} (X_{1j})+ U_{0j}  + \varepsilon_{ij} $$
 Note that in computing a single individuals Y, it depends on the two fixed effects, the Xj, and the random effect for the intercept. 
 
-<<<<<<< HEAD
+
 ### What does this look like graphically? 
 And how does this differ from the random intercept model? 
-=======
+
 What does this look like graphically?
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
- 
+
 Can you draw out the sources of error? The random effects for each participant? The fixed effects? 
 
 
-<<<<<<< HEAD
+
 ### Adding a random slope? 
-=======
+
 What happens when we add a random slope? 
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
 Level 1:
  
 $$ {Y}_{ij} = \beta_{0j}  + \beta_{1j}X_{1j} + \varepsilon_{ij} $$
@@ -262,11 +257,11 @@ This is the basic format of the growth model. It will be expanded later on by ad
 
 Level 1 regression coefficients are added to the level 2 model. These coefficients are decomposed into a fixed effect, a random effect (possibly), and between person predictors. As with any regression model, each of these only have a single error term. 
 
-<<<<<<< HEAD
+
 ## Individaul level random effects
-=======
+
 ### Calculation of individaul level random effects
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
+
 
 Random effects are often thought in terms of variance components. We can see this if we think of individual level regressions for each person where we then have a mean and a variance for both the intercept or the slope. The greater the variance around the intercept and the slope means that not everyone starts at the same position and not everyone changes at the same rate. 
 
@@ -275,15 +270,14 @@ If you want to look at a specific person's random effect you can think of it as 
 $$ {\beta}_{06} = \gamma_{00} \pm U_{06}$$ 
 e.g 2.2 = 3 - .8
 
-<<<<<<< HEAD
+
 ### How are these random effects calculated? 
 It isn't as straightforward as calculating a slope for each person and then using the difference between that slope and the average slope. Instead, the estimates are partially pooled towards the overall mean of the sample, the fixed effect. We do this to get a better estimate of the parameters, the same way that using regression to predict y-hat given an X is better than binning X and calculating y-hat. More information = better. 
 
 Why not full pooling? Because it ignores individaul differences in change. 
 
 The result is that the variance of the change trajectories (using MLM) will be smaller than the variance of the fitted linear models. 
-=======
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
+
 
 ### random effects and residual (standard) assumptions
 
@@ -295,7 +289,7 @@ Both have a mean of zero
   
 Random effects and residual size will depend on predictors in the model.   
 
-<<<<<<< HEAD
+
 ### Random effect decomposition
 
 Think of the original total variance in a scatter plot of our DVs. Adding random effects takes that variance and trims it down. 
@@ -303,10 +297,9 @@ Think of the original total variance in a scatter plot of our DVs. Adding random
 The intercept only MLM seperates it into a level 1 variance (which at this stage is treated as error) and a level 2 random intercept variance. 
 
 Creating a random slopes model takes the Level 1 residual variance and creates a new "pile" of explained variance. 
-=======
 
 
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
+
 
 ## working with models in R
 ### basic lmer code
@@ -356,40 +349,33 @@ summary(mod.1)
 
 
 
-<<<<<<< HEAD
+
 ### How to calculate ICC? 
-=======
-How to calculate ICC? 
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
+
 
 ```{r}
 0.001823/(0.001823 + 0.001302)
 ```
 
 
-<<<<<<< HEAD
 ## Exploring beyond the summary
-=======
-### exploring beyond the summary
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
+
 
 ```{r}
 class(mod.1)
 ```
 
 
-<<<<<<< HEAD
+
 ### what do the random effects look like? 
-=======
-what do the random effects look like? 
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
+
 
 ```{r, message = FALSE}
 library(sjPlot)
 sjp.lmer(mod.1, facet.grid = FALSE, 
           sort = "sort.all")
 ```
-<<<<<<< HEAD
+
 Best Linear Unbiased Predictor = BLUP. More on this later. 
 
 ```{r}
@@ -485,7 +471,7 @@ How to calcualte?
 ###Individaul level random effects 
 
 Are the intercept random effects the same as the model with only the intercept? Why or why not? 
-=======
+
 
 
 ```{r}
@@ -532,7 +518,6 @@ summary(mod.2)
 ```
 
 Random effects another way
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
 ```{r}
 re2 <- ranef(mod.2)
 head(re2)
@@ -554,23 +539,22 @@ re.sim <- REsim(mod.2)
 head(re.sim)
 ```
 
-<<<<<<< HEAD
+
 This can be used to create CIs for each individaul random effect (and fixed effect). What is the confidence interval around person 6's intercept estimate compared to person 2000 who has 25 repeated measurements? 
 
 ### caterpillar plots
-=======
+
 Look through these different methods of getting random effects. Note that they are not all exactly the same. 
 
 This can be used to create CIs for each random effect (and fixed effect). What is the confidence interval around person 6's intercept estimate compared to person 2000 who has 25 repeated measurements? 
 
 caterpillar plots
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
 ```{r}
 p1 <- plotREsim(re.sim)
 p1
 ```
 
-<<<<<<< HEAD
+
 ### Density of individaul random effects
 ```{r}
 p1.gg1 <- re.sim %>% 
@@ -586,26 +570,29 @@ ggplot(p1.gg1, aes(mean)) +
 p1.gg2 <- re.sim %>% 
   filter(term == "week") 
 
+
 ggplot(p1.gg2, aes(mean)) +
-=======
-Density of random effects
+  geom_density()
+```
+
+ ###Density of random effects
+
+
 ```{r}
 p1.gg <- re.sim %>% 
   filter(term == "week") 
 
 ggplot(p1.gg, aes(mean)) +
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
   geom_density()
 ```
 
 
 
 
-<<<<<<< HEAD
+
 ## comparing to a standard linear model
-=======
-### comparing to a standard linear model
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
+
+
 
 ```{r}
 lm.1 <- lm(SMN7 ~ 1 + week, data=example)
@@ -613,20 +600,15 @@ summary(lm.1)
 ```
 
 
-<<<<<<< HEAD
 ## Other types of models
-=======
-### Other types of models
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
+
 
 Depending on your DV, you might not want to have a Gaussian sampling distribution. Instead you may want something like a Poisson or a negative binomial if you are using some sort of count data. You can do this somewhat with lme4. However, the BRMS package -- which uses Bayesian estimation -- has many more possibilities: geometric, log normal, weibull, exponential, gamma, Beta, hurdle Poisson/gamma/negative binomial, zero inflated beta/Poisson/negative binomial, cumulative. Maybe we will fit some of these later in the semester. 
 
 
-<<<<<<< HEAD
+
 ## Matrix notation (as a way to help understand what is going on)
-=======
-## matrix notation (as a way to help understand what is going on)
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
+
 
 
 $$ y_{i} = X_{i}\beta + Z_{i}b_{i} + \varepsilon_{i} $$
@@ -691,7 +673,6 @@ model.matrix(mod.2)
 
 ## Estimation
 
-<<<<<<< HEAD
 Maximum likelihood estimation. Uses a likelihood function that describes the probability of observing the sample data as a function of the parameters. Attempts to maximize the function. 
 
 REML vs ML
@@ -700,10 +681,7 @@ Differences account for the fact that fixed effects are being estimated simultao
 
 If you use REML you should be careful in testing fixed effects against eachother (more down below)
 
-=======
-REML vs ML
 
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
 
 
 ## Testing significance (adapted from Ben Bolker)
@@ -729,7 +707,6 @@ If you really want p values
 ### Likelhiood ratio test
 How much more likely the data is under a more complex model than under the simpler model (these models need to be nested to compare this).
 
-<<<<<<< HEAD
 Log Likelihood (LL) is derived from ML estimation. Larger the LL the better the fit. 
 
 Deviance comapres the two LLs. Current model and a saturated model (that fits data perfectly). 
@@ -745,11 +722,9 @@ Comparing 2 models is called a likelihood ration test. Need to have:
 2. nested models (think of constraining to zero)
 
 Distributed as chi-square with df equal to constraint differences between models. 
-=======
 
 The distribution of D is approximately $\chi^2$ with df2-df1 degrees of freedom.
 
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
 ```{r}
 mod.2r <- lmer(SMN7 ~ 1 + week + ( 1  | ID), data=example)
 summary(mod.2r)
@@ -761,27 +736,24 @@ anova(mod.2, mod.2r)
 
 
 
-<<<<<<< HEAD
 ### Likelihood tests for random effects
-=======
+
 #### Likelihood tests for random effects
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
 
 Gets a little more complicated, but still doable with anova function. 
 
 However, the sampling distribution of variance estimates is in general strongly asymmetric: the standard error may be a poor characterization of the uncertainty. 
 
 ### AIC and BIC
-<<<<<<< HEAD
+
 AIC (Akaike’s Information Criterion) and the BIC (Bayesian Information Criterion) where “smaller is better.” As with the other types, these may give you wonky findings depending on some factors as they are related to LLs
-=======
+
 AIC (Akaike’s Information Criterion) and the BIC (Bayesian Information Criterion) where “smaller is better.” As with the other types, these may give you wonky findings depending
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
 
 
 ### MCMC
 
-<<<<<<< HEAD
+
 More on this later. 
 ```{r, eval = FALSE}
 library(rstanarm)
@@ -790,12 +762,10 @@ library(mcmcsamp)
 ```
 
 
-=======
 ```{r}
 #library(mcmcsamp)
 ```
 
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
 ### Bootstraps
 Parametric bootstrap: 
 
@@ -818,17 +788,15 @@ library(pbkrtest)
 ```
 
 
-<<<<<<< HEAD
 ## Predictions and prediction intervals
 Predict function is deterministic and uses only the fixed effects (i.e. does not include random effects in the predictions). It does not do prediction in the typical sense where you are predicting *new* individual's scores. 
 
 Simulate is non-deterministic because it samples random effect values for all subjects and then samples from the conditional distribution. Simulation is needed to create true predictions. 
-=======
+
 ### Predictions and prediction intervals
 Predict function is deterministic and uses only the fixed effects (i.e. does not include random effects in the predictions). It does not do prediction in the typical sense where you are predicting *new* individuals's scores. 
 
 Simulate is non-deterministic because it samples random effect values for all subjects and then samples from the conditional distribution. Simulation is needed to create true preditions. 
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
 
 Short of a fully Bayesian analysis, bootstrapping is the gold-standard for deriving prediction intervals/bands (ie where would a new person score given X), but the time required is typically high.
 
@@ -847,11 +815,8 @@ then:
 5. returns newdata with the lower and upper limits of the prediction interval and the mean or median of the simulated predictions
 
 
-<<<<<<< HEAD
+
 ```{r, warning=FALSE}
-=======
-```{r}
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
 library(merTools)
 # see also their shiny app: shinyMer(mod.1)
 PI <- predictInterval(merMod = mod.2, newdata = example, level = 0.9, n.sims = 100, stat = "median", include.resid.var = TRUE)
@@ -860,11 +825,11 @@ head(PI)
 
 Nice for bringing in confidence bands around your prediction (And we might use this later)
 
-<<<<<<< HEAD
+
 Broom offers the fitted (predicted) values already if you just want to plot your trajectory. But note that these are not typical prediction intervals (what happens if you get a new participant with a certain value of X). The bands fit in ggplot are for predicted $\mu$|X
-=======
+
+
 Broom offers the fitted (predicted) values already if you just want to plot your trajectory. But note that these are not typical prediction intervals (what happens if you get a new particpant with a certain value of X). The bands fit in ggplot are for predicted $\mu$|X
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
 
 ```{r}
 P.gg <- ggplot(example.aug, aes(x= week, y = .fitted)) + geom_point() + stat_smooth(method = "lm")   
@@ -885,7 +850,7 @@ sim.1<- simulate(mod.2)
 head(sim.1)
 ```
 
-<<<<<<< HEAD
+
 ## Coefficient of determination equivalents
 
  Issue is: should you include or exclude variation of different random-effects terms?
@@ -902,7 +867,7 @@ Proportion of variance explained by time.
 ## Batch analyses 
 
 Can easily do a lot of models simultaneously. You do not need to use for loops. 
-=======
+
 
 ### Coefficient of determination equivalents
 
@@ -917,7 +882,7 @@ fixef(mod.2) / sigma(mod.2)
 ### batch analyses 
 
 Can easily do a lot of models simulataniously. You do not need to use for loops. 
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
+
 
 Check out dplyr::do as well as purrr::map. 
 
@@ -938,9 +903,7 @@ Check out dplyr::do as well as purrr::map.
 
 7. Create a catepilar plot of the random effects. Is there any person that seems odd in terms of a large standard errors around intercept and slope estimates? 
 
-<<<<<<< HEAD
 8. Create a plot of the trajectory, along with a spaghetti plot of each person's individual slope. Set the alpha level (transparency) on the individual slopes to make them easier to see.  
-=======
-8. Create a plot of the trajectory, along with a spagehtti plot of each person's individual slope. Set the alpha level (transperancy) on the individual slopes to make them easier to see.  
->>>>>>> 09ad8d0727ab55b86c468214cee902a95440403c
+
+9. Create a plot of the trajectory, along with a spagehtti plot of each person's individual slope. Set the alpha level (transperancy) on the individual slopes to make them easier to see.  
 

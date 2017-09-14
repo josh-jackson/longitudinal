@@ -193,7 +193,7 @@ $$\frac{U_{0j}}{U_{0j}+ \varepsilon_{ij}}$$
 
 Level 1:
  
-$$ {Y}_{ij} = \beta_{0j}  + \beta_{1j}X_{1j} + \varepsilon_{ij} $$
+$$ {Y}_{ij} = \beta_{0j}  + \beta_{1j}X_{ij} + \varepsilon_{ij} $$
   
   Note how similar this looks like to a normal regression equation. Again, the differences are due to those pesky subscripts. Like before, think of this as a normal regression equation at the level of a person. Each person would have one of these equations with, in addition to a unique Y, X and residual, a unique $\beta_{0}$ and $\beta_{1}$. 
   
@@ -207,6 +207,7 @@ The new level 2 term refers to the first predictor in the level 1 regression equ
   
 Putting it together: 
   $$ {Y}_{ij} = \gamma_{00} + \gamma_{10} (X_{1j})+ U_{0j}  + \varepsilon_{ij} $$
+  
 Note that in computing a single individuals Y, it depends on the two fixed effects, the Xj, and the random effect for the intercept. 
 
 
@@ -231,7 +232,8 @@ $$ {\beta}_{0j} = \gamma_{00} + U_{0j}$$
 $$ {\beta}_{1j} = \gamma_{10} + U_{1j} $$  
 
 
-  $$ {Y}_{ij} = \gamma_{00} + \gamma_{10}(X_{1j})+ U_{0j} + U_{1j} + \varepsilon_{ij} $$
+$$ {Y}_{ij} = \gamma_{00} + \gamma_{10}(X_{ij})+ U_{0j} + U_{1j}(X_{ij}) + \varepsilon_{ij} $$
+  
   
 
 Can think of a persons score divided up into a fixed component as well as the random component. 
@@ -455,14 +457,14 @@ Conveys the predicted range around each fixed effect in which 95% of the sample 
 95% random effect = fixed effect plus minus 1.96 * random standard deviation
 
 How to calcualte? 
-1. Intercept $$ \gamma_{00} \pm  1.96  *  U_{0j}  $$
+1. Intercept $$ \gamma_{00} \pm  1.96  *  \tau_{U_{0j}}  $$
 ```{r}
 0.1193933 + (1.96 * 0.240217) 
 0.1193933 - (1.96 * 0.240217) 
 ```
 
 
-2. Slope $$ \gamma_{10} \pm  1.96  *  U_{1j}  $$
+2. Slope $$ \gamma_{10} \pm  1.96  *  \tau_{U_{1j}}  $$
 ```{r}
 0.0004891 + (1.96 * 0.007745) 
 0.0004891 - (1.96 * 0.007745) 
@@ -523,10 +525,16 @@ re2 <- ranef(mod.2)
 head(re2)
 ```
 
+
+
 ```{r}
 random_params <- tidy(mod.2, effect = "ran_modes")
 head(random_params)
 ```
+
+
+
+
 
 Using simulations to get better estimates of confidence around our estimates
 ```{r}
@@ -546,7 +554,6 @@ This can be used to create CIs for each individaul random effect (and fixed effe
 
 Look through these different methods of getting random effects. Note that they are not all exactly the same. 
 
-This can be used to create CIs for each random effect (and fixed effect). What is the confidence interval around person 6's intercept estimate compared to person 2000 who has 25 repeated measurements? 
 
 caterpillar plots
 ```{r}
@@ -556,6 +563,7 @@ p1
 
 
 ### Density of individaul random effects
+
 ```{r}
 p1.gg1 <- re.sim %>% 
   filter(term == "(Intercept)") 
@@ -575,23 +583,9 @@ ggplot(p1.gg2, aes(mean)) +
   geom_density()
 ```
 
- ###Density of random effects
-
-
-```{r}
-p1.gg <- re.sim %>% 
-  filter(term == "week") 
-
-ggplot(p1.gg, aes(mean)) +
-  geom_density()
-```
-
-
-
 
 
 ## comparing to a standard linear model
-
 
 
 ```{r}
@@ -606,9 +600,7 @@ summary(lm.1)
 Depending on your DV, you might not want to have a Gaussian sampling distribution. Instead you may want something like a Poisson or a negative binomial if you are using some sort of count data. You can do this somewhat with lme4. However, the BRMS package -- which uses Bayesian estimation -- has many more possibilities: geometric, log normal, weibull, exponential, gamma, Beta, hurdle Poisson/gamma/negative binomial, zero inflated beta/Poisson/negative binomial, cumulative. Maybe we will fit some of these later in the semester. 
 
 
-
 ## Matrix notation (as a way to help understand what is going on)
-
 
 
 $$ y_{i} = X_{i}\beta + Z_{i}b_{i} + \varepsilon_{i} $$
@@ -670,7 +662,6 @@ The design matrix can be increased with the inclusion of other predictors (See n
 model.matrix(mod.2)
 ```
 
-
 ## Estimation
 
 Maximum likelihood estimation. Uses a likelihood function that describes the probability of observing the sample data as a function of the parameters. Attempts to maximize the function. 
@@ -680,8 +671,6 @@ REML vs ML
 Differences account for the fact that fixed effects are being estimated simultaously with th variance parameters. REML accounts for uncertainty in the fixed effects before estimating residual variance. REML attempts to maximize the likelihood of the residuals whereas ML the sample data. 
 
 If you use REML you should be careful in testing fixed effects against eachother (more down below)
-
-
 
 
 ## Testing significance (adapted from Ben Bolker)
@@ -709,7 +698,7 @@ How much more likely the data is under a more complex model than under the simpl
 
 Log Likelihood (LL) is derived from ML estimation. Larger the LL the better the fit. 
 
-Deviance comapres the two LLs. Current model and a saturated model (that fits data perfectly). 
+Deviance compares two LLs. Current model and a saturated model (that fits data perfectly). 
 
 Deviance = -2[LL current - LL saturated]
 
@@ -719,11 +708,10 @@ Deviance = -2LL current model.
 
 Comparing 2 models is called a likelihood ration test. Need to have: 
 1. same data
-2. nested models (think of constraining to zero)
+2. nested models (think of constraining a parameter to zero)
 
 Distributed as chi-square with df equal to constraint differences between models. 
 
-The distribution of D is approximately $\chi^2$ with df2-df1 degrees of freedom.
 
 ```{r}
 mod.2r <- lmer(SMN7 ~ 1 + week + ( 1  | ID), data=example)
@@ -737,18 +725,20 @@ anova(mod.2, mod.2r)
 
 
 ### Likelihood tests for random effects
+Not listed in the output because it is hard to do this with variances. Remember variances do not have values below zero and thus the distributions get a wonky quickly. Needs mixture distributions (Cannot be easily done with chi square, for example)
 
-#### Likelihood tests for random effects
+Can Do anova comparisons, though that falls to many similar problems as trying to do a Wald test. 
 
-Gets a little more complicated, but still doable with anova function. 
-
-However, the sampling distribution of variance estimates is in general strongly asymmetric: the standard error may be a poor characterization of the uncertainty. 
+The sampling distribution of variance estimates is in general strongly asymmetric: the standard error may be a poor characterization of the uncertainty. Thus the best way to handle is to do bootstrapped estimates. 
 
 ### AIC and BIC
 
-AIC (Akaike’s Information Criterion) and the BIC (Bayesian Information Criterion) where “smaller is better.” As with the other types, these may give you wonky findings depending on some factors as they are related to LLs
+AIC (Akaike’s Information Criterion) and the BIC (Bayesian Information Criterion) where “smaller is better.” This is the opposite of LL/Deviance As with the other types, these may give you wonky findings depending on some factors as they are related to LLs. 
 
-AIC (Akaike’s Information Criterion) and the BIC (Bayesian Information Criterion) where “smaller is better.” As with the other types, these may give you wonky findings depending
+AIC = 2(number of parameters) + (−2LL)
+BIC = ln(n)(number of parameters) + (−2LL)
+
+BIC penalizes models with more parameters more than AIC does. 
 
 
 ### MCMC
@@ -864,20 +854,7 @@ E.g,. residual variance in varying intercept model subtracted from growth model 
 ```
 Proportion of variance explained by time. 
 
-## Batch analyses 
 
-Can easily do a lot of models simultaneously. You do not need to use for loops. 
-
-
-### Coefficient of determination equivalents
-
- Issue is: should you include or exclude variation of different random-effects terms?
-
-
-```{r}
-fixef(mod.2) / sigma(mod.2)
-
-```
 
 ### batch analyses 
 

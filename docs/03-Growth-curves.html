@@ -189,14 +189,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.14" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#predictions-and-prediction-intervals"><i class="fa fa-check"></i><b>3.14</b> Predictions and prediction intervals</a><ul>
 <li class="chapter" data-level="3.14.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#predictions-and-prediction-intervals-1"><i class="fa fa-check"></i><b>3.14.1</b> Predictions and prediction intervals</a></li>
 </ul></li>
-<li class="chapter" data-level="3.15" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#coefficient-of-determination-equivalents"><i class="fa fa-check"></i><b>3.15</b> Coefficient of determination equivalents</a></li>
-<li class="chapter" data-level="3.16" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#batch-analyses"><i class="fa fa-check"></i><b>3.16</b> Batch analyses</a><ul>
-<li class="chapter" data-level="3.16.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#coefficient-of-determination-equivalents-1"><i class="fa fa-check"></i><b>3.16.1</b> Coefficient of determination equivalents</a></li>
-<li class="chapter" data-level="3.16.2" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#batch-analyses-1"><i class="fa fa-check"></i><b>3.16.2</b> batch analyses</a></li>
+<li class="chapter" data-level="3.15" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#coefficient-of-determination-equivalents"><i class="fa fa-check"></i><b>3.15</b> Coefficient of determination equivalents</a><ul>
+<li class="chapter" data-level="3.15.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#batch-analyses"><i class="fa fa-check"></i><b>3.15.1</b> batch analyses</a></li>
 </ul></li>
-<li class="chapter" data-level="3.17" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#now-you-try-1"><i class="fa fa-check"></i><b>3.17</b> Now you try:</a></li>
+<li class="chapter" data-level="3.16" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#now-you-try-1"><i class="fa fa-check"></i><b>3.16</b> Now you try:</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="04-conditional.html"><a href="04-conditional.html"><i class="fa fa-check"></i><b>4</b> Conditional Predictors</a></li>
+<li class="chapter" data-level="4" data-path="04-conditional.html"><a href="04-conditional.html"><i class="fa fa-check"></i><b>4</b> Conditional Predictors in growth models</a><ul>
+<li class="chapter" data-level="4.1" data-path="04-conditional.html"><a href="04-conditional.html#intercept-effects"><i class="fa fa-check"></i><b>4.1</b> Intercept effects</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="04-conditional.html"><a href="04-conditional.html#seperatinng-these-into-intercept-and-slope"><i class="fa fa-check"></i><b>4.1.1</b> Seperatinng these into intercept and slope</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="04-conditional.html"><a href="04-conditional.html#slope-and-intercept-effects"><i class="fa fa-check"></i><b>4.2</b> Slope and Intercept effects</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="04-conditional.html"><a href="04-conditional.html#equations-necessary-for-plotting"><i class="fa fa-check"></i><b>4.2.1</b> Equations necessary for plotting</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="04-conditional.html"><a href="04-conditional.html#need-for-thinking-about-scaling-your-predictors"><i class="fa fa-check"></i><b>4.3</b> Need for thinking about scaling your predictors</a></li>
+<li class="chapter" data-level="4.4" data-path="04-conditional.html"><a href="04-conditional.html#time-varying-covariates-tvcs"><i class="fa fa-check"></i><b>4.4</b> Time-varying covariates (TVCs)</a></li>
+<li class="chapter" data-level="4.5" data-path="04-conditional.html"><a href="04-conditional.html#now-you-try-2"><i class="fa fa-check"></i><b>4.5</b> Now you try</a></li>
+</ul></li>
 <li class="divider"></li>
 <li>Applied Longitudinal Data Analysis</li>
 
@@ -352,14 +360,15 @@ gg4</code></pre></div>
 <div id="adding-time" class="section level2">
 <h2><span class="header-section-number">3.3</span> Adding time</h2>
 <p>Level 1:</p>
-<p><span class="math display">\[ {Y}_{ij} = \beta_{0j}  + \beta_{1j}X_{1j} + \varepsilon_{ij} \]</span></p>
+<p><span class="math display">\[ {Y}_{ij} = \beta_{0j}  + \beta_{1j}X_{ij} + \varepsilon_{ij} \]</span></p>
 <p>Note how similar this looks like to a normal regression equation. Again, the differences are due to those pesky subscripts. Like before, think of this as a normal regression equation at the level of a person. Each person would have one of these equations with, in addition to a unique Y, X and residual, a unique <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span>.</p>
 <p>Level 2:<br />
 <span class="math display">\[ {\beta}_{0j} = \gamma_{00} + U_{0j}\]</span></p>
 <p>Level 2 takes the parameters at level 1 and decomposes them into a fixed component that reflects that average and then the individual deviations around that fixed effect.</p>
 <p><span class="math display">\[ {\beta}_{1j} = \gamma_{10} \]</span><br />
 The new level 2 term refers to the first predictor in the level 1 regression equation ie the slope. This slope is fixed in that the level 2 equation only has a gamma term and no U residual term.</p>
-<p>Putting it together: <span class="math display">\[ {Y}_{ij} = \gamma_{00} + \gamma_{10} (X_{1j})+ U_{0j}  + \varepsilon_{ij} \]</span> Note that in computing a single individuals Y, it depends on the two fixed effects, the Xj, and the random effect for the intercept.</p>
+<p>Putting it together: <span class="math display">\[ {Y}_{ij} = \gamma_{00} + \gamma_{10} (X_{1j})+ U_{0j}  + \varepsilon_{ij} \]</span></p>
+<p>Note that in computing a single individuals Y, it depends on the two fixed effects, the Xj, and the random effect for the intercept.</p>
 <div id="what-does-this-look-like-graphically" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> What does this look like graphically?</h3>
 <p>And how does this differ from the random intercept model?</p>
@@ -372,7 +381,7 @@ The new level 2 term refers to the first predictor in the level 1 regression equ
 <p><span class="math display">\[ {Y}_{ij} = \beta_{0j}  + \beta_{1j}X_{1j} + \varepsilon_{ij} \]</span> Level 2:<br />
 <span class="math display">\[ {\beta}_{0j} = \gamma_{00} + U_{0j}\]</span></p>
 <p><span class="math display">\[ {\beta}_{1j} = \gamma_{10} + U_{1j} \]</span></p>
-<p><span class="math display">\[ {Y}_{ij} = \gamma_{00} + \gamma_{10}(X_{1j})+ U_{0j} + U_{1j} + \varepsilon_{ij} \]</span></p>
+<p><span class="math display">\[ {Y}_{ij} = \gamma_{00} + \gamma_{10}(X_{ij})+ U_{0j} + U_{1j}(X_{ij}) + \varepsilon_{ij} \]</span></p>
 <p>Can think of a persons score divided up into a fixed component as well as the random component.</p>
 <p>These random effects are likely related to one another. For example, if someone starts high on a construct they are then less likely to increase across time. This negative correlation can be seen in the residual structure, where the random effects are again normally distributed with a mean of zero, but this time one must also consider covariance in addition to variance.</p>
 <p><span class="math display">\[ \begin{pmatrix} {U}_{0j} \\ {U}_{1j} \end{pmatrix}
@@ -797,13 +806,13 @@ mod.2n &lt;-<span class="st"> </span><span class="kw">lmer</span>(SMN7 ~<span cl
 <h3><span class="header-section-number">3.8.1</span> Calcualtion of random effect confidence interval</h3>
 <p>Conveys the predicted range around each fixed effect in which 95% of the sample individauls are predicted to fall.</p>
 <p>95% random effect = fixed effect plus minus 1.96 * random standard deviation</p>
-<p>How to calcualte? 1. Intercept <span class="math display">\[ \gamma_{00} \pm  1.96  *  U_{0j}  \]</span></p>
+<p>How to calcualte? 1. Intercept <span class="math display">\[ \gamma_{00} \pm  1.96  *  \tau_{U_{0j}}  \]</span></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="fl">0.1193933</span> +<span class="st"> </span>(<span class="fl">1.96</span> *<span class="st"> </span><span class="fl">0.240217</span>) </code></pre></div>
 <pre><code>## [1] 0.5902186</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="fl">0.1193933</span> -<span class="st"> </span>(<span class="fl">1.96</span> *<span class="st"> </span><span class="fl">0.240217</span>) </code></pre></div>
 <pre><code>## [1] -0.351432</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Slope <span class="math display">\[ \gamma_{10} \pm  1.96  *  U_{1j}  \]</span></li>
+<li>Slope <span class="math display">\[ \gamma_{10} \pm  1.96  *  \tau_{U_{1j}}  \]</span></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="fl">0.0004891</span> +<span class="st"> </span>(<span class="fl">1.96</span> *<span class="st"> </span><span class="fl">0.007745</span>) </code></pre></div>
 <pre><code>## [1] 0.0156693</code></pre>
@@ -1180,7 +1189,6 @@ example.aug&lt;-<span class="st"> </span><span class="kw">augment</span>(mod<spa
 <div id="caterpillar-plots" class="section level3">
 <h3><span class="header-section-number">3.8.4</span> caterpillar plots</h3>
 <p>Look through these different methods of getting random effects. Note that they are not all exactly the same.</p>
-<p>This can be used to create CIs for each random effect (and fixed effect). What is the confidence interval around person 6’s intercept estimate compared to person 2000 who has 25 repeated measurements?</p>
 <p>caterpillar plots</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw">plotREsim</span>(re.sim)
 p1</code></pre></div>
@@ -1201,13 +1209,6 @@ p1</code></pre></div>
 <span class="kw">ggplot</span>(p1.gg2, <span class="kw">aes</span>(mean)) +
 <span class="st">  </span><span class="kw">geom_density</span>()</code></pre></div>
 <p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
-<p>###Density of random effects</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1.gg &lt;-<span class="st"> </span>re.sim %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(term ==<span class="st"> &quot;week&quot;</span>) 
-
-<span class="kw">ggplot</span>(p1.gg, <span class="kw">aes</span>(mean)) +
-<span class="st">  </span><span class="kw">geom_density</span>()</code></pre></div>
-<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
 </div>
 </div>
 <div id="comparing-to-a-standard-linear-model" class="section level2">
@@ -1535,13 +1536,12 @@ $$</li>
 <h3><span class="header-section-number">3.13.2</span> Likelhiood ratio test</h3>
 <p>How much more likely the data is under a more complex model than under the simpler model (these models need to be nested to compare this).</p>
 <p>Log Likelihood (LL) is derived from ML estimation. Larger the LL the better the fit.</p>
-<p>Deviance comapres the two LLs. Current model and a saturated model (that fits data perfectly).</p>
+<p>Deviance compares two LLs. Current model and a saturated model (that fits data perfectly).</p>
 <p>Deviance = -2[LL current - LL saturated]</p>
 <p>LL saturated = 1 for MLMs (probability it will perfectly recapture data). log of 1 is 0. So this term drops out.</p>
 <p>Deviance = -2LL current model.</p>
-<p>Comparing 2 models is called a likelihood ration test. Need to have: 1. same data 2. nested models (think of constraining to zero)</p>
+<p>Comparing 2 models is called a likelihood ration test. Need to have: 1. same data 2. nested models (think of constraining a parameter to zero)</p>
 <p>Distributed as chi-square with df equal to constraint differences between models.</p>
-<p>The distribution of D is approximately <span class="math inline">\(\chi^2\)</span> with df2-df1 degrees of freedom.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod.2r &lt;-<span class="st"> </span><span class="kw">lmer</span>(SMN7 ~<span class="st"> </span><span class="dv">1</span> +<span class="st"> </span>week +<span class="st"> </span>( <span class="dv">1</span>  |<span class="st"> </span>ID), <span class="dt">data=</span>example)
 <span class="kw">summary</span>(mod.2r)</code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
@@ -1580,16 +1580,15 @@ $$</li>
 </div>
 <div id="likelihood-tests-for-random-effects" class="section level3">
 <h3><span class="header-section-number">3.13.3</span> Likelihood tests for random effects</h3>
-<div id="likelihood-tests-for-random-effects-1" class="section level4">
-<h4><span class="header-section-number">3.13.3.1</span> Likelihood tests for random effects</h4>
-<p>Gets a little more complicated, but still doable with anova function.</p>
-<p>However, the sampling distribution of variance estimates is in general strongly asymmetric: the standard error may be a poor characterization of the uncertainty.</p>
-</div>
+<p>Not listed in the output because it is hard to do this with variances. Remember variances do not have values below zero and thus the distributions get a wonky quickly. Needs mixture distributions (Cannot be easily done with chi square, for example)</p>
+<p>Can Do anova comparisons, though that falls to many similar problems as trying to do a Wald test.</p>
+<p>The sampling distribution of variance estimates is in general strongly asymmetric: the standard error may be a poor characterization of the uncertainty. Thus the best way to handle is to do bootstrapped estimates.</p>
 </div>
 <div id="aic-and-bic" class="section level3">
 <h3><span class="header-section-number">3.13.4</span> AIC and BIC</h3>
-<p>AIC (Akaike’s Information Criterion) and the BIC (Bayesian Information Criterion) where “smaller is better.” As with the other types, these may give you wonky findings depending on some factors as they are related to LLs</p>
-<p>AIC (Akaike’s Information Criterion) and the BIC (Bayesian Information Criterion) where “smaller is better.” As with the other types, these may give you wonky findings depending</p>
+<p>AIC (Akaike’s Information Criterion) and the BIC (Bayesian Information Criterion) where “smaller is better.” This is the opposite of LL/Deviance As with the other types, these may give you wonky findings depending on some factors as they are related to LLs.</p>
+<p>AIC = 2(number of parameters) + (−2LL) BIC = ln(n)(number of parameters) + (−2LL)</p>
+<p>BIC penalizes models with more parameters more than AIC does.</p>
 </div>
 <div id="mcmc" class="section level3">
 <h3><span class="header-section-number">3.13.5</span> MCMC</h3>
@@ -1671,7 +1670,7 @@ PI &lt;-<span class="st"> </span><span class="kw">predictInterval</span>(<span c
 P.gg</code></pre></div>
 <pre><code>## Warning: Removed 9 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>## Warning: Removed 9 rows containing missing values (geom_point).</code></pre>
-<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
 <p>Can also explicitly simulate new data (rather than rely on another function to do so), which will be useful for power calculations later. In the simulated data, the subject means are different from the means in the original data because simulate samples by-subject random effect values using the variance components in the fitted model.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim<span class="fl">.1</span>&lt;-<span class="st"> </span><span class="kw">simulate</span>(mod<span class="fl">.2</span>)
 <span class="kw">head</span>(sim<span class="fl">.1</span>)</code></pre></div>
@@ -1685,25 +1684,14 @@ P.gg</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">sigma</span>(mod<span class="fl">.1</span>) -<span class="st"> </span><span class="kw">sigma</span>(mod<span class="fl">.2</span>)) /<span class="st"> </span><span class="kw">sigma</span>(mod<span class="fl">.1</span>)</code></pre></div>
 <pre><code>## [1] 0.07480908</code></pre>
 <p>Proportion of variance explained by time.</p>
-</div>
-<div id="batch-analyses" class="section level2">
-<h2><span class="header-section-number">3.16</span> Batch analyses</h2>
-<p>Can easily do a lot of models simultaneously. You do not need to use for loops.</p>
-<div id="coefficient-of-determination-equivalents-1" class="section level3">
-<h3><span class="header-section-number">3.16.1</span> Coefficient of determination equivalents</h3>
-<p>Issue is: should you include or exclude variation of different random-effects terms?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fixef</span>(mod<span class="fl">.2</span>) /<span class="st"> </span><span class="kw">sigma</span>(mod<span class="fl">.2</span>)</code></pre></div>
-<pre><code>## (Intercept)        week 
-##  3.13720448  0.01465366</code></pre>
-</div>
-<div id="batch-analyses-1" class="section level3">
-<h3><span class="header-section-number">3.16.2</span> batch analyses</h3>
+<div id="batch-analyses" class="section level3">
+<h3><span class="header-section-number">3.15.1</span> batch analyses</h3>
 <p>Can easily do a lot of models simulataniously. You do not need to use for loops.</p>
 <p>Check out dplyr::do as well as purrr::map.</p>
 </div>
 </div>
 <div id="now-you-try-1" class="section level2">
-<h2><span class="header-section-number">3.17</span> Now you try:</h2>
+<h2><span class="header-section-number">3.16</span> Now you try:</h2>
 <p>1.Run linear models on all of your subjects (a basic regression). What is the average intercept, the average slope?</p>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Now run a mlm/lmer model with only a random intercept. What is the ICC? What does residual variance look like compared to linear model? Create a graph to show this effect.</p></li>

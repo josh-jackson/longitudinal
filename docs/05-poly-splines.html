@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Applied Longitudinal Data Analysis</title>
+  <meta name="description" content="Applied Longitudinal Data Analysis">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Applied Longitudinal Data Analysis" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="<a href="https://josh-jackson.github.io/longitudinal/" class="uri">https://josh-jackson.github.io/longitudinal/</a>" />
+  
+  <meta property="og:description" content="Applied Longitudinal Data Analysis" />
+  <meta name="github-repo" content="josh-jackson/longitudinal" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Applied Longitudinal Data Analysis" />
+  
+  <meta name="twitter:description" content="Applied Longitudinal Data Analysis" />
+  
+
+<meta name="author" content="Josh Jackson">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="04-conditional.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li>ALDA</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="01-Syllabus.html"><a href="01-Syllabus.html"><i class="fa fa-check"></i><b>1</b> Syllabus</a></li>
+<li class="chapter" data-level="2" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html"><i class="fa fa-check"></i><b>2</b> LDA basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#motivation-terms-concepts"><i class="fa fa-check"></i><b>2.1</b> Motivation, terms, concepts</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#why-longtiduinal"><i class="fa fa-check"></i><b>2.1.1</b> Why longtiduinal?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#types-of-change-most-common"><i class="fa fa-check"></i><b>2.1.2</b> Types of change (most common)</a></li>
+<li class="chapter" data-level="2.1.3" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#between-person-versus-within-person"><i class="fa fa-check"></i><b>2.1.3</b> Between person versus within person</a></li>
+<li class="chapter" data-level="2.1.4" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#trajectories-curves-change-growth-oh-my"><i class="fa fa-check"></i><b>2.1.4</b> Trajectories, curves, change, growth… oh my</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#data-analysis-and-data-structures"><i class="fa fa-check"></i><b>2.2</b> Data analysis and data structures</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#modeling-frameworks-mlm-sem"><i class="fa fa-check"></i><b>2.2.1</b> Modeling frameworks: MLM &amp; SEM</a></li>
+<li class="chapter" data-level="2.2.2" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#wide-and-long-form"><i class="fa fa-check"></i><b>2.2.2</b> Wide and Long form</a></li>
+<li class="chapter" data-level="2.2.3" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#graphing"><i class="fa fa-check"></i><b>2.2.3</b> Graphing</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#putting-it-together-example"><i class="fa fa-check"></i><b>2.3</b> Putting it together example</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#a-person-level"><i class="fa fa-check"></i><b>2.3.1</b> a person level</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#what-does-this-look-like"><i class="fa fa-check"></i><b>2.4</b> What does this look like?</a></li>
+<li class="chapter" data-level="2.5" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#design-considerations"><i class="fa fa-check"></i><b>2.5</b> Design considerations</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#number-of-assessment-waves"><i class="fa fa-check"></i><b>2.5.1</b> number of assessment waves</a></li>
+<li class="chapter" data-level="2.5.2" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#measuremnt"><i class="fa fa-check"></i><b>2.5.2</b> measuremnt</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#threats-to-validity"><i class="fa fa-check"></i><b>2.6</b> Threats to validity</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#missing-data"><i class="fa fa-check"></i><b>2.6.1</b> Missing data</a></li>
+<li class="chapter" data-level="2.6.2" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#attritionmortality"><i class="fa fa-check"></i><b>2.6.2</b> Attrition/Mortality</a></li>
+<li class="chapter" data-level="2.6.3" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#historycohort"><i class="fa fa-check"></i><b>2.6.3</b> History/cohort</a></li>
+<li class="chapter" data-level="2.6.4" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#maturation"><i class="fa fa-check"></i><b>2.6.4</b> Maturation</a></li>
+<li class="chapter" data-level="2.6.5" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#testing"><i class="fa fa-check"></i><b>2.6.5</b> Testing</a></li>
+<li class="chapter" data-level="2.6.6" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#selection"><i class="fa fa-check"></i><b>2.6.6</b> Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#why-not-rm-anova"><i class="fa fa-check"></i><b>2.7</b> Why not RM ANOVA?</a></li>
+<li class="chapter" data-level="2.8" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#now-you-try"><i class="fa fa-check"></i><b>2.8</b> Now you try</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html"><i class="fa fa-check"></i><b>3</b> Growth curves</a><ul>
+<li class="chapter" data-level="3.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#between-person-models-and-cross-sectional-data"><i class="fa fa-check"></i><b>3.1</b> Between person models and cross sectional data</a></li>
+<li class="chapter" data-level="3.2" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#within-person-models-e.g.-2-level-models"><i class="fa fa-check"></i><b>3.2</b> Within person models e.g., 2-level models</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#thinking-about-random-effects"><i class="fa fa-check"></i><b>3.2.1</b> thinking about random effects</a></li>
+<li class="chapter" data-level="3.2.2" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#random-effects"><i class="fa fa-check"></i><b>3.2.2</b> random effects</a></li>
+<li class="chapter" data-level="3.2.3" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#empty-model-equation"><i class="fa fa-check"></i><b>3.2.3</b> Empty model equation</a></li>
+<li class="chapter" data-level="3.2.4" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#putting-it-together"><i class="fa fa-check"></i><b>3.2.4</b> Putting it together</a></li>
+<li class="chapter" data-level="3.2.5" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#empty-model"><i class="fa fa-check"></i><b>3.2.5</b> Empty model</a></li>
+<li class="chapter" data-level="3.2.6" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#putting-it-together-1"><i class="fa fa-check"></i><b>3.2.6</b> Putting it together</a></li>
+<li class="chapter" data-level="3.2.7" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#icc"><i class="fa fa-check"></i><b>3.2.7</b> ICC</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#adding-time"><i class="fa fa-check"></i><b>3.3</b> Adding time</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#what-does-this-look-like-graphically"><i class="fa fa-check"></i><b>3.3.1</b> What does this look like graphically?</a></li>
+<li class="chapter" data-level="3.3.2" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#adding-a-random-slope"><i class="fa fa-check"></i><b>3.3.2</b> Adding a random slope?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#individaul-level-random-effects"><i class="fa fa-check"></i><b>3.4</b> Individaul level random effects</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#calculation-of-individaul-level-random-effects"><i class="fa fa-check"></i><b>3.4.1</b> Calculation of individaul level random effects</a></li>
+<li class="chapter" data-level="3.4.2" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#how-are-these-random-effects-calculated"><i class="fa fa-check"></i><b>3.4.2</b> How are these random effects calculated?</a></li>
+<li class="chapter" data-level="3.4.3" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#random-effects-and-residual-standard-assumptions"><i class="fa fa-check"></i><b>3.4.3</b> random effects and residual (standard) assumptions</a></li>
+<li class="chapter" data-level="3.4.4" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#random-effect-decomposition"><i class="fa fa-check"></i><b>3.4.4</b> Random effect decomposition</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#working-with-models-in-r"><i class="fa fa-check"></i><b>3.5</b> working with models in R</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#basic-lmer-code"><i class="fa fa-check"></i><b>3.5.1</b> basic lmer code</a></li>
+<li class="chapter" data-level="3.5.2" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#example"><i class="fa fa-check"></i><b>3.5.2</b> Example</a></li>
+<li class="chapter" data-level="3.5.3" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#how-to-calculate-icc"><i class="fa fa-check"></i><b>3.5.3</b> How to calculate ICC?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#exploring-beyond-the-summary"><i class="fa fa-check"></i><b>3.6</b> Exploring beyond the summary</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#what-do-the-random-effects-look-like"><i class="fa fa-check"></i><b>3.6.1</b> what do the random effects look like?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#adding-time-to-the-mlm"><i class="fa fa-check"></i><b>3.7</b> Adding time to the MLM</a><ul>
+<li class="chapter" data-level="3.7.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#fixed-slope"><i class="fa fa-check"></i><b>3.7.1</b> fixed slope</a></li>
+<li class="chapter" data-level="3.7.2" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#random-slope"><i class="fa fa-check"></i><b>3.7.2</b> Random slope</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#random-effects-1"><i class="fa fa-check"></i><b>3.8</b> Random effects</a><ul>
+<li class="chapter" data-level="3.8.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#calcualtion-of-random-effect-confidence-interval"><i class="fa fa-check"></i><b>3.8.1</b> Calcualtion of random effect confidence interval</a></li>
+<li class="chapter" data-level="3.8.2" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#individaul-level-random-effects-1"><i class="fa fa-check"></i><b>3.8.2</b> Individaul level random effects</a></li>
+<li class="chapter" data-level="3.8.3" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#adding-time-1"><i class="fa fa-check"></i><b>3.8.3</b> adding time</a></li>
+<li class="chapter" data-level="3.8.4" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#caterpillar-plots"><i class="fa fa-check"></i><b>3.8.4</b> caterpillar plots</a></li>
+<li class="chapter" data-level="3.8.5" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#density-of-individaul-random-effects"><i class="fa fa-check"></i><b>3.8.5</b> Density of individaul random effects</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#comparing-to-a-standard-linear-model"><i class="fa fa-check"></i><b>3.9</b> comparing to a standard linear model</a></li>
+<li class="chapter" data-level="3.10" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#other-types-of-models"><i class="fa fa-check"></i><b>3.10</b> Other types of models</a></li>
+<li class="chapter" data-level="3.11" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#matrix-notation-as-a-way-to-help-understand-what-is-going-on"><i class="fa fa-check"></i><b>3.11</b> Matrix notation (as a way to help understand what is going on)</a></li>
+<li class="chapter" data-level="3.12" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#estimation"><i class="fa fa-check"></i><b>3.12</b> Estimation</a></li>
+<li class="chapter" data-level="3.13" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#testing-significance-adapted-from-ben-bolker"><i class="fa fa-check"></i><b>3.13</b> Testing significance (adapted from Ben Bolker)</a><ul>
+<li class="chapter" data-level="3.13.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#p-values-are-not-included"><i class="fa fa-check"></i><b>3.13.1</b> P values are not included</a></li>
+<li class="chapter" data-level="3.13.2" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#likelhiood-ratio-test"><i class="fa fa-check"></i><b>3.13.2</b> Likelhiood ratio test</a></li>
+<li class="chapter" data-level="3.13.3" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#likelihood-tests-for-random-effects"><i class="fa fa-check"></i><b>3.13.3</b> Likelihood tests for random effects</a></li>
+<li class="chapter" data-level="3.13.4" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#aic-and-bic"><i class="fa fa-check"></i><b>3.13.4</b> AIC and BIC</a></li>
+<li class="chapter" data-level="3.13.5" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#mcmc"><i class="fa fa-check"></i><b>3.13.5</b> MCMC</a></li>
+<li class="chapter" data-level="3.13.6" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#bootstraps"><i class="fa fa-check"></i><b>3.13.6</b> Bootstraps</a></li>
+</ul></li>
+<li class="chapter" data-level="3.14" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#predictions-and-prediction-intervals"><i class="fa fa-check"></i><b>3.14</b> Predictions and prediction intervals</a><ul>
+<li class="chapter" data-level="3.14.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#predictions-and-prediction-intervals-1"><i class="fa fa-check"></i><b>3.14.1</b> Predictions and prediction intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="3.15" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#coefficient-of-determination-equivalents"><i class="fa fa-check"></i><b>3.15</b> Coefficient of determination equivalents</a><ul>
+<li class="chapter" data-level="3.15.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#batch-analyses"><i class="fa fa-check"></i><b>3.15.1</b> batch analyses</a></li>
+</ul></li>
+<li class="chapter" data-level="3.16" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#now-you-try-1"><i class="fa fa-check"></i><b>3.16</b> Now you try:</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="04-conditional.html"><a href="04-conditional.html"><i class="fa fa-check"></i><b>4</b> Conditional Predictors in growth models</a><ul>
+<li class="chapter" data-level="4.1" data-path="04-conditional.html"><a href="04-conditional.html#intercept-effects"><i class="fa fa-check"></i><b>4.1</b> Intercept effects</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="04-conditional.html"><a href="04-conditional.html#seperatinng-these-into-intercept-and-slope"><i class="fa fa-check"></i><b>4.1.1</b> Seperatinng these into intercept and slope</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="04-conditional.html"><a href="04-conditional.html#slope-and-intercept-effects"><i class="fa fa-check"></i><b>4.2</b> Slope and Intercept effects</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="04-conditional.html"><a href="04-conditional.html#equations-necessary-for-plotting"><i class="fa fa-check"></i><b>4.2.1</b> Equations necessary for plotting</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="04-conditional.html"><a href="04-conditional.html#need-for-thinking-about-scaling-your-predictors"><i class="fa fa-check"></i><b>4.3</b> Need for thinking about scaling your predictors</a></li>
+<li class="chapter" data-level="4.4" data-path="04-conditional.html"><a href="04-conditional.html#time-varying-covariates-tvcs"><i class="fa fa-check"></i><b>4.4</b> Time-varying covariates (TVCs)</a></li>
+<li class="chapter" data-level="4.5" data-path="04-conditional.html"><a href="04-conditional.html#now-you-try-2"><i class="fa fa-check"></i><b>4.5</b> Now you try</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="05-poly-splines.html"><a href="05-poly-splines.html"><i class="fa fa-check"></i><b>5</b> Polynomial and Splines</a><ul>
+<li class="chapter" data-level="5.1" data-path="05-poly-splines.html"><a href="05-poly-splines.html#polynomaials"><i class="fa fa-check"></i><b>5.1</b> Polynomaials</a></li>
+<li class="chapter" data-level="5.2" data-path="05-poly-splines.html"><a href="05-poly-splines.html#polynomial-example"><i class="fa fa-check"></i><b>5.2</b> polynomial example</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="05-poly-splines.html"><a href="05-poly-splines.html#importance-of-centering"><i class="fa fa-check"></i><b>5.2.1</b> importance of centering</a></li>
+<li class="chapter" data-level="5.2.2" data-path="05-poly-splines.html"><a href="05-poly-splines.html#random-terms"><i class="fa fa-check"></i><b>5.2.2</b> random terms</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="05-poly-splines.html"><a href="05-poly-splines.html#splines-aka-piecewise"><i class="fa fa-check"></i><b>5.3</b> Splines aka piecewise</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="05-poly-splines.html"><a href="05-poly-splines.html#seperate-curves"><i class="fa fa-check"></i><b>5.3.1</b> seperate curves</a></li>
+<li class="chapter" data-level="5.3.2" data-path="05-poly-splines.html"><a href="05-poly-splines.html#splines-polynomail-polynomial-piecewise"><i class="fa fa-check"></i><b>5.3.2</b> splines + polynomail = polynomial piecewise</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li>Applied Longitudinal Data Analysis</li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applied Longitudinal Data Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="polynomial-and-splines" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Polynomial and Splines</h1>
+<div id="polynomaials" class="section level2">
+<h2><span class="header-section-number">5.1</span> Polynomaials</h2>
+<p>level 1: <span class="math display">\[ {Y}_{ij} = \beta_{0j}  + \beta_{1j}(Time_{ij} - \bar{X)} + \beta_{2j}(Time_{ij} - \bar{X)}^2 + \varepsilon_{ij} \]</span></p>
+<p>Level 2: <span class="math display">\[ {\beta}_{0j} = \gamma_{00} +   U_{0j}\]</span><br />
+<span class="math display">\[ {\beta}_{1j} = \gamma_{10} +  U_{1j} \]</span> <span class="math display">\[ {\beta}_{2j} = \gamma_{20} +  U_{2j} \]</span></p>
+</div>
+<div id="polynomial-example" class="section level2">
+<h2><span class="header-section-number">5.2</span> polynomial example</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())
+
+<span class="kw">library</span>(readr)
+cdrs &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;~/Box Sync/5165 Applied Longitudinal Data Analysis/Longitudinal/cdrs.csv&quot;</span>)</code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   mapid = col_integer(),
+##   exclude = col_character(),
+##   cdr = col_double(),
+##   testdate = col_integer()
+## )</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">personality &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;~/Box Sync/5165 Applied Longitudinal Data Analysis/Longitudinal/Subject_personality.csv&quot;</span>)</code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   mapid = col_integer(),
+##   age = col_integer(),
+##   neodate = col_integer(),
+##   neuroticism = col_integer(),
+##   extraversion = col_integer(),
+##   openness = col_integer(),
+##   agreeablness = col_integer(),
+##   conscientiousness = col_integer(),
+##   gender = col_character()
+## )</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+gg1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(personality,
+   <span class="kw">aes</span>(<span class="dt">x =</span> neodate, <span class="dt">y =</span> neuroticism, <span class="dt">group =</span> mapid)) +<span class="st"> </span><span class="kw">geom_line</span>()  
+gg1</code></pre></div>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_path).</code></pre>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse) 
+personality&lt;-<span class="st"> </span>personality %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(mapid) %&gt;%
+<span class="st">  </span><span class="kw">arrange</span>(neodate) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">wave =</span> <span class="kw">seq_len</span>(<span class="kw">n</span>())) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(personality,
+   <span class="kw">aes</span>(<span class="dt">x =</span> wave, <span class="dt">y =</span> neuroticism, <span class="dt">group =</span> mapid)) +<span class="st"> </span><span class="kw">geom_line</span>()  
+gg2</code></pre></div>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">personality$neodate &lt;-<span class="st"> </span><span class="kw">as.Date</span>(personality$neodate, <span class="dt">origin =</span> <span class="st">&quot;1900-01-01&quot;</span>)</code></pre></div>
+<pre><code>## Warning in strptime(xx, f &lt;- &quot;%Y-%m-%d&quot;, tz = &quot;GMT&quot;): unknown timezone
+## &#39;default/America/Chicago&#39;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg3 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(personality,
+   <span class="kw">aes</span>(<span class="dt">x =</span> neodate, <span class="dt">y =</span> neuroticism, <span class="dt">group =</span> mapid)) +<span class="st"> </span><span class="kw">geom_line</span>()  
+gg3</code></pre></div>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_path).</code></pre>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## convert to days from first assessment
+
+personality.wide &lt;-<span class="st"> </span>personality %&gt;%<span class="st"> </span>
+<span class="st">  </span>dplyr::<span class="kw">select</span>(mapid, wave, neodate) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">spread</span>(wave, neodate) 
+
+personality.wide$wave_1 &lt;-<span class="st"> </span>personality.wide$<span class="st">&#39;1&#39;</span>
+personality.wide$wave_2 &lt;-<span class="st"> </span>personality.wide$<span class="st">&#39;2&#39;</span>
+personality.wide$wave_3 &lt;-<span class="st"> </span>personality.wide$<span class="st">&#39;3&#39;</span>
+personality.wide$wave_4 &lt;-<span class="st"> </span>personality.wide$<span class="st">&#39;4&#39;</span>
+personality.wide$wave_5 &lt;-<span class="st"> </span>personality.wide$<span class="st">&#39;5&#39;</span>
+
+personality.wide &lt;-<span class="st"> </span>personality.wide %&gt;%<span class="st"> </span>
+<span class="kw">mutate</span> (<span class="dt">w_1 =</span> (wave_1 -<span class="st"> </span>wave_1)/<span class="dv">365</span>,
+          <span class="dt">w_2 =</span> (wave_2 -<span class="st"> </span>wave_1)/<span class="dv">365</span>,
+          <span class="dt">w_3 =</span> (wave_3 -<span class="st"> </span>wave_1)/<span class="dv">365</span>,
+          <span class="dt">w_4 =</span> (wave_4 -<span class="st"> </span>wave_1)/<span class="dv">365</span>,
+        <span class="dt">w_5 =</span> (wave_5 -<span class="st"> </span>wave_1)/<span class="dv">365</span>)
+
+personality.long &lt;-<span class="st"> </span>personality.wide %&gt;%<span class="st"> </span>
+<span class="st">  </span>dplyr::<span class="kw">select</span>(mapid, w_1:w_5) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(wave, year, -mapid) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">separate</span>(wave, <span class="kw">c</span>(<span class="st">&#39;weeks&#39;</span>, <span class="st">&#39;wave&#39;</span> ), <span class="dt">sep=</span><span class="st">&quot;_&quot;</span>) %&gt;%<span class="st"> </span>
+<span class="st"> </span>dplyr::<span class="kw">select</span>(-weeks) 
+
+personality.long$wave &lt;-<span class="st">  </span><span class="kw">as.numeric</span>(personality.long$wave)
+
+
+personality &lt;-<span class="st"> </span>personality %&gt;%<span class="st"> </span>
+<span class="st">   </span><span class="kw">left_join</span>(personality.long, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&#39;mapid&#39;</span>, <span class="st">&#39;wave&#39;</span> )) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg4 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(personality,
+   <span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> neuroticism, <span class="dt">group =</span> mapid)) +<span class="st"> </span><span class="kw">geom_line</span>()  
+gg4</code></pre></div>
+<pre><code>## Don&#39;t know how to automatically pick scale for object of type difftime. Defaulting to continuous.</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_path).</code></pre>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lme4)
+
+p1 &lt;-<span class="st"> </span><span class="kw">lmer</span>(neuroticism ~<span class="st"> </span>year +<span class="st"> </span>(<span class="dv">1</span> |<span class="st"> </span>mapid), <span class="dt">data=</span>personality)
+<span class="kw">summary</span>(p1)</code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: neuroticism ~ year + (1 | mapid)
+##    Data: personality
+## 
+## REML criterion at convergence: 13657.4
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.7877 -0.4675 -0.0227  0.4289  3.3166 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  mapid    (Intercept) 42.16    6.493   
+##  Residual             15.65    3.956   
+## Number of obs: 2105, groups:  mapid, 1090
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept) 16.05632    0.22577   71.12
+## year        -0.13204    0.03247   -4.07
+## 
+## Correlation of Fixed Effects:
+##      (Intr)
+## year -0.247</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lme4)
+personality.s &lt;-<span class="st"> </span>personality %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(mapid) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">tally</span>() %&gt;%<span class="st"> </span>
+<span class="st">   </span><span class="kw">filter</span>(n &gt;=<span class="dv">2</span>) 
+
+ personality &lt;-<span class="st"> </span>personality %&gt;%<span class="st"> </span>
+<span class="st">   </span><span class="kw">filter</span>(mapid %in%<span class="st"> </span>personality.s$mapid)
+
+p2 &lt;-<span class="st"> </span><span class="kw">lmer</span>(neuroticism ~<span class="st"> </span>year +<span class="st"> </span>(<span class="dv">1</span> |<span class="st"> </span>mapid), <span class="dt">data=</span>personality)
+<span class="kw">summary</span>(p2)</code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: neuroticism ~ year + (1 | mapid)
+##    Data: personality
+## 
+## REML criterion at convergence: 10396.9
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.7542 -0.5122 -0.0282  0.4698  3.3369 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  mapid    (Intercept) 40.92    6.397   
+##  Residual             15.61    3.950   
+## Number of obs: 1635, groups:  mapid, 620
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)  15.3797     0.2915   52.76
+## year         -0.1083     0.0331   -3.27
+## 
+## Correlation of Fixed Effects:
+##      (Intr)
+## year -0.320</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p3 &lt;-<span class="st"> </span><span class="kw">lmer</span>(neuroticism ~<span class="st"> </span>year +<span class="st"> </span>(year |<span class="st"> </span>mapid), <span class="dt">data=</span>personality)
+<span class="kw">summary</span>(p3)</code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: neuroticism ~ year + (year | mapid)
+##    Data: personality
+## 
+## REML criterion at convergence: 10389.2
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.7438 -0.4825 -0.0305  0.4443  3.3453 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev. Corr 
+##  mapid    (Intercept) 41.68558 6.4564        
+##           year         0.09824 0.3134   -0.10
+##  Residual             14.25791 3.7760        
+## Number of obs: 1635, groups:  mapid, 620
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept) 15.37238    0.29135   52.76
+## year        -0.10272    0.03602   -2.85
+## 
+## Correlation of Fixed Effects:
+##      (Intr)
+## year -0.317</code></pre>
+<div id="importance-of-centering" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> importance of centering</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">personality$year &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(personality$year)
+  
+p4 &lt;-<span class="st"> </span><span class="kw">lmer</span>(neuroticism ~<span class="st"> </span>year +<span class="st"> </span><span class="kw">I</span>(year^<span class="dv">2</span>) +<span class="st"> </span>(year |<span class="st"> </span>mapid), <span class="dt">data=</span>personality)
+<span class="kw">summary</span>(p4)</code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: neuroticism ~ year + I(year^2) + (year | mapid)
+##    Data: personality
+## 
+## REML criterion at convergence: 10395.8
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.7663 -0.4836 -0.0251  0.4422  3.3258 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev. Corr 
+##  mapid    (Intercept) 41.72924 6.4598        
+##           year         0.09815 0.3133   -0.10
+##  Residual             14.26218 3.7765        
+## Number of obs: 1635, groups:  mapid, 620
+## 
+## Fixed effects:
+##              Estimate Std. Error t value
+## (Intercept) 15.324317   0.297094   51.58
+## year        -0.031791   0.092091   -0.35
+## I(year^2)   -0.008789   0.010490   -0.84
+## 
+## Correlation of Fixed Effects:
+##           (Intr) year  
+## year      -0.300       
+## I(year^2)  0.194 -0.920</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># woah, how do I interpret this? WHy all of a sudden non-sig? </span>
+<span class="co"># what would happen if I changed my time metric? </span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(psych)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;psych&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:merTools&#39;:
+## 
+##     ICC</code></pre>
+<pre><code>## The following objects are masked from &#39;package:arm&#39;:
+## 
+##     logit, rescale, sim</code></pre>
+<pre><code>## The following objects are masked from &#39;package:ggplot2&#39;:
+## 
+##     %+%, alpha</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">describe</span>(personality$year)</code></pre></div>
+<pre><code>##    vars    n mean   sd median trimmed  mad min   max range skew kurtosis
+## X1    1 1635  3.1 3.29   2.45    2.66 3.63   0 12.78 12.78  0.8    -0.41
+##      se
+## X1 0.08</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">personality$year.c &lt;-<span class="st"> </span>personality$year -<span class="st"> </span><span class="fl">3.1</span>
+
+p5 &lt;-<span class="st"> </span><span class="kw">lmer</span>(neuroticism ~<span class="st"> </span>year.c +<span class="st"> </span><span class="kw">I</span>(year.c^<span class="dv">2</span>) +<span class="st"> </span>(year.c |<span class="st"> </span>mapid), <span class="dt">data=</span>personality)
+<span class="kw">summary</span>(p5)</code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: neuroticism ~ year.c + I(year.c^2) + (year.c | mapid)
+##    Data: personality
+## 
+## REML criterion at convergence: 10395.8
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.7663 -0.4836 -0.0251  0.4422  3.3258 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev. Corr
+##  mapid    (Intercept) 41.43047 6.4367       
+##           year.c       0.09815 0.3133   0.05
+##  Residual             14.26218 3.7765       
+## Number of obs: 1635, groups:  mapid, 620
+## 
+## Fixed effects:
+##              Estimate Std. Error t value
+## (Intercept) 15.141299   0.296073   51.14
+## year.c      -0.086285   0.041061   -2.10
+## I(year.c^2) -0.008789   0.010490   -0.84
+## 
+## Correlation of Fixed Effects:
+##             (Intr) year.c
+## year.c       0.226       
+## I(year.c^2) -0.353 -0.480</code></pre>
+</div>
+<div id="random-terms" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> random terms</h3>
+<p>fitting a random slope plus a random quadratic leads to difficulties ie non-congergence. What does this model say?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p6 &lt;-<span class="st"> </span><span class="kw">lmer</span>(neuroticism ~<span class="st"> </span>year +<span class="st"> </span><span class="kw">I</span>(year^<span class="dv">2</span>) +<span class="st"> </span>( <span class="kw">I</span>(year^<span class="dv">2</span>) |<span class="st"> </span>mapid), <span class="dt">data=</span>personality)</code></pre></div>
+<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, : Model is nearly unidentifiable: very large eigenvalue
+##  - Rescale variables?</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(p6)</code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: neuroticism ~ year + I(year^2) + (I(year^2) | mapid)
+##    Data: personality
+## 
+## REML criterion at convergence: 10398.9
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.7737 -0.4938 -0.0201  0.4526  3.3479 
+## 
+## Random effects:
+##  Groups   Name        Variance  Std.Dev. Corr
+##  mapid    (Intercept) 4.078e+01 6.38611      
+##           I(year^2)   4.854e-04 0.02203  0.02
+##  Residual             1.506e+01 3.88052      
+## Number of obs: 1635, groups:  mapid, 620
+## 
+## Fixed effects:
+##              Estimate Std. Error t value
+## (Intercept) 15.321512   0.296443   51.68
+## year        -0.026969   0.093406   -0.29
+## I(year^2)   -0.009489   0.010731   -0.88
+## 
+## Correlation of Fixed Effects:
+##           (Intr) year  
+## year      -0.300       
+## I(year^2)  0.202 -0.928
+## convergence code: 0
+## Model is nearly unidentifiable: very large eigenvalue
+##  - Rescale variables?</code></pre>
+</div>
+</div>
+<div id="splines-aka-piecewise" class="section level2">
+<h2><span class="header-section-number">5.3</span> Splines aka piecewise</h2>
+<p>Fit more than 1 trajectory. Best to use when we have a reason for a qualitative difference at some identified time point. For example, before your health event you may have a different trajectory than after it and thus you would want to model two seperate trajectories. Splines allow you to do this in a single model. You can do this in simple regression and the logic follows for growth models.</p>
+<p>We simply replace time with dummy variables that represent different segments we wish to model. The point of separation is called a knot. You can have as many as you want and these can be pre-specified (usually for our case) or in more advanced treatments have the data specify it for you.</p>
+<div id="seperate-curves" class="section level3">
+<h3><span class="header-section-number">5.3.1</span> seperate curves</h3>
+<p>The most common is to create different trajectories that change across knots. The easiest example is to take your time variable and transform it into a Time1 and time2, that represent the different time periods. This is easiest to see if we choose our wave variable as our time metric, though you do not have to necessarily do it this way.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t1 &lt;-<span class="st"> </span><span class="kw">tribble</span>(
+  ~time, ~t0, ~t1,~t2,~t3,~t4,~t5,
+  <span class="st">&quot;time 1&quot;</span>, <span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,
+  <span class="st">&quot;time 2&quot;</span>, <span class="dv">0</span>, <span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>
+)
+t1</code></pre></div>
+<pre><code>## # A tibble: 2 x 7
+##     time    t0    t1    t2    t3    t4    t5
+##    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 time 1     0     1     2     2     2     2
+## 2 time 2     0     0     0     1     2     3</code></pre>
+<p>The idea is that once you hit the knot your value stays the same. Same logic for the second knot, until you get to that knot you dont have a trajectory.</p>
+<p>This can be contrasted with a different type of coding, called incremental. Here the first trajectory keeps going, whereas the second trajectory starts at the position of the knot.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t2 &lt;-<span class="st"> </span><span class="kw">tribble</span>(
+  ~time, ~t0, ~t1,~t2,~t3,~t4,~t5,
+  <span class="st">&quot;time 1&quot;</span>, <span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,
+  <span class="st">&quot;time 2&quot;</span>, <span class="dv">0</span>, <span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>
+)
+t2</code></pre></div>
+<pre><code>## # A tibble: 2 x 7
+##     time    t0    t1    t2    t3    t4    t5
+##    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 time 1     0     1     2     3     4     5
+## 2 time 2     0     0     0     1     2     3</code></pre>
+<p>The two coding schemes propose the same type of trajectoy, the only thing that differes is the interpretation of the coefficients.</p>
+<p>In the first, the two slope coefficients represent the actual slope in the respective time period.</p>
+<p>In the second, the coefficient for time 2 represents the deviation from the slope in period 1. The positive of this second method is you can easily test whether these two slopes are different from one another.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">personality$time1 &lt;-<span class="st"> </span><span class="kw">recode</span>(personality$wave, <span class="st">&#39;1&#39;</span> =<span class="st"> </span><span class="dv">0</span> , <span class="st">&#39;2&#39;</span> =<span class="st"> </span><span class="dv">1</span>,  <span class="st">&#39;3&#39;</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">&#39;4&#39;</span> =<span class="st"> </span><span class="dv">1</span>,<span class="st">&#39;5&#39;</span> =<span class="st"> </span><span class="dv">1</span>)      
+personality$time2 &lt;-<span class="st"> </span><span class="kw">recode</span>(personality$wave, <span class="st">&#39;1&#39;</span> =<span class="st"> </span><span class="dv">0</span> , <span class="st">&#39;2&#39;</span> =<span class="st"> </span><span class="dv">0</span>,  <span class="st">&#39;3&#39;</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">&#39;4&#39;</span> =<span class="st"> </span><span class="dv">2</span>,<span class="st">&#39;5&#39;</span> =<span class="st"> </span><span class="dv">3</span>) </code></pre></div>
+<p>level 1:</p>
+<p><span class="math display">\[ {Y}_{ij} = \beta_{0j}  + \beta_{1j}Time1_{ij}} + \beta_{2j}Time2_{ij} + \varepsilon_{ij} \]</span></p>
+<p>Level 2: <span class="math display">\[ {\beta}_{0j} = \gamma_{00} +  U_{0j} \]</span></p>
+<p><span class="math display">\[ {\beta}_{1j} = \gamma_{10} +  U_{1j} \]</span> <span class="math display">\[ {\beta}_{2j} = \gamma_{20} +  U_{2j} \]</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p7 &lt;-<span class="st"> </span><span class="kw">lmer</span>(conscientiousness ~<span class="st"> </span>time1 +<span class="st"> </span>time2 +<span class="st"> </span>(time1   |<span class="st"> </span>mapid) , <span class="dt">data=</span>personality)
+<span class="kw">summary</span>(p7)</code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: conscientiousness ~ time1 + time2 + (time1 | mapid)
+##    Data: personality
+## 
+## REML criterion at convergence: 10003.8
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -5.2557 -0.4068  0.0272  0.4304  4.5853 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev. Corr 
+##  mapid    (Intercept) 32.98    5.743         
+##           time1        4.73    2.175    -0.13
+##  Residual             10.70    3.271         
+## Number of obs: 1635, groups:  mapid, 620
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)  34.1871     0.2654  128.80
+## time1        -0.5365     0.2018   -2.66
+## time2         0.2184     0.1561    1.40
+## 
+## Correlation of Fixed Effects:
+##       (Intr) time1 
+## time1 -0.370       
+## time2  0.000 -0.301</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg5 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(personality, <span class="kw">aes</span>(<span class="dt">x =</span> wave, <span class="dt">y =</span> conscientiousness, <span class="dt">group =</span> mapid)) +<span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method =</span> <span class="st">&#39;lm&#39;</span>, <span class="dt">formula =</span> y ~<span class="st"> </span><span class="kw">poly</span>(x,<span class="dv">2</span>, <span class="dt">raw =</span> <span class="ot">TRUE</span>),<span class="dt">data =</span> personality, <span class="kw">aes</span>(<span class="dt">x =</span> wave, <span class="dt">y =</span> conscientiousness, <span class="dt">group=</span><span class="dv">1</span>)) +<span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">40</span>))
+gg5</code></pre></div>
+<pre><code>## Warning: Removed 609 rows containing non-finite values (stat_smooth).</code></pre>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
+</div>
+<div id="splines-polynomail-polynomial-piecewise" class="section level3">
+<h3><span class="header-section-number">5.3.2</span> splines + polynomail = polynomial piecewise</h3>
+<p><span class="math display">\[ {Y}_{ij} = \beta_{0j}  + \beta_{1j}Time1_{ij} +  \beta_{2j}Time1_{ij}^2 + \beta_{3j}Time2_{ij} + \varepsilon_{ij} \]</span></p>
+<p>Level 2: <span class="math display">\[ {\beta}_{0j} = \gamma_{00} +  U_{0j} \]</span></p>
+<p><span class="math display">\[ {\beta}_{1j} = \gamma_{10} +  U_{1j} \]</span> <span class="math display">\[ {\beta}_{2j} = \gamma_{20} +  U_{2j} \]</span> <span class="math display">\[ {\beta}_{3j} = \gamma_{30} +  U_{3j}\]</span></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="04-conditional.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

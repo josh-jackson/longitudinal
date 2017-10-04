@@ -27,6 +27,7 @@ $$ {R}_{ij} \sim \mathcal{N}(0, \sigma^{2})  $$
 ### Seperatinng these into intercept and slope
 
   $$ {Y}_{ij} = [\gamma_{00} + \gamma_{01}G_{j}+ U_{0j}]  + [(\gamma_{10}  + U_{1j})(Time_{ij})] + \varepsilon_{ij} $$
+  
 
 Understanding how to re-write the equation will help for calculating estimated scores for your predictors in addition to being able to interpret the coefficients.
 

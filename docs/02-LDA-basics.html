@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Applied Longitudinal Data Analysis</title>
   <meta name="description" content="Applied Longitudinal Data Analysis">
-  <meta name="generator" content="bookdown 0.4.1 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Applied Longitudinal Data Analysis" />
   <meta property="og:type" content="book" />
@@ -204,6 +204,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.3" data-path="04-conditional.html"><a href="04-conditional.html#need-for-thinking-about-scaling-your-predictors"><i class="fa fa-check"></i><b>4.3</b> Need for thinking about scaling your predictors</a></li>
 <li class="chapter" data-level="4.4" data-path="04-conditional.html"><a href="04-conditional.html#time-varying-covariates-tvcs"><i class="fa fa-check"></i><b>4.4</b> Time-varying covariates (TVCs)</a></li>
 <li class="chapter" data-level="4.5" data-path="04-conditional.html"><a href="04-conditional.html#now-you-try-2"><i class="fa fa-check"></i><b>4.5</b> Now you try</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="05-poly-splines.html"><a href="05-poly-splines.html"><i class="fa fa-check"></i><b>5</b> Polynomial and Splines</a><ul>
+<li class="chapter" data-level="5.1" data-path="05-poly-splines.html"><a href="05-poly-splines.html#polynomaials"><i class="fa fa-check"></i><b>5.1</b> Polynomaials</a></li>
+<li class="chapter" data-level="5.2" data-path="05-poly-splines.html"><a href="05-poly-splines.html#polynomial-example"><i class="fa fa-check"></i><b>5.2</b> polynomial example</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="05-poly-splines.html"><a href="05-poly-splines.html#importance-of-centering"><i class="fa fa-check"></i><b>5.2.1</b> importance of centering</a></li>
+<li class="chapter" data-level="5.2.2" data-path="05-poly-splines.html"><a href="05-poly-splines.html#random-terms"><i class="fa fa-check"></i><b>5.2.2</b> random terms</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="05-poly-splines.html"><a href="05-poly-splines.html#splines-aka-piecewise"><i class="fa fa-check"></i><b>5.3</b> Splines aka piecewise</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="05-poly-splines.html"><a href="05-poly-splines.html#seperate-curves"><i class="fa fa-check"></i><b>5.3.1</b> seperate curves</a></li>
+<li class="chapter" data-level="5.3.2" data-path="05-poly-splines.html"><a href="05-poly-splines.html#splines-polynomail-polynomial-piecewise"><i class="fa fa-check"></i><b>5.3.2</b> splines + polynomail = polynomial piecewise</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li>Applied Longitudinal Data Analysis</li>
@@ -493,6 +504,19 @@ gg8</code></pre></div>
 <pre><code>## Warning: Removed 9 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>## Warning: Removed 9 rows containing missing values (geom_point).</code></pre>
 <p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg9 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(example, <span class="kw">aes</span>(<span class="dt">x =</span> week, <span class="dt">y =</span> SMN7, <span class="dt">group =</span> ID)) +<span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.05</span>) +<span class="st"> </span><span class="kw">stat_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)   
+
+gg10 &lt;-<span class="st"> </span>gg9 +<span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">data =</span> example, <span class="kw">aes</span>(<span class="dt">x =</span> week, <span class="dt">y =</span> SMN7, <span class="dt">group=</span><span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>) +<span class="st"> </span><span class="kw">guides</span>(<span class="dt">fill=</span><span class="ot">FALSE</span>)
+
+
+gg11 &lt;-<span class="st"> </span>gg10 +<span class="st"> </span><span class="kw">facet_grid</span>(.~<span class="st"> </span>group) +<span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)
+
+gg11</code></pre></div>
+<pre><code>## Warning: Removed 9 rows containing non-finite values (stat_smooth).
+
+## Warning: Removed 9 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 9 rows containing missing values (geom_point).</code></pre>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 </div>
 </div>
 <div id="what-does-this-look-like" class="section level2">

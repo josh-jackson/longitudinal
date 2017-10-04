@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Applied Longitudinal Data Analysis</title>
   <meta name="description" content="Applied Longitudinal Data Analysis">
-  <meta name="generator" content="bookdown 0.4.1 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Applied Longitudinal Data Analysis" />
   <meta property="og:type" content="book" />
@@ -205,6 +205,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.4" data-path="04-conditional.html"><a href="04-conditional.html#time-varying-covariates-tvcs"><i class="fa fa-check"></i><b>4.4</b> Time-varying covariates (TVCs)</a></li>
 <li class="chapter" data-level="4.5" data-path="04-conditional.html"><a href="04-conditional.html#now-you-try-2"><i class="fa fa-check"></i><b>4.5</b> Now you try</a></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="05-poly-splines.html"><a href="05-poly-splines.html"><i class="fa fa-check"></i><b>5</b> Polynomial and Splines</a><ul>
+<li class="chapter" data-level="5.1" data-path="05-poly-splines.html"><a href="05-poly-splines.html#polynomaials"><i class="fa fa-check"></i><b>5.1</b> Polynomaials</a></li>
+<li class="chapter" data-level="5.2" data-path="05-poly-splines.html"><a href="05-poly-splines.html#polynomial-example"><i class="fa fa-check"></i><b>5.2</b> polynomial example</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="05-poly-splines.html"><a href="05-poly-splines.html#importance-of-centering"><i class="fa fa-check"></i><b>5.2.1</b> importance of centering</a></li>
+<li class="chapter" data-level="5.2.2" data-path="05-poly-splines.html"><a href="05-poly-splines.html#random-terms"><i class="fa fa-check"></i><b>5.2.2</b> random terms</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="05-poly-splines.html"><a href="05-poly-splines.html#splines-aka-piecewise"><i class="fa fa-check"></i><b>5.3</b> Splines aka piecewise</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="05-poly-splines.html"><a href="05-poly-splines.html#seperate-curves"><i class="fa fa-check"></i><b>5.3.1</b> seperate curves</a></li>
+<li class="chapter" data-level="5.3.2" data-path="05-poly-splines.html"><a href="05-poly-splines.html#splines-polynomail-polynomial-piecewise"><i class="fa fa-check"></i><b>5.3.2</b> splines + polynomail = polynomial piecewise</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li>Applied Longitudinal Data Analysis</li>
 
@@ -243,7 +254,7 @@ example$ID &lt;-<span class="st"> </span><span class="kw">as.factor</span>(examp
 gg1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(example,
    <span class="kw">aes</span>(<span class="dt">x =</span> week, <span class="dt">y =</span> SMN7)) +<span class="st"> </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">stat_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)   
 <span class="kw">print</span>(gg1)</code></pre></div>
-<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>What happens if we run a regression?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">regression &lt;-<span class="st"> </span><span class="kw">lm</span>(SMN7 ~<span class="st"> </span>week, <span class="dt">data =</span> example)
 <span class="kw">summary</span>(regression)</code></pre></div>
@@ -275,7 +286,7 @@ gg2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(example,
 
 gg3 &lt;-<span class="st"> </span>gg2 +<span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">data =</span> example, <span class="kw">aes</span>(<span class="dt">x =</span> week, <span class="dt">y =</span> SMN7, <span class="dt">group=</span><span class="dv">1</span>, <span class="dt">colour=</span><span class="st">&quot;#990000&quot;</span>), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">se=</span><span class="ot">FALSE</span>)
 <span class="kw">print</span>(gg3)</code></pre></div>
-<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <p>Each person has multiple assessments, so we now need to distinguish between people and their assessments. Failing to distinguish would lead to violation of independence, an important assumption of the standard regression model.</p>
 <p>As seen in the graph above, what we have now is both individual level slopes as well as an average level slope. The average level slope is going to be the average of the individual level slopes, which will look like our average slope ignoring all dependencies. Same for the intercept.</p>
 <pre><code>## Joining, by = &quot;ID&quot;</code></pre>
@@ -301,7 +312,7 @@ gg3 &lt;-<span class="st"> </span>gg2 +<span class="st">  </span><span class="kw
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg4 &lt;-<span class="st">  </span><span class="kw">ggplot</span>(example3, <span class="kw">aes</span>(<span class="dt">x =</span> week, <span class="dt">y =</span> SMN7, <span class="dt">group =</span> ID)) +<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">stat_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)
 
 gg4</code></pre></div>
-<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <div id="thinking-about-random-effects" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> thinking about random effects</h3>
 </div>
@@ -489,10 +500,14 @@ Both have a mean of zero</p>
 ## [1] &quot;lme4&quot;</code></pre>
 <div id="what-do-the-random-effects-look-like" class="section level3">
 <h3><span class="header-section-number">3.6.1</span> what do the random effects look like?</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sjPlot)
-<span class="kw">sjp.lmer</span>(mod<span class="fl">.1</span>, <span class="dt">facet.grid =</span> <span class="ot">FALSE</span>, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sjPlot)</code></pre></div>
+<pre><code>## Warning in checkMatrixPackageVersion(): Package version inconsistency detected.
+## TMB was built with Matrix version 1.2.10
+## Current Matrix version is 1.2.11
+## Please re-install &#39;TMB&#39; from source or restore original &#39;Matrix&#39; package</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sjp.lmer</span>(mod<span class="fl">.1</span>, <span class="dt">facet.grid =</span> <span class="ot">FALSE</span>, 
           <span class="dt">sort =</span> <span class="st">&quot;sort.all&quot;</span>)</code></pre></div>
-<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <p>Best Linear Unbiased Predictor = BLUP. More on this later.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">ranef</span>(mod<span class="fl">.1</span>))</code></pre></div>
 <pre><code>## $ID
@@ -693,10 +708,13 @@ Both have a mean of zero</p>
 <pre><code>## [1] 0.04724793</code></pre>
 <p>To get residuals and fitted scores</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(broom)
-example.aug&lt;-<span class="st"> </span><span class="kw">augment</span>(mod<span class="fl">.1</span>, <span class="dt">data =</span> example)
-
-
-<span class="co"># .fitted    = predicted values</span>
+example.aug&lt;-<span class="st"> </span><span class="kw">augment</span>(mod<span class="fl">.1</span>, <span class="dt">data =</span> example)</code></pre></div>
+<pre><code>## Warning: Deprecated: please use `purrr::possibly()` instead</code></pre>
+<pre><code>## Warning: Deprecated: please use `purrr::possibly()` instead</code></pre>
+<pre><code>## Warning: Deprecated: please use `purrr::possibly()` instead</code></pre>
+<pre><code>## Warning: Deprecated: please use `purrr::possibly()` instead</code></pre>
+<pre><code>## Warning: Deprecated: please use `purrr::possibly()` instead</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># .fitted    = predicted values</span>
 <span class="co"># .resid    = residuals/errors</span>
 <span class="co"># .fixed     = predicted values with no random effects</span></code></pre></div>
 </div>
@@ -1021,10 +1039,13 @@ mod.2n &lt;-<span class="st"> </span><span class="kw">lmer</span>(SMN7 ~<span cl
 <pre><code>## [1] 0.04724793</code></pre>
 <p>To get residuals and fitted scores</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(broom)
-example.aug&lt;-<span class="st"> </span><span class="kw">augment</span>(mod<span class="fl">.1</span>, <span class="dt">data =</span> example)
-
-
-<span class="co"># .fitted    = predicted values</span>
+example.aug&lt;-<span class="st"> </span><span class="kw">augment</span>(mod<span class="fl">.1</span>, <span class="dt">data =</span> example)</code></pre></div>
+<pre><code>## Warning: Deprecated: please use `purrr::possibly()` instead</code></pre>
+<pre><code>## Warning: Deprecated: please use `purrr::possibly()` instead</code></pre>
+<pre><code>## Warning: Deprecated: please use `purrr::possibly()` instead</code></pre>
+<pre><code>## Warning: Deprecated: please use `purrr::possibly()` instead</code></pre>
+<pre><code>## Warning: Deprecated: please use `purrr::possibly()` instead</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># .fitted    = predicted values</span>
 <span class="co"># .resid    = residuals/errors</span>
 <span class="co"># .fixed     = predicted values with no random effects</span></code></pre></div>
 </div>
@@ -1173,8 +1194,8 @@ example.aug&lt;-<span class="st"> </span><span class="kw">augment</span>(mod<spa
 <pre><code>## Working directory is /Users/jackson/Box Sync/5165 Applied Longitudinal Data Analysis/Longitudinal</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">FEsim</span>(mod<span class="fl">.2</span>)</code></pre></div>
 <pre><code>##          term         mean      median          sd
-## 1 (Intercept) 0.1048108097 0.105014749 0.005606667
-## 2        week 0.0005314116 0.000591776 0.002004276</code></pre>
+## 1 (Intercept) 0.1049237738 0.104749324 0.005445517
+## 2        week 0.0003563293 0.000391386 0.001891124</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">re.sim &lt;-<span class="st"> </span><span class="kw">REsim</span>(mod<span class="fl">.2</span>)
 <span class="kw">head</span>(re.sim)</code></pre></div>
 <pre><code>##   groupFctr groupID        term         mean       median         sd
@@ -1192,7 +1213,7 @@ example.aug&lt;-<span class="st"> </span><span class="kw">augment</span>(mod<spa
 <p>caterpillar plots</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw">plotREsim</span>(re.sim)
 p1</code></pre></div>
-<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
 </div>
 <div id="density-of-individaul-random-effects" class="section level3">
 <h3><span class="header-section-number">3.8.5</span> Density of individaul random effects</h3>
@@ -1201,14 +1222,14 @@ p1</code></pre></div>
 
 <span class="kw">ggplot</span>(p1.gg1, <span class="kw">aes</span>(mean)) +
 <span class="st">  </span><span class="kw">geom_density</span>()</code></pre></div>
-<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1.gg2 &lt;-<span class="st"> </span>re.sim %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(term ==<span class="st"> &quot;week&quot;</span>) 
 
 
 <span class="kw">ggplot</span>(p1.gg2, <span class="kw">aes</span>(mean)) +
 <span class="st">  </span><span class="kw">geom_density</span>()</code></pre></div>
-<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
 </div>
 </div>
 <div id="comparing-to-a-standard-linear-model" class="section level2">
@@ -1670,7 +1691,7 @@ PI &lt;-<span class="st"> </span><span class="kw">predictInterval</span>(<span c
 P.gg</code></pre></div>
 <pre><code>## Warning: Removed 9 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>## Warning: Removed 9 rows containing missing values (geom_point).</code></pre>
-<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
 <p>Can also explicitly simulate new data (rather than rely on another function to do so), which will be useful for power calculations later. In the simulated data, the subject means are different from the means in the original data because simulate samples by-subject random effect values using the variance components in the fitted model.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim<span class="fl">.1</span>&lt;-<span class="st"> </span><span class="kw">simulate</span>(mod<span class="fl">.2</span>)
 <span class="kw">head</span>(sim<span class="fl">.1</span>)</code></pre></div>

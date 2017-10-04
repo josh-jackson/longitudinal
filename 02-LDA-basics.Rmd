@@ -280,6 +280,19 @@ gg8
 ```
 
 
+```{r}
+gg9 <- ggplot(example, aes(x = week, y = SMN7, group = ID)) + geom_point(alpha = 0.05) + stat_smooth(method = "lm", se = FALSE)   
+
+gg10 <- gg9 +  stat_smooth(data = example, aes(x = week, y = SMN7, group=1, color = "black"), method = "lm", size = 2) + guides(fill=FALSE)
+
+
+gg11 <- gg10 + facet_grid(.~ group) + theme(legend.position="none")
+
+gg11
+
+```
+
+
 ## What does this look like? 
 
 A fancy regression equation. That is it. Seriously. 

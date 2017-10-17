@@ -36,11 +36,11 @@ Grading consists of 3 aspects:
 | 5    | 9/28  |  Polynomial, piecewise and spline models   |                      |
 | 6    | 10/05  | Intensive data anlysis/within person fluctuations p1  |                      |
 | 7    | 10/12  | Intensive data anlysis/within person fluctuations p2   |                      |
-| 8    | 10/19   |   Bayesian estimation                             |                      |
-| 9    | 10/26  |    SEM and Latent Grown (curve) Models                  |                      |
-| 10   | 11/2  |  Scaling, MI, and Second order Model                      |                      |
-| 11   | 11/9  |   Multiple group models               |                      |
-| 12   | 11/16   |  Dyadic Models                        |                      |
+| 8    | 10/19   |   SEM and lavaan intro                             |         |
+| 9    | 10/26  | Latent Grown (curve) Models                 |                      |
+| 10   | 11/2  |   MI and Second order Model                     |                      |
+| 11   | 11/9  |    Multiple group models              |                      |
+| 12   | 11/16   |  Biometric Models                        |                      |
 | 13   | 11/23  |  **Tofurkey day**            |                      |
 | 14   | 11/30  |  Flexible SEM models (LCM, STATE-TRAIT; ALT-SR)                                     |                      |
 | 15   | 12/7  |  Mixture Models   |                      |

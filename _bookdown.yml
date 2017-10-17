@@ -2,6 +2,6 @@ book_filename: Applied Longitudinal Data Analysis
 chapter_name: "Chapter "
 repo: https://github.com/josh-jackson/longitudinal
 output_dir: docs
-rmd_files: ["index.Rmd", "01-Syllabus.Rmd", "02-LDA-basics.Rmd", "03-Growth-curves.Rmd", "04-conditional.Rmd", "05-poly-splines.Rmd"]
+rmd_files: ["index.Rmd", "01-Syllabus.Rmd", "02-LDA-basics.Rmd", "03-Growth-curves.Rmd", "04-conditional.Rmd", "05-poly-splines.Rmd", "06-intensive-longitudinal.Rmd", "07-SEM.Rmd"]
 clean: [packages.bib, bookdown.bbl]
 new_session: no

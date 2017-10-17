@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Applied Longitudinal Data Analysis</title>
+  <meta name="description" content="Applied Longitudinal Data Analysis">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Applied Longitudinal Data Analysis" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="<a href="https://josh-jackson.github.io/longitudinal/" class="uri">https://josh-jackson.github.io/longitudinal/</a>" />
+  
+  <meta property="og:description" content="Applied Longitudinal Data Analysis" />
+  <meta name="github-repo" content="josh-jackson/longitudinal" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Applied Longitudinal Data Analysis" />
+  
+  <meta name="twitter:description" content="Applied Longitudinal Data Analysis" />
+  
+
+<meta name="author" content="Josh Jackson">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="06-intensive-longitudinal.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li>ALDA</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="01-Syllabus.html"><a href="01-Syllabus.html"><i class="fa fa-check"></i><b>1</b> Syllabus</a></li>
+<li class="chapter" data-level="2" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html"><i class="fa fa-check"></i><b>2</b> LDA basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#motivation-terms-concepts"><i class="fa fa-check"></i><b>2.1</b> Motivation, terms, concepts</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#why-longtiduinal"><i class="fa fa-check"></i><b>2.1.1</b> Why longtiduinal?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#types-of-change-most-common"><i class="fa fa-check"></i><b>2.1.2</b> Types of change (most common)</a></li>
+<li class="chapter" data-level="2.1.3" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#between-person-versus-within-person"><i class="fa fa-check"></i><b>2.1.3</b> Between person versus within person</a></li>
+<li class="chapter" data-level="2.1.4" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#trajectories-curves-change-growth-oh-my"><i class="fa fa-check"></i><b>2.1.4</b> Trajectories, curves, change, growth… oh my</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#data-analysis-and-data-structures"><i class="fa fa-check"></i><b>2.2</b> Data analysis and data structures</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#modeling-frameworks-mlm-sem"><i class="fa fa-check"></i><b>2.2.1</b> Modeling frameworks: MLM &amp; SEM</a></li>
+<li class="chapter" data-level="2.2.2" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#wide-and-long-form"><i class="fa fa-check"></i><b>2.2.2</b> Wide and Long form</a></li>
+<li class="chapter" data-level="2.2.3" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#graphing"><i class="fa fa-check"></i><b>2.2.3</b> Graphing</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#putting-it-together-example"><i class="fa fa-check"></i><b>2.3</b> Putting it together example</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#a-person-level"><i class="fa fa-check"></i><b>2.3.1</b> a person level</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#what-does-this-look-like"><i class="fa fa-check"></i><b>2.4</b> What does this look like?</a></li>
+<li class="chapter" data-level="2.5" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#design-considerations"><i class="fa fa-check"></i><b>2.5</b> Design considerations</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#number-of-assessment-waves"><i class="fa fa-check"></i><b>2.5.1</b> number of assessment waves</a></li>
+<li class="chapter" data-level="2.5.2" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#measuremnt"><i class="fa fa-check"></i><b>2.5.2</b> measuremnt</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#threats-to-validity"><i class="fa fa-check"></i><b>2.6</b> Threats to validity</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#missing-data"><i class="fa fa-check"></i><b>2.6.1</b> Missing data</a></li>
+<li class="chapter" data-level="2.6.2" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#attritionmortality"><i class="fa fa-check"></i><b>2.6.2</b> Attrition/Mortality</a></li>
+<li class="chapter" data-level="2.6.3" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#historycohort"><i class="fa fa-check"></i><b>2.6.3</b> History/cohort</a></li>
+<li class="chapter" data-level="2.6.4" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#maturation"><i class="fa fa-check"></i><b>2.6.4</b> Maturation</a></li>
+<li class="chapter" data-level="2.6.5" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#testing"><i class="fa fa-check"></i><b>2.6.5</b> Testing</a></li>
+<li class="chapter" data-level="2.6.6" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#selection"><i class="fa fa-check"></i><b>2.6.6</b> Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#why-not-rm-anova"><i class="fa fa-check"></i><b>2.7</b> Why not RM ANOVA?</a></li>
+<li class="chapter" data-level="2.8" data-path="02-LDA-basics.html"><a href="02-LDA-basics.html#now-you-try"><i class="fa fa-check"></i><b>2.8</b> Now you try</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html"><i class="fa fa-check"></i><b>3</b> Growth curves</a><ul>
+<li class="chapter" data-level="3.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#between-person-models-and-cross-sectional-data"><i class="fa fa-check"></i><b>3.1</b> Between person models and cross sectional data</a></li>
+<li class="chapter" data-level="3.2" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#within-person-models-e.g.-2-level-models"><i class="fa fa-check"></i><b>3.2</b> Within person models e.g., 2-level models</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#thinking-about-random-effects"><i class="fa fa-check"></i><b>3.2.1</b> thinking about random effects</a></li>
+<li class="chapter" data-level="3.2.2" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#random-effects"><i class="fa fa-check"></i><b>3.2.2</b> random effects</a></li>
+<li class="chapter" data-level="3.2.3" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#empty-model-equation"><i class="fa fa-check"></i><b>3.2.3</b> Empty model equation</a></li>
+<li class="chapter" data-level="3.2.4" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#putting-it-together"><i class="fa fa-check"></i><b>3.2.4</b> Putting it together</a></li>
+<li class="chapter" data-level="3.2.5" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#empty-model"><i class="fa fa-check"></i><b>3.2.5</b> Empty model</a></li>
+<li class="chapter" data-level="3.2.6" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#putting-it-together-1"><i class="fa fa-check"></i><b>3.2.6</b> Putting it together</a></li>
+<li class="chapter" data-level="3.2.7" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#icc"><i class="fa fa-check"></i><b>3.2.7</b> ICC</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#adding-time"><i class="fa fa-check"></i><b>3.3</b> Adding time</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#what-does-this-look-like-graphically"><i class="fa fa-check"></i><b>3.3.1</b> What does this look like graphically?</a></li>
+<li class="chapter" data-level="3.3.2" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#adding-a-random-slope"><i class="fa fa-check"></i><b>3.3.2</b> Adding a random slope?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#individaul-level-random-effects"><i class="fa fa-check"></i><b>3.4</b> Individaul level random effects</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#calculation-of-individaul-level-random-effects"><i class="fa fa-check"></i><b>3.4.1</b> Calculation of individaul level random effects</a></li>
+<li class="chapter" data-level="3.4.2" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#how-are-these-random-effects-calculated"><i class="fa fa-check"></i><b>3.4.2</b> How are these random effects calculated?</a></li>
+<li class="chapter" data-level="3.4.3" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#random-effects-and-residual-standard-assumptions"><i class="fa fa-check"></i><b>3.4.3</b> random effects and residual (standard) assumptions</a></li>
+<li class="chapter" data-level="3.4.4" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#random-effect-decomposition"><i class="fa fa-check"></i><b>3.4.4</b> Random effect decomposition</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#working-with-models-in-r"><i class="fa fa-check"></i><b>3.5</b> working with models in R</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#basic-lmer-code"><i class="fa fa-check"></i><b>3.5.1</b> basic lmer code</a></li>
+<li class="chapter" data-level="3.5.2" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#example"><i class="fa fa-check"></i><b>3.5.2</b> Example</a></li>
+<li class="chapter" data-level="3.5.3" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#how-to-calculate-icc"><i class="fa fa-check"></i><b>3.5.3</b> How to calculate ICC?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#exploring-beyond-the-summary"><i class="fa fa-check"></i><b>3.6</b> Exploring beyond the summary</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#what-do-the-random-effects-look-like"><i class="fa fa-check"></i><b>3.6.1</b> what do the random effects look like?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#adding-time-to-the-mlm"><i class="fa fa-check"></i><b>3.7</b> Adding time to the MLM</a><ul>
+<li class="chapter" data-level="3.7.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#fixed-slope"><i class="fa fa-check"></i><b>3.7.1</b> fixed slope</a></li>
+<li class="chapter" data-level="3.7.2" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#random-slope"><i class="fa fa-check"></i><b>3.7.2</b> Random slope</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#random-effects-1"><i class="fa fa-check"></i><b>3.8</b> Random effects</a><ul>
+<li class="chapter" data-level="3.8.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#calcualtion-of-random-effect-confidence-interval"><i class="fa fa-check"></i><b>3.8.1</b> Calcualtion of random effect confidence interval</a></li>
+<li class="chapter" data-level="3.8.2" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#individaul-level-random-effects-1"><i class="fa fa-check"></i><b>3.8.2</b> Individaul level random effects</a></li>
+<li class="chapter" data-level="3.8.3" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#adding-time-1"><i class="fa fa-check"></i><b>3.8.3</b> adding time</a></li>
+<li class="chapter" data-level="3.8.4" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#caterpillar-plots"><i class="fa fa-check"></i><b>3.8.4</b> caterpillar plots</a></li>
+<li class="chapter" data-level="3.8.5" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#density-of-individaul-random-effects"><i class="fa fa-check"></i><b>3.8.5</b> Density of individaul random effects</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#comparing-to-a-standard-linear-model"><i class="fa fa-check"></i><b>3.9</b> comparing to a standard linear model</a></li>
+<li class="chapter" data-level="3.10" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#other-types-of-models"><i class="fa fa-check"></i><b>3.10</b> Other types of models</a></li>
+<li class="chapter" data-level="3.11" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#matrix-notation-as-a-way-to-help-understand-what-is-going-on"><i class="fa fa-check"></i><b>3.11</b> Matrix notation (as a way to help understand what is going on)</a></li>
+<li class="chapter" data-level="3.12" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#estimation"><i class="fa fa-check"></i><b>3.12</b> Estimation</a></li>
+<li class="chapter" data-level="3.13" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#testing-significance-adapted-from-ben-bolker"><i class="fa fa-check"></i><b>3.13</b> Testing significance (adapted from Ben Bolker)</a><ul>
+<li class="chapter" data-level="3.13.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#p-values-are-not-included"><i class="fa fa-check"></i><b>3.13.1</b> P values are not included</a></li>
+<li class="chapter" data-level="3.13.2" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#likelhiood-ratio-test"><i class="fa fa-check"></i><b>3.13.2</b> Likelhiood ratio test</a></li>
+<li class="chapter" data-level="3.13.3" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#likelihood-tests-for-random-effects"><i class="fa fa-check"></i><b>3.13.3</b> Likelihood tests for random effects</a></li>
+<li class="chapter" data-level="3.13.4" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#aic-and-bic"><i class="fa fa-check"></i><b>3.13.4</b> AIC and BIC</a></li>
+<li class="chapter" data-level="3.13.5" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#mcmc"><i class="fa fa-check"></i><b>3.13.5</b> MCMC</a></li>
+<li class="chapter" data-level="3.13.6" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#bootstraps"><i class="fa fa-check"></i><b>3.13.6</b> Bootstraps</a></li>
+</ul></li>
+<li class="chapter" data-level="3.14" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#predictions-and-prediction-intervals"><i class="fa fa-check"></i><b>3.14</b> Predictions and prediction intervals</a><ul>
+<li class="chapter" data-level="3.14.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#predictions-and-prediction-intervals-1"><i class="fa fa-check"></i><b>3.14.1</b> Predictions and prediction intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="3.15" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#coefficient-of-determination-equivalents"><i class="fa fa-check"></i><b>3.15</b> Coefficient of determination equivalents</a><ul>
+<li class="chapter" data-level="3.15.1" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#batch-analyses"><i class="fa fa-check"></i><b>3.15.1</b> batch analyses</a></li>
+</ul></li>
+<li class="chapter" data-level="3.16" data-path="03-Growth-curves.html"><a href="03-Growth-curves.html#now-you-try-1"><i class="fa fa-check"></i><b>3.16</b> Now you try:</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="04-conditional.html"><a href="04-conditional.html"><i class="fa fa-check"></i><b>4</b> Conditional Predictors in growth models</a><ul>
+<li class="chapter" data-level="4.1" data-path="04-conditional.html"><a href="04-conditional.html#intercept-effects"><i class="fa fa-check"></i><b>4.1</b> Intercept effects</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="04-conditional.html"><a href="04-conditional.html#seperatinng-these-into-intercept-and-slope"><i class="fa fa-check"></i><b>4.1.1</b> Seperatinng these into intercept and slope</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="04-conditional.html"><a href="04-conditional.html#slope-and-intercept-effects"><i class="fa fa-check"></i><b>4.2</b> Slope and Intercept effects</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="04-conditional.html"><a href="04-conditional.html#equations-necessary-for-plotting"><i class="fa fa-check"></i><b>4.2.1</b> Equations necessary for plotting</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="04-conditional.html"><a href="04-conditional.html#need-for-thinking-about-scaling-your-predictors"><i class="fa fa-check"></i><b>4.3</b> Need for thinking about scaling your predictors</a></li>
+<li class="chapter" data-level="4.4" data-path="04-conditional.html"><a href="04-conditional.html#time-varying-covariates-tvcs"><i class="fa fa-check"></i><b>4.4</b> Time-varying covariates (TVCs)</a></li>
+<li class="chapter" data-level="4.5" data-path="04-conditional.html"><a href="04-conditional.html#now-you-try-2"><i class="fa fa-check"></i><b>4.5</b> Now you try</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="05-poly-splines.html"><a href="05-poly-splines.html"><i class="fa fa-check"></i><b>5</b> Polynomial and Splines</a><ul>
+<li class="chapter" data-level="5.1" data-path="05-poly-splines.html"><a href="05-poly-splines.html#polynomaials"><i class="fa fa-check"></i><b>5.1</b> Polynomaials</a></li>
+<li class="chapter" data-level="5.2" data-path="05-poly-splines.html"><a href="05-poly-splines.html#polynomial-example"><i class="fa fa-check"></i><b>5.2</b> polynomial example</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="05-poly-splines.html"><a href="05-poly-splines.html#importance-of-centering"><i class="fa fa-check"></i><b>5.2.1</b> importance of centering</a></li>
+<li class="chapter" data-level="5.2.2" data-path="05-poly-splines.html"><a href="05-poly-splines.html#random-terms"><i class="fa fa-check"></i><b>5.2.2</b> random terms</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="05-poly-splines.html"><a href="05-poly-splines.html#splines-aka-piecewise"><i class="fa fa-check"></i><b>5.3</b> Splines aka piecewise</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="05-poly-splines.html"><a href="05-poly-splines.html#seperate-curves"><i class="fa fa-check"></i><b>5.3.1</b> seperate curves</a></li>
+<li class="chapter" data-level="5.3.2" data-path="05-poly-splines.html"><a href="05-poly-splines.html#incremental-curves"><i class="fa fa-check"></i><b>5.3.2</b> incremental curves</a></li>
+<li class="chapter" data-level="5.3.3" data-path="05-poly-splines.html"><a href="05-poly-splines.html#splines-example"><i class="fa fa-check"></i><b>5.3.3</b> splines example</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="05-poly-splines.html"><a href="05-poly-splines.html#splines-polynomail-polynomial-piecewise"><i class="fa fa-check"></i><b>5.4</b> splines + polynomail = polynomial piecewise</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="06-intensive-longitudinal.html"><a href="06-intensive-longitudinal.html"><i class="fa fa-check"></i><b>6</b> Intensive Longitudinal Designs</a><ul>
+<li class="chapter" data-level="6.1" data-path="06-intensive-longitudinal.html"><a href="06-intensive-longitudinal.html#within-versus-between-person-processes"><i class="fa fa-check"></i><b>6.1</b> within versus between person processes</a></li>
+<li class="chapter" data-level="6.2" data-path="06-intensive-longitudinal.html"><a href="06-intensive-longitudinal.html#centering"><i class="fa fa-check"></i><b>6.2</b> Centering</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="06-intensive-longitudinal.html"><a href="06-intensive-longitudinal.html#within-person"><i class="fa fa-check"></i><b>6.2.1</b> within person</a></li>
+<li class="chapter" data-level="6.2.2" data-path="06-intensive-longitudinal.html"><a href="06-intensive-longitudinal.html#grand-mean"><i class="fa fa-check"></i><b>6.2.2</b> Grand mean</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="07-SEM.html"><a href="07-SEM.html"><i class="fa fa-check"></i><b>7</b> SEM</a><ul>
+<li class="chapter" data-level="7.1" data-path="07-SEM.html"><a href="07-SEM.html#structural-equation-modeling"><i class="fa fa-check"></i><b>7.1</b> Structural Equation Modeling</a></li>
+<li class="chapter" data-level="7.2" data-path="07-SEM.html"><a href="07-SEM.html#latent-variables"><i class="fa fa-check"></i><b>7.2</b> Latent variables</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="07-SEM.html"><a href="07-SEM.html#more-pretty-pictures"><i class="fa fa-check"></i><b>7.2.1</b> More pretty pictures</a></li>
+<li class="chapter" data-level="7.2.2" data-path="07-SEM.html"><a href="07-SEM.html#classical-test-theory-interpretation"><i class="fa fa-check"></i><b>7.2.2</b> Classical test theory interpretation</a></li>
+<li class="chapter" data-level="7.2.3" data-path="07-SEM.html"><a href="07-SEM.html#generizability-interpretation-of-latent-variables"><i class="fa fa-check"></i><b>7.2.3</b> Generizability interpretation of latent variables</a></li>
+<li class="chapter" data-level="7.2.4" data-path="07-SEM.html"><a href="07-SEM.html#measurement-error"><i class="fa fa-check"></i><b>7.2.4</b> measurement error</a></li>
+<li class="chapter" data-level="7.2.5" data-path="07-SEM.html"><a href="07-SEM.html#regarding-means"><i class="fa fa-check"></i><b>7.2.5</b> regarding means</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="07-SEM.html"><a href="07-SEM.html#goal-of-sem"><i class="fa fa-check"></i><b>7.3</b> goal of SEM</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="07-SEM.html"><a href="07-SEM.html#what-questions-can-be-asked"><i class="fa fa-check"></i><b>7.3.1</b> What questions can be asked?</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="07-SEM.html"><a href="07-SEM.html#setting-the-scale-and-defining-variables"><i class="fa fa-check"></i><b>7.4</b> Setting the scale and defining variables</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="07-SEM.html"><a href="07-SEM.html#identification"><i class="fa fa-check"></i><b>7.4.1</b> identification</a></li>
+<li class="chapter" data-level="7.4.2" data-path="07-SEM.html"><a href="07-SEM.html#types-of-identification"><i class="fa fa-check"></i><b>7.4.2</b> types of identification</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="07-SEM.html"><a href="07-SEM.html#lavaan"><i class="fa fa-check"></i><b>7.5</b> lavaan</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="07-SEM.html"><a href="07-SEM.html#lavaan-language"><i class="fa fa-check"></i><b>7.5.1</b> lavaan language</a></li>
+<li class="chapter" data-level="7.5.2" data-path="07-SEM.html"><a href="07-SEM.html#how-to-run-lavaan"><i class="fa fa-check"></i><b>7.5.2</b> How to run lavaan</a></li>
+<li class="chapter" data-level="7.5.3" data-path="07-SEM.html"><a href="07-SEM.html#lavaan-defaults"><i class="fa fa-check"></i><b>7.5.3</b> lavaan defaults</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="07-SEM.html"><a href="07-SEM.html#additional-sem-details"><i class="fa fa-check"></i><b>7.6</b> additional SEM details</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="07-SEM.html"><a href="07-SEM.html#coding-revisited"><i class="fa fa-check"></i><b>7.6.1</b> coding revisited</a></li>
+<li class="chapter" data-level="7.6.2" data-path="07-SEM.html"><a href="07-SEM.html#fit-indices"><i class="fa fa-check"></i><b>7.6.2</b> Fit Indices</a></li>
+<li class="chapter" data-level="7.6.3" data-path="07-SEM.html"><a href="07-SEM.html#comparing-models"><i class="fa fa-check"></i><b>7.6.3</b> Comparing models</a></li>
+<li class="chapter" data-level="7.6.4" data-path="07-SEM.html"><a href="07-SEM.html#parcels"><i class="fa fa-check"></i><b>7.6.4</b> Parcels</a></li>
+<li class="chapter" data-level="7.6.5" data-path="07-SEM.html"><a href="07-SEM.html#estimators"><i class="fa fa-check"></i><b>7.6.5</b> Estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="07-SEM.html"><a href="07-SEM.html#measurement-invariance-mi"><i class="fa fa-check"></i><b>7.7</b> Measurement Invariance (MI)</a></li>
+<li class="chapter" data-level="7.8" data-path="07-SEM.html"><a href="07-SEM.html#types-of-models-other-than-growth-models-brief-intro"><i class="fa fa-check"></i><b>7.8</b> Types of models other than growth models (brief intro)</a><ul>
+<li class="chapter" data-level="7.8.1" data-path="07-SEM.html"><a href="07-SEM.html#longitudinal-cfa"><i class="fa fa-check"></i><b>7.8.1</b> Longitudinal CFA</a></li>
+<li class="chapter" data-level="7.8.2" data-path="07-SEM.html"><a href="07-SEM.html#longitudinal-path-model"><i class="fa fa-check"></i><b>7.8.2</b> Longitudinal Path Model</a></li>
+<li class="chapter" data-level="7.8.3" data-path="07-SEM.html"><a href="07-SEM.html#longitudinal-cross-lagged-model"><i class="fa fa-check"></i><b>7.8.3</b> Longitudinal Cross lagged model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="07-SEM.html"><a href="07-SEM.html#sem-growth-models"><i class="fa fa-check"></i><b>7.9</b> SEM Growth models</a><ul>
+<li class="chapter" data-level="7.9.1" data-path="07-SEM.html"><a href="07-SEM.html#introducing-covariatespredictors"><i class="fa fa-check"></i><b>7.9.1</b> introducing covariates/predictors</a></li>
+<li class="chapter" data-level="7.9.2" data-path="07-SEM.html"><a href="07-SEM.html#introducing-time-varying-covariates"><i class="fa fa-check"></i><b>7.9.2</b> introducing time varying covariates</a></li>
+<li class="chapter" data-level="7.9.3" data-path="07-SEM.html"><a href="07-SEM.html#more-on-mean-structures"><i class="fa fa-check"></i><b>7.9.3</b> More on mean structures</a></li>
+<li class="chapter" data-level="7.9.4" data-path="07-SEM.html"><a href="07-SEM.html#multivariate-growth-curves"><i class="fa fa-check"></i><b>7.9.4</b> multivariate growth curves</a></li>
+</ul></li>
+<li class="chapter" data-level="7.10" data-path="07-SEM.html"><a href="07-SEM.html#multple-groups"><i class="fa fa-check"></i><b>7.10</b> Multple groups</a><ul>
+<li class="chapter" data-level="7.10.1" data-path="07-SEM.html"><a href="07-SEM.html#cohort-sequential-designs"><i class="fa fa-check"></i><b>7.10.1</b> Cohort sequential designs</a></li>
+</ul></li>
+<li class="chapter" data-level="7.11" data-path="07-SEM.html"><a href="07-SEM.html#missing-data-1"><i class="fa fa-check"></i><b>7.11</b> Missing data</a><ul>
+<li class="chapter" data-level="7.11.1" data-path="07-SEM.html"><a href="07-SEM.html#planned-missing-data"><i class="fa fa-check"></i><b>7.11.1</b> Planned missing data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.12" data-path="07-SEM.html"><a href="07-SEM.html#power"><i class="fa fa-check"></i><b>7.12</b> Power</a></li>
+</ul></li>
+<li class="divider"></li>
+<li>Applied Longitudinal Data Analysis</li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applied Longitudinal Data Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="sem" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> SEM</h1>
+<div id="structural-equation-modeling" class="section level2">
+<h2><span class="header-section-number">7.1</span> Structural Equation Modeling</h2>
+<p>SEM is the broader umbrella from the GLM. With it we are able to do two interesting this:</p>
+<ol style="list-style-type: decimal">
+<li><p>Fit a latent measurement model (e.g., CFA)</p></li>
+<li><p>Fit a structural model (e.g,. path analysis)</p></li>
+</ol>
+</div>
+<div id="latent-variables" class="section level2">
+<h2><span class="header-section-number">7.2</span> Latent variables</h2>
+<p>A latent variable is assumes to exist but we cannot directly measure (see) it. Sounds like psychological variables!</p>
+<p>The reason why items/indicators/measures correlate is assumed to be due to this latent variable. For example, why does Sally like to go to parties, likes to talk a lot, and always tends to be a in a good mood? Maybe it is because her high levels of extraversion ( a latent variable that we cannot directly measure) is causing these tendencies.</p>
+<p>Key point: the variable/construct itself is not measurable, but the manifestations caused by the variable are measurable/observable.</p>
+<p>Interesting point: because variables are assumed to be causing indicators of the variable, SEM is sometimes referred to as causal modeling. (Also because in path models a directional relationship is hypothesized) Note that we cannot get any closer to causality than we can with regression.</p>
+<div id="more-pretty-pictures" class="section level3">
+<h3><span class="header-section-number">7.2.1</span> More pretty pictures</h3>
+<p>Circles = latent variables</p>
+<p>Boxes = observed indicator variables</p>
+<p>two headed arrows = correlations/covariances/variances</p>
+<p>single head arrows = regressions</p>
+<p>triangle = means</p>
+</div>
+<div id="classical-test-theory-interpretation" class="section level3">
+<h3><span class="header-section-number">7.2.2</span> Classical test theory interpretation</h3>
+<p>How can we think of a latent construct:</p>
+<p>Latent construct = what the indicators share in common</p>
+<p>The indicators represent the sum of True Score variance + Item specific variance + Random error</p>
+<p>The variance of the latent variable represents the amount of common information in the latent variable</p>
+<p>The residual errors represent the amount of information unique to each indicator. A combination of error and item-specific variance.</p>
+</div>
+<div id="generizability-interpretation-of-latent-variables" class="section level3">
+<h3><span class="header-section-number">7.2.3</span> Generizability interpretation of latent variables</h3>
+<p>Same as above, but…</p>
+<p>True score variance can be thought of as consisting as a combination of 1. Construct variance- this is the truest true score variance 2. Method variance- see Campbell and Fiske or sludge factor of Meehl. 3. Occasion- important for longitudinal, aging, and cohort analyses–and for this class.</p>
+<p>For longitudinal models, occasion specific variance can lead to biased estimates. We want to separate the time specific variance from the overall construct variance. Or, we want to make sure that the time specific variance doesn’t make it appear that a construct is changing when really it is not.</p>
+</div>
+<div id="measurement-error" class="section level3">
+<h3><span class="header-section-number">7.2.4</span> measurement error</h3>
+<p>A major advantage is that each latent variable does not contain measurement error. It is as is if we measured our variable with an alpha = 1.</p>
+<p>What does that do? Well, ideally that gets us closer to the population model, which could yield higher R2 and parameter estimates.</p>
+<p>How does this happen? It is a direct result of capturing what is shared among the indicators. The measurement error associated with each indicator is uncorrelated with the latent variable.</p>
+<p>Think about how this situation differs from creating a composite among variables. Think about how this differs from creating a factor score among variables within a simple factor analyses approach. How are all three different and similar?</p>
+<p>What does it mean if the error variances are correlated with one another?</p>
+</div>
+<div id="regarding-means" class="section level3">
+<h3><span class="header-section-number">7.2.5</span> regarding means</h3>
+<p>SEM is also known as covariance structure analysis. You can do SEM using only variance-covariance matrices. These do not necessarily involve any direct information about their means. Means in SEM are optional.</p>
+<p>More later on how we define the mean of a latent variable if we do not assess the mean of the variable in the first place</p>
+</div>
+</div>
+<div id="goal-of-sem" class="section level2">
+<h2><span class="header-section-number">7.3</span> goal of SEM</h2>
+<p>Creation of a model that specifies a certain relationship among variables. This is done by creating a measurement or path model that we think is driven by the data generating process we are trying to study. In addition to setting the measurement model and paths we may want to put apriori constraining parameters (variances/covarainces/regressions) to reflect how we think variables are related.</p>
+<p>E.g., Should these two variables be correlated or not?</p>
+<p>Then we use or ML algorithm to get our model implied covariances/means as close as possible to the observed covariances/means.</p>
+<p>E.g., we specified no correlation between these two variables, does that then change how their indicators relate to their latent variable?</p>
+<div id="what-questions-can-be-asked" class="section level3">
+<h3><span class="header-section-number">7.3.1</span> What questions can be asked?</h3>
+<p>Too many to mention. This is a really flexible approach to your data. Might as well always think about problems in terms of SEM because is subsumes regression models.</p>
+<p>Specifically, however, SEM can handle any time of measured DV/IV or construct/indicators.</p>
+<p>If you have categorical indicators you can do SEM. However, it is hard to measure change using categorical indicators. But, categorical indicators are used for many latent variable models such as in measuring psychopathology.</p>
+<p>If you have a categorical construct you can also do SEM. Here it is called latent transition analysis (if you also had categorical indicators) or latent class / latent mixture modeling if you had continuous indicators (i am counting ordinal as continuous).</p>
+</div>
+</div>
+<div id="setting-the-scale-and-defining-variables" class="section level2">
+<h2><span class="header-section-number">7.4</span> Setting the scale and defining variables</h2>
+<p>Need to define the mean of a latent variable because there is no inherent scale of measurement.</p>
+<p>Largely irrelevant as to what scale is chosen. Serves to establish a point of reference in interpret other parameters.</p>
+<p>3 options:</p>
+<ol style="list-style-type: decimal">
+<li><p>Fixed factor. Here you fix the variance of the latent variable to 1 (standardized)</p></li>
+<li><p>Marker variable. Here you fix one factor loading to 1</p></li>
+<li><p>Effect coding. Here you constrain loading to average to 1. This will be helpful for us as we can then put the scale of measurement into our original metric. For longitudinal models this is helpful in terms of how to interpret the amount of change.</p></li>
+</ol>
+<div id="identification" class="section level3">
+<h3><span class="header-section-number">7.4.1</span> identification</h3>
+<p>All of this works only if you have enough data to be able to create new constructs. As a rule of thumb you need at least three indicators for each latent variable.</p>
+<p>More specifically, you need to compare the number of knows (variances and covariances) to the unknowns (model parameters).</p>
+<p>Foe example, a three indicator latent variable has 7 unknowns. 3 Loadings, 3 error variances and the variance of the latent variable</p>
+<p>The covariance matrix has 6 data points. Thus we need to add in one more known, in this case a fixed factor or a marker variable.</p>
+</div>
+<div id="types-of-identification" class="section level3">
+<h3><span class="header-section-number">7.4.2</span> types of identification</h3>
+<ol style="list-style-type: decimal">
+<li><p>just identified is where the number of knowns equal unknowns. also known as saturated model.</p></li>
+<li><p>over identified is when you have more knowns than unknowns (this is good)</p></li>
+<li><p>under identified is when you have problems and have more unknowns than knowns. this is because there is more than one solution available and the algorithm cannot decide e.g,. 2 + X = Y. If we add a constraint or a known value then it becomes manageable 2 + X = 12</p></li>
+</ol>
+<div id="degrees-of-freedom" class="section level4">
+<h4><span class="header-section-number">7.4.2.1</span> degrees of freedom</h4>
+<p>knowns - unknowns = df</p>
+<p>Note that df in this case will not directly relate to sample size</p>
+</div>
+</div>
+</div>
+<div id="lavaan" class="section level2">
+<h2><span class="header-section-number">7.5</span> lavaan</h2>
+<p>Easy to use SEM program in R</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lavaan)</code></pre></div>
+<pre><code>## This is lavaan 0.5-23.1097</code></pre>
+<pre><code>## lavaan is BETA software! Please report any bugs.</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lavaan&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:psych&#39;:
+## 
+##     cor2cov</code></pre>
+<p>Does most of what other sem packages do and just as well except for:</p>
+<ol style="list-style-type: decimal">
+<li>Multilevel SEM</li>
+<li>Latent class models/mixture models</li>
+</ol>
+<p>Two useful add on packages are</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(semTools)</code></pre></div>
+<pre><code>## </code></pre>
+<pre><code>## ###############################################################################</code></pre>
+<pre><code>## This is semTools 0.4-14</code></pre>
+<pre><code>## All users of R (or SEM) are invited to submit functions or ideas for functions.</code></pre>
+<pre><code>## ###############################################################################</code></pre>
+<pre><code>## 
+## Attaching package: &#39;semTools&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:psych&#39;:
+## 
+##     skew</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(semPlot)</code></pre></div>
+<p>A related package that uses similar syntax for Bayesian models is</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(blavaan)</code></pre></div>
+<pre><code>## Loading required package: runjags</code></pre>
+<pre><code>## 
+## Attaching package: &#39;runjags&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     extract</code></pre>
+<pre><code>## This is blavaan 0.2-4</code></pre>
+<pre><code>## blavaan is more BETA than lavaan!</code></pre>
+<div id="lavaan-language" class="section level3">
+<h3><span class="header-section-number">7.5.1</span> lavaan language</h3>
+<p>All you need to know (almost) is here: <a href="http://lavaan.ugent.be/tutorial/" class="uri">http://lavaan.ugent.be/tutorial/</a></p>
+<p>A quick recap of that:</p>
+<ol style="list-style-type: decimal">
+<li>Paths between variables is the same as our linear model syntax</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y ~<span class="st"> </span>x1 +<span class="st"> </span>x2 +<span class="st"> </span>x3</code></pre></div>
+<p>~ can be read as “is regressed on”</p>
+<ol start="2" style="list-style-type: decimal">
+<li>defining latent variables</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y =<span class="er">~</span><span class="st"> </span>x1 +<span class="st"> </span>x2 +<span class="st"> </span>x3</code></pre></div>
+<p>=~ can be read as “measured by”</p>
+<p>Y is measured by the variables x1 - x3. This will define the factor loadings.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>defining variances and covariances</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y ~<span class="er">~</span><span class="st"> </span>x1 </code></pre></div>
+<p>Y covaries with X1.</p>
+<p>The beautify of lavaan is that it will decide for you if you are interested in a variance or a covariance or a residual (co)variance.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>intercept</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y ~<span class="st"> </span><span class="dv">1</span> </code></pre></div>
+<p>Much as we saw with our lmer models where 1 served an important role, 1 here also is special in that it references the mean (intercept) of the variable. This will come in handy when we want to constrain or make the means of variables similar to one another.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>constraints</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y =<span class="er">~</span><span class="st"> </span><span class="ot">NA</span>*x1 +<span class="st"> </span><span class="dv">1</span>*x2 +<span class="st"> </span>a*x3 +<span class="st"> </span>a*x4</code></pre></div>
+<p>NA serves to free a lavaan imposed constraint. Here, the default is to set the first factor loading to 1 to define the latent variable. NA* serves to say there is no constraint.</p>
+<p>1* pre-multiples the loading by a particular number. In this case it is 1, to define the latent variable, but it could be any number. R doesn’t know if it makes sense or not.</p>
+<p>a* (or and other character strings) serves as an equality constraint by estimating the same parameter for each term with that label. In this case x3 and x4 will have the same factor loading, referred to as a.</p>
+</div>
+<div id="how-to-run-lavaan" class="section level3">
+<h3><span class="header-section-number">7.5.2</span> How to run lavaan</h3>
+<ol style="list-style-type: decimal">
+<li>Specify your model</li>
+<li>Fit the model</li>
+<li>Display the summary output</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#1. Specify your model</span>
+
+HS.model &lt;-<span class="st"> &#39; visual  =~ x1 + x2 + x3      </span>
+<span class="st">              textual =~ x4 + x5 + x6</span>
+<span class="st">              speed   =~ x7 + x8 + x9 &#39;</span>
+
+<span class="co">#2. Fit the model</span>
+
+fit &lt;-<span class="st"> </span><span class="kw">cfa</span>(HS.model, <span class="dt">data=</span>HolzingerSwineford1939)
+
+  <span class="co"># other functions include sem, growth, and lavaan. All have different defaults (See below). we will use growth a lot. </span>
+
+
+<span class="co">#3. Display the summary output</span>
+
+<span class="kw">summary</span>(fit, <span class="dt">fit.measures=</span><span class="ot">TRUE</span>)</code></pre></div>
+</div>
+<div id="lavaan-defaults" class="section level3">
+<h3><span class="header-section-number">7.5.3</span> lavaan defaults</h3>
+<p>First, by default, the factor loading of the first indicator of a latent variable is fixed to 1, thereby fixing the scale of the latent variable. Second, residual variances are added automatically. And third, all exogenous latent variables are correlated by default.</p>
+<p>lets work with a dataset from the lavaan package</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">HolzingerSwineford1939 &lt;-<span class="st"> </span>HolzingerSwineford1939
+
+mod<span class="fl">.1</span> &lt;-<span class="st"> &#39;visual =~ x1 + x2 + x3</span>
+<span class="st">textual =~ x4 + x5 + x6</span>
+<span class="st">speed =~ x7 + x8 + x9&#39;</span>
+
+fit<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">cfa</span>(mod<span class="fl">.1</span>, <span class="dt">data=</span>HolzingerSwineford1939)
+
+<span class="kw">summary</span>(fit<span class="fl">.1</span>, <span class="dt">fit.measures=</span><span class="ot">TRUE</span>, <span class="dt">standardized=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## lavaan (0.5-23.1097) converged normally after  35 iterations
+## 
+##   Number of observations                           301
+## 
+##   Estimator                                         ML
+##   Minimum Function Test Statistic               85.306
+##   Degrees of freedom                                24
+##   P-value (Chi-square)                           0.000
+## 
+## Model test baseline model:
+## 
+##   Minimum Function Test Statistic              918.852
+##   Degrees of freedom                                36
+##   P-value                                        0.000
+## 
+## User model versus baseline model:
+## 
+##   Comparative Fit Index (CFI)                    0.931
+##   Tucker-Lewis Index (TLI)                       0.896
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)              -3737.745
+##   Loglikelihood unrestricted model (H1)      -3695.092
+## 
+##   Number of free parameters                         21
+##   Akaike (AIC)                                7517.490
+##   Bayesian (BIC)                              7595.339
+##   Sample-size adjusted Bayesian (BIC)         7528.739
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.092
+##   90 Percent Confidence Interval          0.071  0.114
+##   P-value RMSEA &lt;= 0.05                          0.001
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.065
+## 
+## Parameter Estimates:
+## 
+##   Information                                 Expected
+##   Standard Errors                             Standard
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   visual =~                                                             
+##     x1                1.000                               0.900    0.772
+##     x2                0.554    0.100    5.554    0.000    0.498    0.424
+##     x3                0.729    0.109    6.685    0.000    0.656    0.581
+##   textual =~                                                            
+##     x4                1.000                               0.990    0.852
+##     x5                1.113    0.065   17.014    0.000    1.102    0.855
+##     x6                0.926    0.055   16.703    0.000    0.917    0.838
+##   speed =~                                                              
+##     x7                1.000                               0.619    0.570
+##     x8                1.180    0.165    7.152    0.000    0.731    0.723
+##     x9                1.082    0.151    7.155    0.000    0.670    0.665
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   visual ~~                                                             
+##     textual           0.408    0.074    5.552    0.000    0.459    0.459
+##     speed             0.262    0.056    4.660    0.000    0.471    0.471
+##   textual ~~                                                            
+##     speed             0.173    0.049    3.518    0.000    0.283    0.283
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .x1                0.549    0.114    4.833    0.000    0.549    0.404
+##    .x2                1.134    0.102   11.146    0.000    1.134    0.821
+##    .x3                0.844    0.091    9.317    0.000    0.844    0.662
+##    .x4                0.371    0.048    7.779    0.000    0.371    0.275
+##    .x5                0.446    0.058    7.642    0.000    0.446    0.269
+##    .x6                0.356    0.043    8.277    0.000    0.356    0.298
+##    .x7                0.799    0.081    9.823    0.000    0.799    0.676
+##    .x8                0.488    0.074    6.573    0.000    0.488    0.477
+##    .x9                0.566    0.071    8.003    0.000    0.566    0.558
+##     visual            0.809    0.145    5.564    0.000    1.000    1.000
+##     textual           0.979    0.112    8.737    0.000    1.000    1.000
+##     speed             0.384    0.086    4.451    0.000    1.000    1.000</code></pre>
+<p>Lets use a fixed factor approach rather than a marker variable approach</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod<span class="fl">.2</span> &lt;-<span class="st"> &#39;visual =~ x1 + x2 + x3</span>
+<span class="st">textual =~ x4 + x5 + x6</span>
+<span class="st">speed =~ x7 + x8 + x9&#39;</span>
+
+fit<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">cfa</span>(mod<span class="fl">.2</span>, <span class="dt">std.lv=</span><span class="ot">TRUE</span>, <span class="dt">data=</span>HolzingerSwineford1939)
+
+<span class="kw">summary</span>(fit<span class="fl">.2</span>, <span class="dt">fit.measures=</span><span class="ot">TRUE</span>, <span class="dt">standardized=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## lavaan (0.5-23.1097) converged normally after  22 iterations
+## 
+##   Number of observations                           301
+## 
+##   Estimator                                         ML
+##   Minimum Function Test Statistic               85.306
+##   Degrees of freedom                                24
+##   P-value (Chi-square)                           0.000
+## 
+## Model test baseline model:
+## 
+##   Minimum Function Test Statistic              918.852
+##   Degrees of freedom                                36
+##   P-value                                        0.000
+## 
+## User model versus baseline model:
+## 
+##   Comparative Fit Index (CFI)                    0.931
+##   Tucker-Lewis Index (TLI)                       0.896
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)              -3737.745
+##   Loglikelihood unrestricted model (H1)      -3695.092
+## 
+##   Number of free parameters                         21
+##   Akaike (AIC)                                7517.490
+##   Bayesian (BIC)                              7595.339
+##   Sample-size adjusted Bayesian (BIC)         7528.739
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.092
+##   90 Percent Confidence Interval          0.071  0.114
+##   P-value RMSEA &lt;= 0.05                          0.001
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.065
+## 
+## Parameter Estimates:
+## 
+##   Information                                 Expected
+##   Standard Errors                             Standard
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   visual =~                                                             
+##     x1                0.900    0.081   11.127    0.000    0.900    0.772
+##     x2                0.498    0.077    6.429    0.000    0.498    0.424
+##     x3                0.656    0.074    8.817    0.000    0.656    0.581
+##   textual =~                                                            
+##     x4                0.990    0.057   17.474    0.000    0.990    0.852
+##     x5                1.102    0.063   17.576    0.000    1.102    0.855
+##     x6                0.917    0.054   17.082    0.000    0.917    0.838
+##   speed =~                                                              
+##     x7                0.619    0.070    8.903    0.000    0.619    0.570
+##     x8                0.731    0.066   11.090    0.000    0.731    0.723
+##     x9                0.670    0.065   10.305    0.000    0.670    0.665
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   visual ~~                                                             
+##     textual           0.459    0.064    7.189    0.000    0.459    0.459
+##     speed             0.471    0.073    6.461    0.000    0.471    0.471
+##   textual ~~                                                            
+##     speed             0.283    0.069    4.117    0.000    0.283    0.283
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .x1                0.549    0.114    4.833    0.000    0.549    0.404
+##    .x2                1.134    0.102   11.146    0.000    1.134    0.821
+##    .x3                0.844    0.091    9.317    0.000    0.844    0.662
+##    .x4                0.371    0.048    7.778    0.000    0.371    0.275
+##    .x5                0.446    0.058    7.642    0.000    0.446    0.269
+##    .x6                0.356    0.043    8.277    0.000    0.356    0.298
+##    .x7                0.799    0.081    9.823    0.000    0.799    0.676
+##    .x8                0.488    0.074    6.573    0.000    0.488    0.477
+##    .x9                0.566    0.071    8.003    0.000    0.566    0.558
+##     visual            1.000                               1.000    1.000
+##     textual           1.000                               1.000    1.000
+##     speed             1.000                               1.000    1.000</code></pre>
+</div>
+</div>
+<div id="additional-sem-details" class="section level2">
+<h2><span class="header-section-number">7.6</span> additional SEM details</h2>
+<div id="coding-revisited" class="section level3">
+<h3><span class="header-section-number">7.6.1</span> coding revisited</h3>
+<p>Fixed factor: standardized, unit-free estimates Effects coding: if the original metric is meaningful Marker variable: if you are lazy.</p>
+<p>Changes interpretation of some parameters. Will not change fit indices.</p>
+</div>
+<div id="fit-indices" class="section level3">
+<h3><span class="header-section-number">7.6.2</span> Fit Indices</h3>
+<ol style="list-style-type: decimal">
+<li><p>residuals. Good to check.</p></li>
+<li><p>modification indices. Check to see if missing parameters that residuals may suggest you didn’t include or should include. Can test with more advanced techniques. But eh… makes your models non-theoretical, could be over fitting, relying too much on sig tests…</p></li>
+<li><p>chi-square. (Statistical fit) Implied versus observed data, tests to see if model are exact fit with data. But eh…too impacted by sample size</p></li>
+<li><p>RMSEA or SRMR (Absolute fit). Does not compare to a null model. Judges distance from perfect fit.</p></li>
+</ol>
+<blockquote>
+<p>.10 poor fit &lt; .08 acceptable</p>
+</blockquote>
+<ol start="5" style="list-style-type: decimal">
+<li>CFI, TFI (Relative fit models). Compares relative to a null model. Judges distance from the worse fit ie a null model. Null models have no covariance among observed and latent variables.</li>
+</ol>
+<p>range from 0-1. Indicate % of improvement from the null model to a saturated ie just identified model.</p>
+<p>Usually &gt;.9 is okay. Some care about &gt; .95</p>
+<p>Minor changes to the model can improve fit.</p>
+<ol start="6" style="list-style-type: decimal">
+<li>Check the model parameters. Are they wonky? Easy to get negative variances or correlations above 1.</li>
+</ol>
+</div>
+<div id="comparing-models" class="section level3">
+<h3><span class="header-section-number">7.6.3</span> Comparing models</h3>
+<p>Can compare models as in mlm.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(model1, model2)</code></pre></div>
+<p>Use AIC and BIC, just as with MLM. Smaller values indicate a better fit.</p>
+</div>
+<div id="parcels" class="section level3">
+<h3><span class="header-section-number">7.6.4</span> Parcels</h3>
+<p>It is often necessary to simplify your model. One option to do so is with parcels where you combine indicators into a composite. This simplifies the model in that you have fewer parameters to fit. In addition to being a way to get a model identified, it also has benefits in terms of the assumptions of the indicator variables.</p>
+<p>To do so, you can combine items however you want into 3 or 4 groups or parcels, averaging them together. You may balance highly loading with less highly loading items (item to construct technique) or you may pair pos and negatively keyed items together. It is up to you.</p>
+<p>Some dislike it because you are aggregating without taking into account the association between the indicators; it is a blind procedure based on theory/assumptions rather than maths. ¯_(ツ)_/¯</p>
+</div>
+<div id="estimators" class="section level3">
+<h3><span class="header-section-number">7.6.5</span> Estimators</h3>
+<p>Default in lavaan is the ML estimator, which we have seen before. There are many other options too, some of which require complete data (though see multiple imputation discussion next class).</p>
+<p>There are a number of “robust” estimates that are uniformly better. MLR is my personal choice if you go this route, but others are just as good and maybe better if you have complete data.</p>
+<p>To confuse things, there are other methods to get robust standard errors. When data are missing one can request standard errors via a number of different methods. To do so one needs to first specify that data are missing via missing = “ML” in the fitting function. Then use the se function to specify what you want.</p>
+<p>Bootstrapped estimates are also available with se = “bootstrap”</p>
+</div>
+</div>
+<div id="measurement-invariance-mi" class="section level2">
+<h2><span class="header-section-number">7.7</span> Measurement Invariance (MI)</h2>
+<p>Configural</p>
+<p>Weak</p>
+<p>Strong</p>
+<p>Strict</p>
+</div>
+<div id="types-of-models-other-than-growth-models-brief-intro" class="section level2">
+<h2><span class="header-section-number">7.8</span> Types of models other than growth models (brief intro)</h2>
+<div id="longitudinal-cfa" class="section level3">
+<h3><span class="header-section-number">7.8.1</span> Longitudinal CFA</h3>
+<p>key concerns: 1. Should the correlations be the same across time? 2. Should the error variances be correlated? 3. Are the loadings the same across time? (more on this later)</p>
+</div>
+<div id="longitudinal-path-model" class="section level3">
+<h3><span class="header-section-number">7.8.2</span> Longitudinal Path Model</h3>
+<p>key concerns: 1. Should the regressions be the same across time? 2. Should the error variances be correlated? 3. Are the loadings the same across time? (more on this later)</p>
+</div>
+<div id="longitudinal-cross-lagged-model" class="section level3">
+<h3><span class="header-section-number">7.8.3</span> Longitudinal Cross lagged model</h3>
+<p>key concerns: 1. Should the regressions (both cross lagged and autoregressive) be the same across time? 2. Should the indicator error variances be correlated (within time or within construct)? 3. Are the loadings the same across time? (more on this later) 4. Are the latent error variances the same or different? 5. Are the latent error variances correlated the same or different across time? 6. Are there more lagged effects?</p>
+</div>
+</div>
+<div id="sem-growth-models" class="section level2">
+<h2><span class="header-section-number">7.9</span> SEM Growth models</h2>
+<p>The implimentation of growth models in an SEM framework is very similar to the HLM framework. The major differences is how time is treated. Here, time variables must be the same for everyone in that each assessment point must have a particular variable name associated with it. That is, time is considered categorical in SEM, whereas in MLM it could be treated continuously. This requirment also makes a differences in how our data need to be structured. Whereas previously we had a time variable, now we indirectly include time into our model by specifying when variables were assessed. This has the consequence of necessitating a wide format, as opposed to the long format of MLM.</p>
+<p>Other than time, the idea behind the growth model is exactly the same.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model &lt;-<span class="st"> &#39; intercept =~ 1*time1 + 1*time2 + 1*time3 + 1*time4</span>
+<span class="st">           slope =~ 0*time1 + 1*time2 + 2*time3 + 3*time4 &#39;</span>
+fit &lt;-<span class="st"> </span><span class="kw">growth</span>(model, <span class="dt">data=</span>example)
+<span class="kw">summary</span>(fit)</code></pre></div>
+<div id="introducing-covariatespredictors" class="section level3">
+<h3><span class="header-section-number">7.9.1</span> introducing covariates/predictors</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a linear growth model with a time-varying covariate</span>
+
+model &lt;-<span class="st"> &#39;</span>
+<span class="st">  # intercept and slope with fixed coefficients</span>
+<span class="st">    i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4</span>
+<span class="st">    s =~ 0*t1 + 1*t2 + 2*t3 + 3*t4</span>
+<span class="st">  # regressions</span>
+<span class="st">    i ~ x1 + x2</span>
+<span class="st">    s ~ x1 + x2</span>
+<span class="st">&#39;</span>
+fit &lt;-<span class="st"> </span><span class="kw">growth</span>(model, <span class="dt">data =</span> Demo.growth)
+<span class="kw">summary</span>(fit)</code></pre></div>
+<pre><code>## lavaan (0.5-23.1097) converged normally after  31 iterations
+## 
+##   Number of observations                           400
+## 
+##   Estimator                                         ML
+##   Minimum Function Test Statistic               10.873
+##   Degrees of freedom                                 9
+##   P-value (Chi-square)                           0.285
+## 
+## Parameter Estimates:
+## 
+##   Information                                 Expected
+##   Standard Errors                             Standard
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   i =~                                                
+##     t1                1.000                           
+##     t2                1.000                           
+##     t3                1.000                           
+##     t4                1.000                           
+##   s =~                                                
+##     t1                0.000                           
+##     t2                1.000                           
+##     t3                2.000                           
+##     t4                3.000                           
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   i ~                                                 
+##     x1                0.609    0.060   10.079    0.000
+##     x2                0.613    0.065    9.488    0.000
+##   s ~                                                 
+##     x1                0.263    0.029    9.157    0.000
+##     x2                0.517    0.031   16.868    0.000
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##  .i ~~                                                
+##    .s                 0.088    0.042    2.116    0.034
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .t1                0.000                           
+##    .t2                0.000                           
+##    .t3                0.000                           
+##    .t4                0.000                           
+##    .i                 0.586    0.062    9.400    0.000
+##    .s                 0.958    0.030   32.382    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .t1                0.597    0.085    7.067    0.000
+##    .t2                0.671    0.060   11.088    0.000
+##    .t3                0.599    0.065    9.254    0.000
+##    .t4                0.593    0.109    5.437    0.000
+##    .i                 1.076    0.115    9.335    0.000
+##    .s                 0.219    0.027    7.975    0.000</code></pre>
+</div>
+<div id="introducing-time-varying-covariates" class="section level3">
+<h3><span class="header-section-number">7.9.2</span> introducing time varying covariates</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a linear growth model with a time-varying covariate</span>
+model &lt;-<span class="st"> &#39;</span>
+<span class="st">  # intercept and slope with fixed coefficients</span>
+<span class="st">    i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4</span>
+<span class="st">    s =~ 0*t1 + 1*t2 + 2*t3 + 3*t4</span>
+<span class="st">  # regressions</span>
+<span class="st">    i ~ x1 + x2</span>
+<span class="st">    s ~ x1 + x2</span>
+<span class="st">  # time-varying covariates</span>
+<span class="st">    t1 ~ c1</span>
+<span class="st">    t2 ~ c2</span>
+<span class="st">    t3 ~ c3</span>
+<span class="st">    t4 ~ c4</span>
+<span class="st">&#39;</span>
+fit &lt;-<span class="st"> </span><span class="kw">growth</span>(model, <span class="dt">data =</span> Demo.growth)
+<span class="kw">summary</span>(fit)</code></pre></div>
+<pre><code>## lavaan (0.5-23.1097) converged normally after  31 iterations
+## 
+##   Number of observations                           400
+## 
+##   Estimator                                         ML
+##   Minimum Function Test Statistic               26.059
+##   Degrees of freedom                                21
+##   P-value (Chi-square)                           0.204
+## 
+## Parameter Estimates:
+## 
+##   Information                                 Expected
+##   Standard Errors                             Standard
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   i =~                                                
+##     t1                1.000                           
+##     t2                1.000                           
+##     t3                1.000                           
+##     t4                1.000                           
+##   s =~                                                
+##     t1                0.000                           
+##     t2                1.000                           
+##     t3                2.000                           
+##     t4                3.000                           
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   i ~                                                 
+##     x1                0.608    0.060   10.134    0.000
+##     x2                0.604    0.064    9.412    0.000
+##   s ~                                                 
+##     x1                0.262    0.029    9.198    0.000
+##     x2                0.522    0.031   17.083    0.000
+##   t1 ~                                                
+##     c1                0.143    0.050    2.883    0.004
+##   t2 ~                                                
+##     c2                0.289    0.046    6.295    0.000
+##   t3 ~                                                
+##     c3                0.328    0.044    7.361    0.000
+##   t4 ~                                                
+##     c4                0.330    0.058    5.655    0.000
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##  .i ~~                                                
+##    .s                 0.075    0.040    1.855    0.064
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .t1                0.000                           
+##    .t2                0.000                           
+##    .t3                0.000                           
+##    .t4                0.000                           
+##    .i                 0.580    0.062    9.368    0.000
+##    .s                 0.958    0.029   32.552    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .t1                0.580    0.080    7.230    0.000
+##    .t2                0.596    0.054   10.969    0.000
+##    .t3                0.481    0.055    8.745    0.000
+##    .t4                0.535    0.098    5.466    0.000
+##    .i                 1.079    0.112    9.609    0.000
+##    .s                 0.224    0.027    8.429    0.000</code></pre>
+</div>
+<div id="more-on-mean-structures" class="section level3">
+<h3><span class="header-section-number">7.9.3</span> More on mean structures</h3>
+<p>We need to fix something to 0 to identify/set the scale for means. Just like with the covariance structure when we set the loading or variance to 1.</p>
+<ol style="list-style-type: decimal">
+<li><p>Fixed factor: fix the latent mean to 0 (the default in lavaan and Mplus)</p></li>
+<li><p>Marker variable: fix one item’s intercept to 0 (the latent mean is equal to that item’s mean)</p></li>
+<li><p>Effects coding: constrain all item intercepts to average 0</p></li>
+</ol>
+</div>
+<div id="multivariate-growth-curves" class="section level3">
+<h3><span class="header-section-number">7.9.4</span> multivariate growth curves</h3>
+</div>
+</div>
+<div id="multple-groups" class="section level2">
+<h2><span class="header-section-number">7.10</span> Multple groups</h2>
+<div id="cohort-sequential-designs" class="section level3">
+<h3><span class="header-section-number">7.10.1</span> Cohort sequential designs</h3>
+</div>
+</div>
+<div id="missing-data-1" class="section level2">
+<h2><span class="header-section-number">7.11</span> Missing data</h2>
+<div id="planned-missing-data" class="section level3">
+<h3><span class="header-section-number">7.11.1</span> Planned missing data</h3>
+</div>
+</div>
+<div id="power" class="section level2">
+<h2><span class="header-section-number">7.12</span> Power</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="06-intensive-longitudinal.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

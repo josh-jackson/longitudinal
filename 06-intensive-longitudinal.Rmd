@@ -1,0 +1,18 @@
+# Intensive Longitudinal Designs
+
+Often we are not interested in looking at trajectories across time. Instead we are interested in using time as a means to look at fluctuations in our DV. Fluctuations are especially helpful to understand within person processes versus between person processes. 
+
+Typically, the focus of these sorts of analyses are with level 1 (time varying) covariates ie variables you have assessed more than once. The questions that can be answered with this design are: Are there associations between 
+
+## within versus between person processes
+
+## Centering
+
+### within person
+Useful for level 1, necessary for seperating within person and between person effects. 
+
+### Grand mean
+ Useful for level 2, but is not necessary. If you grand mean center at level 2, then the interpretation is more closely related to regression. Here the slope would then be calculated as the average of the population whereas the intercept would be calcualted as the average (ie 0) for predictors. 
+ 
+ Can also grand mean center level 1. 
+

@@ -1,0 +1,491 @@
+# SEM
+
+
+## Structural Equation Modeling
+
+SEM is the broader umbrella from the GLM. With it we are able to do two interesting this: 
+
+1. Fit a latent measurement model (e.g., CFA)
+
+2. Fit a structural model (e.g,. path analysis)
+
+## Latent variables
+A latent variable is assumes to exist but we cannot directly measure (see) it. Sounds like psychological variables! 
+
+The reason why items/indicators/measures correlate is assumed to be due to this latent variable. For example, why does Sally like to go to parties, likes to talk a lot, and always tends to be a in a good mood? Maybe it is because her high levels of extraversion ( a latent variable that we cannot directly measure) is causing these tendencies. 
+
+Key point: the variable/construct itself is not measurable, but the manifestations caused by the variable are measurable/observable. 
+
+Interesting point: because variables are assumed to be causing indicators of the variable, SEM is sometimes referred to as causal modeling. (Also because in path models a directional relationship is hypothesized) Note that we cannot get any closer to causality than we can with regression. 
+
+### More pretty pictures
+
+Circles = latent variables
+
+Boxes = observed indicator variables
+
+two headed arrows = correlations/covariances/variances
+
+single head arrows = regressions
+
+triangle = means
+
+### Classical test theory interpretation 
+
+How can we think of a latent construct:
+
+Latent construct = what the indicators share in common
+
+The indicators represent the sum of True Score variance + Item specific variance + Random error
+
+The variance of the latent variable represents the amount of common information in the latent variable
+
+The residual errors represent the amount of information unique to each indicator. A combination of error and item-specific variance. 
+
+### Generizability interpretation of latent variables
+Same as above, but... 
+
+True score variance can be thought of as consisting as a combination of 
+1. Construct variance- this is the truest true score variance
+2. Method variance- see Campbell and Fiske or sludge factor of Meehl. 
+3. Occasion- important for longitudinal, aging, and cohort analyses--and for this class. 
+
+For longitudinal models, occasion specific variance can lead to biased estimates. We want to separate the time specific variance from the overall construct variance. Or, we want to make sure that the time specific variance doesn't make it appear that a construct is changing when really it is not. 
+
+### measurement error
+
+A major advantage is that each latent variable does not contain measurement error. It is as is if we measured our variable with an alpha = 1. 
+
+What does that do? Well, ideally that gets us closer to the population model, which could yield higher R2 and parameter estimates.
+
+How does this happen? It is a direct result of capturing what is shared among the indicators. The measurement error associated with each indicator is uncorrelated with the latent variable. 
+
+Think about how this situation differs from creating a composite among variables. Think about how this differs from creating a factor score among variables within a simple factor analyses approach. How are all three different and similar? 
+
+What does it mean if the error variances are correlated with one another? 
+
+
+### regarding means
+SEM is also known as covariance structure analysis. You can do SEM using only variance-covariance matrices. These do not necessarily involve any direct information about their means. Means in SEM are optional.
+
+More later on how we define the mean of a latent variable if we do not assess the mean of the variable in the first place
+
+
+## goal of SEM
+
+Creation of a model that specifies a certain relationship among variables. This is done by creating a measurement or path model that we think is driven by the data generating process we are trying to study. In addition to setting the measurement model and paths we may want to put apriori constraining parameters (variances/covarainces/regressions) to reflect how we think variables are related. 
+
+E.g., Should these two variables be correlated or not? 
+
+Then we use or ML algorithm to get our model implied covariances/means as close as possible to the observed covariances/means. 
+
+E.g., we specified no correlation between these two variables, does that then change how their indicators relate to their latent variable? 
+
+### What questions can be asked?
+Too many to mention. This is a really flexible approach to your data. Might as well always think about problems in terms of SEM because is subsumes regression models. 
+
+Specifically, however, SEM can handle any time of measured DV/IV or construct/indicators. 
+
+If you have categorical indicators you can do SEM. However, it is hard to measure change using categorical indicators. But, categorical indicators are used for many latent variable models such as in measuring psychopathology. 
+
+If you have a categorical construct you can also do SEM. Here it is called latent transition analysis (if you also had categorical indicators) or latent class / latent mixture modeling if you had continuous indicators (i am counting ordinal as continuous). 
+
+## Setting the scale and defining variables
+
+Need to define the mean of a latent variable because there is no inherent scale of measurement. 
+
+Largely irrelevant as to what scale is chosen. Serves to establish a point of reference in interpret other parameters. 
+
+3 options: 
+
+1. Fixed factor. Here you fix the variance of the latent variable to 1 (standardized)
+
+2. Marker variable. Here you fix one factor loading to 1
+
+3. Effect coding. Here you constrain loading to average to 1. This will be helpful for us as we can then put the scale of measurement into our original metric. For longitudinal models this is helpful in terms of how to interpret the amount of change. 
+
+### identification
+
+All of this works only if you have enough data to be able to create new constructs. As a rule of thumb you need at least three indicators for each latent variable. 
+
+More specifically, you need to compare the number of knows (variances and covariances) to the unknowns (model parameters). 
+
+Foe example, a three indicator latent variable has 7 unknowns. 3 Loadings, 3 error variances and the variance of the latent variable
+
+The covariance matrix has 6 data points. Thus we need to add in one more known, in this case a fixed factor or a marker variable. 
+
+### types of identification
+
+1. just identified is where the number of knowns equal unknowns. also known as saturated model. 
+
+2. over identified is when you have more knowns than unknowns (this is good)
+
+3. under identified is when you have problems and have more unknowns than knowns. this is because there is more than one solution available and the algorithm cannot decide e.g,. 2 + X = Y. If we add a constraint or a known value then it becomes manageable 2 + X = 12
+
+#### degrees of freedom
+
+knowns - unknowns = df
+
+Note that df in this case will not directly relate to sample size
+
+## lavaan
+Easy to use SEM program in R
+```{r}
+library(lavaan)
+```
+
+Does most of what other sem packages do and just as well except for: 
+
+1. Multilevel SEM
+2. Latent class models/mixture models
+
+Two useful add on packages are 
+
+```{r}
+library(semTools)
+library(semPlot)
+```
+
+A related package that uses similar syntax for Bayesian models is
+
+```{r}
+library(blavaan)
+```
+
+
+### lavaan language
+
+All you need to know (almost) is here: 
+http://lavaan.ugent.be/tutorial/
+
+A quick recap of that:
+
+1. Paths between variables is the same as our linear model syntax
+```{r, eval=FALSE}
+
+y ~ x1 + x2 + x3
+
+```
+
+~ can be read as "is regressed on"
+
+2. defining latent variables
+```{r, eval=FALSE}
+
+y =~ x1 + x2 + x3
+
+```
+
+=~ can be read as "measured by"
+
+Y is measured by the variables x1 - x3. This will define the factor loadings. 
+
+3. defining variances and covariances
+```{r, eval=FALSE}
+
+y ~~ x1 
+
+```
+
+Y covaries with X1. 
+
+The beautify of lavaan is that it will decide for you if you are interested in a variance or a covariance or a residual (co)variance. 
+
+4. intercept
+
+```{r, eval=FALSE}
+
+y ~ 1 
+
+```
+
+Much as we saw with our lmer models where 1 served an important role, 1 here also is special in that it references the mean (intercept) of the variable. This will come in handy when we want to constrain or make the means of variables similar to one another. 
+
+5. constraints
+
+```{r, eval=FALSE}
+
+y =~ NA*x1 + 1*x2 + a*x3 + a*x4
+
+```
+
+NA serves to free a lavaan imposed constraint. Here, the default is to set the first factor loading to 1 to define the latent variable. NA* serves to say there is no constraint. 
+
+1* pre-multiples the loading by a particular number. In this case it is 1, to define the latent variable, but it could be any number. R doesn't know if it makes sense or not. 
+
+a* (or and other character strings) serves as an equality constraint by estimating the same parameter for each term with that label. In this case x3 and x4 will have the same factor loading, referred to as a. 
+
+
+### How to run lavaan
+
+1. Specify your model
+2. Fit the model
+3. Display the summary output
+
+
+```{r, eval=FALSE}
+#1. Specify your model
+
+HS.model <- ' visual  =~ x1 + x2 + x3      
+              textual =~ x4 + x5 + x6
+              speed   =~ x7 + x8 + x9 '
+
+#2. Fit the model
+
+fit <- cfa(HS.model, data=HolzingerSwineford1939)
+
+  # other functions include sem, growth, and lavaan. All have different defaults (See below). we will use growth a lot. 
+
+
+#3. Display the summary output
+
+summary(fit, fit.measures=TRUE)
+
+```
+
+
+### lavaan defaults
+
+First, by default, the factor loading of the first indicator of a latent variable is fixed to 1, thereby fixing the scale of the latent variable. Second, residual variances are added automatically. And third, all exogenous latent variables are correlated by default.
+
+lets work with a dataset from the lavaan package
+```{r}
+HolzingerSwineford1939 <- HolzingerSwineford1939
+
+mod.1 <- 'visual =~ x1 + x2 + x3
+textual =~ x4 + x5 + x6
+speed =~ x7 + x8 + x9'
+
+fit.1 <- cfa(mod.1, data=HolzingerSwineford1939)
+
+summary(fit.1, fit.measures=TRUE, standardized=TRUE)
+
+```
+
+
+Lets use a fixed factor approach rather than a marker variable approach
+```{r}
+
+mod.2 <- 'visual =~ x1 + x2 + x3
+textual =~ x4 + x5 + x6
+speed =~ x7 + x8 + x9'
+
+fit.2 <- cfa(mod.2, std.lv=TRUE, data=HolzingerSwineford1939)
+
+summary(fit.2, fit.measures=TRUE, standardized=TRUE)
+
+```
+
+## additional SEM details
+### coding revisited
+
+Fixed factor: standardized, unit-free estimates 
+Effects coding: if the original metric is meaningful
+Marker variable: if you are lazy. 
+
+Changes interpretation of some parameters. Will not change fit indices. 
+
+### Fit Indices
+
+1. residuals. Good to check.  
+
+2. modification indices. Check to see if missing parameters that residuals may suggest you didn't include or should include. Can test with more advanced techniques. But eh... makes your models non-theoretical, could be over fitting, relying too much on sig tests...
+
+3. chi-square. (Statistical fit) Implied versus observed data, tests to see if model are exact fit with data. But eh...too impacted by sample size
+
+4. RMSEA or SRMR (Absolute fit). Does not compare to a null model. Judges distance from perfect fit. 
+
+> .10 poor fit
+< .08 acceptable
+
+5. CFI, TFI (Relative fit models). Compares relative to a null model. Judges distance from the worse fit ie a null model. Null models have no covariance among observed and latent variables. 
+
+range from 0-1. Indicate % of improvement from the null model to a saturated ie just identified model. 
+
+Usually >.9 is okay. Some care about > .95
+
+Minor changes to the model can improve fit. 
+
+6. Check the model parameters. Are they wonky? Easy to get negative variances or correlations above 1. 
+
+### Comparing models
+
+Can compare models as in mlm. 
+```{r, eval=FALSE}
+anova(model1, model2)
+```
+
+Use AIC and BIC, just as with MLM. Smaller values indicate a better fit. 
+
+### Parcels
+It is often necessary to simplify your model. One option to do so is with parcels where you combine indicators into a composite. This simplifies the model in that you have fewer parameters to fit. In addition to being a way to get a model identified, it also has benefits in terms of the assumptions of the indicator variables. 
+
+To do so, you can combine items however you want into 3 or 4 groups or parcels, averaging them together. You may balance highly loading with less highly loading items (item to construct technique) or you may pair pos and negatively keyed items together. It is up to you. 
+
+Some dislike it because you are aggregating without taking into account the association between the indicators; it is a blind procedure based on theory/assumptions rather than maths. ¯\_(ツ)_/¯
+
+### Estimators
+
+Default in lavaan is the ML estimator, which we have seen before. There are many other options too, some of which require complete data (though see multiple imputation discussion next class). 
+
+There are a number of "robust" estimates that are uniformly better. MLR is my personal choice if you go this route, but others are just as good and maybe better if you have complete data. 
+
+To confuse things, there are other methods to get robust standard errors. When data are missing one can request standard errors via a number of different methods. To do so one needs to first specify that data are missing via missing = "ML" in the fitting function. Then use the se function to specify what you want. 
+
+Bootstrapped estimates are also available with se = "bootstrap"
+
+```{r}
+
+```
+
+## Measurement Invariance (MI)
+
+Configural
+
+Weak
+
+Strong
+
+Strict
+
+
+
+
+
+## Types of models other than growth models (brief intro)
+### Longitudinal CFA
+
+key concerns: 
+1. Should the correlations be the same across time? 
+2. Should the error variances be correlated? 
+3. Are the loadings the same across time? (more on this later)
+
+
+### Longitudinal Path Model
+
+key concerns: 
+1. Should the regressions be the same across time? 
+2. Should the error variances be correlated? 
+3. Are the loadings the same across time? (more on this later)
+
+### Longitudinal Cross lagged model
+
+key concerns: 
+1. Should the regressions (both cross lagged and autoregressive) be the same across time? 
+2. Should the indicator error variances be correlated (within time or within construct)? 
+3. Are the loadings the same across time? (more on this later)
+4. Are the latent error variances the same or different? 
+5. Are the latent error variances correlated the same or different across time? 
+6. Are there more lagged effects? 
+
+
+
+
+
+
+
+
+
+
+
+
+
+## SEM Growth models
+
+The implimentation of growth models in an SEM framework is very similar to the HLM framework. The major differences is how time is treated. Here, time variables must be the same for everyone in that each assessment point must have a particular variable name associated with it. That is, time is considered categorical in SEM, whereas in MLM it could be treated continuously. This requirment also makes a differences in how our data need to be structured. Whereas previously we had a time variable, now we indirectly include time into our model by specifying when variables were assessed. This has the consequence of necessitating a wide format, as opposed to the long format of MLM. 
+
+Other than time, the idea behind the growth model is exactly the same. 
+
+```{r, eval=FALSE}
+model <- ' intercept =~ 1*time1 + 1*time2 + 1*time3 + 1*time4
+           slope =~ 0*time1 + 1*time2 + 2*time3 + 3*time4 '
+fit <- growth(model, data=example)
+summary(fit)
+```
+
+
+### introducing covariates/predictors
+
+```{r}
+# a linear growth model with a time-varying covariate
+
+model <- '
+  # intercept and slope with fixed coefficients
+    i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4
+    s =~ 0*t1 + 1*t2 + 2*t3 + 3*t4
+  # regressions
+    i ~ x1 + x2
+    s ~ x1 + x2
+'
+fit <- growth(model, data = Demo.growth)
+summary(fit)
+```
+
+
+### introducing time varying covariates
+```{r}
+# a linear growth model with a time-varying covariate
+model <- '
+  # intercept and slope with fixed coefficients
+    i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4
+    s =~ 0*t1 + 1*t2 + 2*t3 + 3*t4
+  # regressions
+    i ~ x1 + x2
+    s ~ x1 + x2
+  # time-varying covariates
+    t1 ~ c1
+    t2 ~ c2
+    t3 ~ c3
+    t4 ~ c4
+'
+fit <- growth(model, data = Demo.growth)
+summary(fit)
+```
+
+
+
+### More on mean structures
+
+We need to fix something to 0 to identify/set the scale for means. Just like with the covariance structure when we set the loading or variance to 1. 
+
+
+1. Fixed factor: fix the latent mean to 0 (the default in lavaan and Mplus)
+```{r}
+
+```
+
+
+2. Marker variable: fix one item’s intercept to 0 (the latent mean is equal
+to that item’s mean)
+
+```{r}
+
+```
+
+3. Effects coding: constrain all item intercepts to average 0
+
+```{r}
+
+```
+
+
+
+### multivariate growth curves
+
+
+
+
+
+
+
+## Multple groups
+
+### Cohort sequential designs
+
+
+## Missing data
+
+### Planned missing data
+
+## Power
+

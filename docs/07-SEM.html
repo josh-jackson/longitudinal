@@ -248,10 +248,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="7.6" data-path="07-SEM.html"><a href="07-SEM.html#additional-sem-details"><i class="fa fa-check"></i><b>7.6</b> additional SEM details</a><ul>
 <li class="chapter" data-level="7.6.1" data-path="07-SEM.html"><a href="07-SEM.html#coding-revisited"><i class="fa fa-check"></i><b>7.6.1</b> coding revisited</a></li>
-<li class="chapter" data-level="7.6.2" data-path="07-SEM.html"><a href="07-SEM.html#fit-indices"><i class="fa fa-check"></i><b>7.6.2</b> Fit Indices</a></li>
-<li class="chapter" data-level="7.6.3" data-path="07-SEM.html"><a href="07-SEM.html#comparing-models"><i class="fa fa-check"></i><b>7.6.3</b> Comparing models</a></li>
-<li class="chapter" data-level="7.6.4" data-path="07-SEM.html"><a href="07-SEM.html#parcels"><i class="fa fa-check"></i><b>7.6.4</b> Parcels</a></li>
-<li class="chapter" data-level="7.6.5" data-path="07-SEM.html"><a href="07-SEM.html#estimators"><i class="fa fa-check"></i><b>7.6.5</b> Estimators</a></li>
+<li class="chapter" data-level="7.6.2" data-path="07-SEM.html"><a href="07-SEM.html#plotting"><i class="fa fa-check"></i><b>7.6.2</b> plotting</a></li>
+<li class="chapter" data-level="7.6.3" data-path="07-SEM.html"><a href="07-SEM.html#fit-indices"><i class="fa fa-check"></i><b>7.6.3</b> Fit Indices</a></li>
+<li class="chapter" data-level="7.6.4" data-path="07-SEM.html"><a href="07-SEM.html#comparing-models"><i class="fa fa-check"></i><b>7.6.4</b> Comparing models</a></li>
+<li class="chapter" data-level="7.6.5" data-path="07-SEM.html"><a href="07-SEM.html#parcels"><i class="fa fa-check"></i><b>7.6.5</b> Parcels</a></li>
+<li class="chapter" data-level="7.6.6" data-path="07-SEM.html"><a href="07-SEM.html#estimators"><i class="fa fa-check"></i><b>7.6.6</b> Estimators</a></li>
 </ul></li>
 <li class="chapter" data-level="7.7" data-path="07-SEM.html"><a href="07-SEM.html#measurement-invariance-mi"><i class="fa fa-check"></i><b>7.7</b> Measurement Invariance (MI)</a></li>
 <li class="chapter" data-level="7.8" data-path="07-SEM.html"><a href="07-SEM.html#types-of-models-other-than-growth-models-brief-intro"><i class="fa fa-check"></i><b>7.8</b> Types of models other than growth models (brief intro)</a><ul>
@@ -323,13 +324,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Latent construct = what the indicators share in common</p>
 <p>The indicators represent the sum of True Score variance + Item specific variance + Random error</p>
 <p>The variance of the latent variable represents the amount of common information in the latent variable</p>
-<p>The residual errors represent the amount of information unique to each indicator. A combination of error and item-specific variance.</p>
+<p>The residual errors (sometimes referred to as disturbances) represent the amount of information unique to each indicator. A combination of error and item-specific variance.</p>
 </div>
 <div id="generizability-interpretation-of-latent-variables" class="section level3">
 <h3><span class="header-section-number">7.2.3</span> Generizability interpretation of latent variables</h3>
 <p>Same as above, but…</p>
 <p>True score variance can be thought of as consisting as a combination of 1. Construct variance- this is the truest true score variance 2. Method variance- see Campbell and Fiske or sludge factor of Meehl. 3. Occasion- important for longitudinal, aging, and cohort analyses–and for this class.</p>
 <p>For longitudinal models, occasion specific variance can lead to biased estimates. We want to separate the time specific variance from the overall construct variance. Or, we want to make sure that the time specific variance doesn’t make it appear that a construct is changing when really it is not.</p>
+<div id="formative-indicators" class="section level4">
+<h4><span class="header-section-number">7.2.3.1</span> Formative indicators</h4>
+<p>These pretty pictures imply that the latent variables “cause” the indicators. These are referred to as reflexive indicators and are the standard way of creating latent variables. However, there is another approach, formative indicators, were indicators “cause” the latent variable. Or, in other words, the latent variable doesn’t actually exist. It is not real, only a combination of variables. An example of this is SES.</p>
+</div>
 </div>
 <div id="measurement-error" class="section level3">
 <h3><span class="header-section-number">7.2.4</span> measurement error</h3>
@@ -361,12 +366,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="setting-the-scale-and-defining-variables" class="section level2">
 <h2><span class="header-section-number">7.4</span> Setting the scale and defining variables</h2>
-<p>Need to define the mean of a latent variable because there is no inherent scale of measurement.</p>
+<p>We are trying to measure clouds. How can we do this given that they are always moving?</p>
+<p>Need to define a parameter a latent variable because there is no inherent scale of measurement.</p>
 <p>Largely irrelevant as to what scale is chosen. Serves to establish a point of reference in interpret other parameters.</p>
 <p>3 options:</p>
 <ol style="list-style-type: decimal">
 <li><p>Fixed factor. Here you fix the variance of the latent variable to 1 (standardized)</p></li>
-<li><p>Marker variable. Here you fix one factor loading to 1</p></li>
+<li><p>Marker variable. Here you fix one factor loading to 1. All other loadings are relative to this loading.</p></li>
 <li><p>Effect coding. Here you constrain loading to average to 1. This will be helpful for us as we can then put the scale of measurement into our original metric. For longitudinal models this is helpful in terms of how to interpret the amount of change.</p></li>
 </ol>
 <div id="identification" class="section level3">
@@ -678,20 +684,128 @@ fit<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">cfa
 <h2><span class="header-section-number">7.6</span> additional SEM details</h2>
 <div id="coding-revisited" class="section level3">
 <h3><span class="header-section-number">7.6.1</span> coding revisited</h3>
-<p>Fixed factor: standardized, unit-free estimates Effects coding: if the original metric is meaningful Marker variable: if you are lazy.</p>
-<p>Changes interpretation of some parameters. Will not change fit indices.</p>
+<p>Marker variable: if you are lazy; default. Residual variances can change, but the loadings do as does the variance of the latent factor. The latent factors variance is the reliable variance of the marker variable, and the mean of the marker variable.</p>
+<p>Fixed factor: standardized, unit-free estimates. Has some nice-ities. Does not arbitrarily give more weight to one indicator. If more than one latent factor is estimated, the estimates between the factors gives the correlation. If you square the loadings and add the residual it equals 1.</p>
+<p>Effects coding: if the original metric is meaningful, keeps the latent variable in the metric of your scale. Residual variance is the same. Loadings average to 1.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod<span class="fl">.3</span> &lt;-<span class="st"> &#39; </span>
+<span class="st">     visual  =~ NA*x1 + v1*x1 + v2*x2 + v3*x3 </span>
+<span class="st">     textual =~ NA*x4 + t1*x4 + t2*x5 + t3*x6 </span>
+<span class="st">     speed   =~ NA*x7 + s1*x7 + s2*x8 + s3*x9 </span>
+
+<span class="st">     v1 == 3 - v2 - v3 </span>
+<span class="st">     t1 == 3 - t2 - t3 </span>
+<span class="st">     s1 == 3 - s2 - s3 </span>
+<span class="st">&#39;</span> 
+
+fit<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">cfa</span>(mod<span class="fl">.3</span>, <span class="dt">data=</span>HolzingerSwineford1939) 
+<span class="kw">summary</span>(fit<span class="fl">.3</span>, <span class="dt">fit.measures=</span><span class="ot">TRUE</span>, <span class="dt">standardized=</span><span class="ot">TRUE</span>) </code></pre></div>
+<pre><code>## lavaan (0.5-23.1097) converged normally after  32 iterations
+## 
+##   Number of observations                           301
+## 
+##   Estimator                                         ML
+##   Minimum Function Test Statistic               85.306
+##   Degrees of freedom                                24
+##   P-value (Chi-square)                           0.000
+## 
+## Model test baseline model:
+## 
+##   Minimum Function Test Statistic              918.852
+##   Degrees of freedom                                36
+##   P-value                                        0.000
+## 
+## User model versus baseline model:
+## 
+##   Comparative Fit Index (CFI)                    0.931
+##   Tucker-Lewis Index (TLI)                       0.896
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)              -3737.745
+##   Loglikelihood unrestricted model (H1)      -3695.092
+## 
+##   Number of free parameters                         21
+##   Akaike (AIC)                                7517.490
+##   Bayesian (BIC)                              7595.339
+##   Sample-size adjusted Bayesian (BIC)         7528.739
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.092
+##   90 Percent Confidence Interval          0.071  0.114
+##   P-value RMSEA &lt;= 0.05                          0.001
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.065
+## 
+## Parameter Estimates:
+## 
+##   Information                                 Expected
+##   Standard Errors                             Standard
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   visual =~                                                             
+##     x1        (v1)    1.314    0.101   13.037    0.000    0.900    0.772
+##     x2        (v2)    0.727    0.091    8.006    0.000    0.498    0.424
+##     x3        (v3)    0.958    0.089   10.744    0.000    0.656    0.581
+##   textual =~                                                            
+##     x4        (t1)    0.987    0.034   29.056    0.000    0.990    0.852
+##     x5        (t2)    1.099    0.036   30.883    0.000    1.102    0.855
+##     x6        (t3)    0.914    0.033   27.627    0.000    0.917    0.838
+##   speed =~                                                              
+##     x7        (s1)    0.920    0.078   11.725    0.000    0.619    0.570
+##     x8        (s2)    1.085    0.081   13.381    0.000    0.731    0.723
+##     x9        (s3)    0.995    0.078   12.789    0.000    0.670    0.665
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   visual ~~                                                             
+##     textual           0.315    0.055    5.736    0.000    0.459    0.459
+##     speed             0.217    0.041    5.295    0.000    0.471    0.471
+##   textual ~~                                                            
+##     speed             0.191    0.051    3.775    0.000    0.283    0.283
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .x1                0.549    0.114    4.833    0.000    0.549    0.404
+##    .x2                1.134    0.102   11.146    0.000    1.134    0.821
+##    .x3                0.844    0.091    9.317    0.000    0.844    0.662
+##    .x4                0.371    0.048    7.779    0.000    0.371    0.275
+##    .x5                0.446    0.058    7.642    0.000    0.446    0.269
+##    .x6                0.356    0.043    8.277    0.000    0.356    0.298
+##    .x7                0.799    0.081    9.823    0.000    0.799    0.676
+##    .x8                0.488    0.074    6.573    0.000    0.488    0.477
+##    .x9                0.566    0.071    8.003    0.000    0.566    0.558
+##     visual            0.469    0.062    7.549    0.000    1.000    1.000
+##     textual           1.005    0.093   10.823    0.000    1.000    1.000
+##     speed             0.454    0.055    8.271    0.000    1.000    1.000
+## 
+## Constraints:
+##                                                |Slack|
+##     v1 - (3-v2-v3)                               0.000
+##     t1 - (3-t2-t3)                               0.000
+##     s1 - (3-s2-s3)                               0.000</code></pre>
+</div>
+<div id="plotting" class="section level3">
+<h3><span class="header-section-number">7.6.2</span> plotting</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(semPlot)
+
+<span class="kw">semPaths</span>(fit<span class="fl">.3</span>)</code></pre></div>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">semPaths</span>(fit<span class="fl">.3</span>, <span class="dt">what=</span> <span class="st">&quot;std&quot;</span>)</code></pre></div>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
 </div>
 <div id="fit-indices" class="section level3">
-<h3><span class="header-section-number">7.6.2</span> Fit Indices</h3>
+<h3><span class="header-section-number">7.6.3</span> Fit Indices</h3>
 <ol style="list-style-type: decimal">
 <li><p>residuals. Good to check.</p></li>
 <li><p>modification indices. Check to see if missing parameters that residuals may suggest you didn’t include or should include. Can test with more advanced techniques. But eh… makes your models non-theoretical, could be over fitting, relying too much on sig tests…</p></li>
 <li><p>chi-square. (Statistical fit) Implied versus observed data, tests to see if model are exact fit with data. But eh…too impacted by sample size</p></li>
 <li><p>RMSEA or SRMR (Absolute fit). Does not compare to a null model. Judges distance from perfect fit.</p></li>
 </ol>
-<blockquote>
-<p>.10 poor fit &lt; .08 acceptable</p>
-</blockquote>
+<p>Above .10 poor fit Below .08 acceptable</p>
 <ol start="5" style="list-style-type: decimal">
 <li>CFI, TFI (Relative fit models). Compares relative to a null model. Judges distance from the worse fit ie a null model. Null models have no covariance among observed and latent variables.</li>
 </ol>
@@ -703,19 +817,19 @@ fit<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">cfa
 </ol>
 </div>
 <div id="comparing-models" class="section level3">
-<h3><span class="header-section-number">7.6.3</span> Comparing models</h3>
+<h3><span class="header-section-number">7.6.4</span> Comparing models</h3>
 <p>Can compare models as in mlm.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(model1, model2)</code></pre></div>
 <p>Use AIC and BIC, just as with MLM. Smaller values indicate a better fit.</p>
 </div>
 <div id="parcels" class="section level3">
-<h3><span class="header-section-number">7.6.4</span> Parcels</h3>
+<h3><span class="header-section-number">7.6.5</span> Parcels</h3>
 <p>It is often necessary to simplify your model. One option to do so is with parcels where you combine indicators into a composite. This simplifies the model in that you have fewer parameters to fit. In addition to being a way to get a model identified, it also has benefits in terms of the assumptions of the indicator variables.</p>
 <p>To do so, you can combine items however you want into 3 or 4 groups or parcels, averaging them together. You may balance highly loading with less highly loading items (item to construct technique) or you may pair pos and negatively keyed items together. It is up to you.</p>
 <p>Some dislike it because you are aggregating without taking into account the association between the indicators; it is a blind procedure based on theory/assumptions rather than maths. ¯_(ツ)_/¯</p>
 </div>
 <div id="estimators" class="section level3">
-<h3><span class="header-section-number">7.6.5</span> Estimators</h3>
+<h3><span class="header-section-number">7.6.6</span> Estimators</h3>
 <p>Default in lavaan is the ML estimator, which we have seen before. There are many other options too, some of which require complete data (though see multiple imputation discussion next class).</p>
 <p>There are a number of “robust” estimates that are uniformly better. MLR is my personal choice if you go this route, but others are just as good and maybe better if you have complete data.</p>
 <p>To confuse things, there are other methods to get robust standard errors. When data are missing one can request standard errors via a number of different methods. To do so one needs to first specify that data are missing via missing = “ML” in the fitting function. Then use the se function to specify what you want.</p>

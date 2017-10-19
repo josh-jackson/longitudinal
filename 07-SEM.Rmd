@@ -40,7 +40,11 @@ The indicators represent the sum of True Score variance + Item specific variance
 
 The variance of the latent variable represents the amount of common information in the latent variable
 
+<<<<<<< HEAD
 The residual errors (sometimes referred to as disturbances) represent the amount of information unique to each indicator. A combination of error and item-specific variance. 
+=======
+The residual errors represent the amount of information unique to each indicator. A combination of error and item-specific variance. 
+>>>>>>> adaed47aa3b6ae705ade898eb3ebb25511a0e3d1
 
 ### Generizability interpretation of latent variables
 Same as above, but... 
@@ -52,10 +56,13 @@ True score variance can be thought of as consisting as a combination of
 
 For longitudinal models, occasion specific variance can lead to biased estimates. We want to separate the time specific variance from the overall construct variance. Or, we want to make sure that the time specific variance doesn't make it appear that a construct is changing when really it is not. 
 
+<<<<<<< HEAD
 #### Formative indicators
 
 These pretty pictures imply that the latent variables "cause" the indicators. These are referred to as reflexive indicators and are the standard way of creating latent variables. However, there is another approach, formative indicators, were indicators "cause" the latent variable. Or, in other words, the latent variable doesn't actually exist. It is not real, only a combination of variables. An example of this is SES. 
 
+=======
+>>>>>>> adaed47aa3b6ae705ade898eb3ebb25511a0e3d1
 ### measurement error
 
 A major advantage is that each latent variable does not contain measurement error. It is as is if we measured our variable with an alpha = 1. 
@@ -96,9 +103,13 @@ If you have a categorical construct you can also do SEM. Here it is called laten
 
 ## Setting the scale and defining variables
 
+<<<<<<< HEAD
 We are trying to measure clouds. How can we do this given that they are always moving? 
 
 Need to define a parameter a latent variable because there is no inherent scale of measurement. 
+=======
+Need to define the mean of a latent variable because there is no inherent scale of measurement. 
+>>>>>>> adaed47aa3b6ae705ade898eb3ebb25511a0e3d1
 
 Largely irrelevant as to what scale is chosen. Serves to establish a point of reference in interpret other parameters. 
 
@@ -106,7 +117,11 @@ Largely irrelevant as to what scale is chosen. Serves to establish a point of re
 
 1. Fixed factor. Here you fix the variance of the latent variable to 1 (standardized)
 
+<<<<<<< HEAD
 2. Marker variable. Here you fix one factor loading to 1. All other loadings are relative to this loading. 
+=======
+2. Marker variable. Here you fix one factor loading to 1
+>>>>>>> adaed47aa3b6ae705ade898eb3ebb25511a0e3d1
 
 3. Effect coding. Here you constrain loading to average to 1. This will be helpful for us as we can then put the scale of measurement into our original metric. For longitudinal models this is helpful in terms of how to interpret the amount of change. 
 
@@ -284,6 +299,7 @@ summary(fit.2, fit.measures=TRUE, standardized=TRUE)
 
 ## additional SEM details
 ### coding revisited
+<<<<<<< HEAD
 Marker variable: if you are lazy; default. Residual variances can change, but the loadings do as does the variance of the latent factor. The latent factors variance is the reliable variance of the marker variable, and the mean of the marker variable. 
 
 Fixed factor: standardized, unit-free estimates. Has some nice-ities. Does not arbitrarily give more weight to one indicator. If more than one latent factor is estimated, the estimates between the factors gives the correlation. If you square the loadings and add the residual it equals 1. 
@@ -320,6 +336,14 @@ semPaths(fit.3, what= "std")
 ```
 
 
+=======
+
+Fixed factor: standardized, unit-free estimates 
+Effects coding: if the original metric is meaningful
+Marker variable: if you are lazy. 
+
+Changes interpretation of some parameters. Will not change fit indices. 
+>>>>>>> adaed47aa3b6ae705ade898eb3ebb25511a0e3d1
 
 ### Fit Indices
 
@@ -331,8 +355,13 @@ semPaths(fit.3, what= "std")
 
 4. RMSEA or SRMR (Absolute fit). Does not compare to a null model. Judges distance from perfect fit. 
 
+<<<<<<< HEAD
  Above .10 poor fit
  Below .08 acceptable
+=======
+> .10 poor fit
+< .08 acceptable
+>>>>>>> adaed47aa3b6ae705ade898eb3ebb25511a0e3d1
 
 5. CFI, TFI (Relative fit models). Compares relative to a null model. Judges distance from the worse fit ie a null model. Null models have no covariance among observed and latent variables. 
 

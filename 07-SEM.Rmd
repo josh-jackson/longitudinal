@@ -40,11 +40,7 @@ The indicators represent the sum of True Score variance + Item specific variance
 
 The variance of the latent variable represents the amount of common information in the latent variable
 
-<<<<<<< HEAD
 The residual errors (sometimes referred to as disturbances) represent the amount of information unique to each indicator. A combination of error and item-specific variance. 
-=======
-The residual errors represent the amount of information unique to each indicator. A combination of error and item-specific variance. 
->>>>>>> adaed47aa3b6ae705ade898eb3ebb25511a0e3d1
 
 ### Generizability interpretation of latent variables
 Same as above, but... 
@@ -56,13 +52,12 @@ True score variance can be thought of as consisting as a combination of
 
 For longitudinal models, occasion specific variance can lead to biased estimates. We want to separate the time specific variance from the overall construct variance. Or, we want to make sure that the time specific variance doesn't make it appear that a construct is changing when really it is not. 
 
-<<<<<<< HEAD
+
 #### Formative indicators
 
 These pretty pictures imply that the latent variables "cause" the indicators. These are referred to as reflexive indicators and are the standard way of creating latent variables. However, there is another approach, formative indicators, were indicators "cause" the latent variable. Or, in other words, the latent variable doesn't actually exist. It is not real, only a combination of variables. An example of this is SES. 
 
-=======
->>>>>>> adaed47aa3b6ae705ade898eb3ebb25511a0e3d1
+
 ### measurement error
 
 A major advantage is that each latent variable does not contain measurement error. It is as is if we measured our variable with an alpha = 1. 
@@ -103,13 +98,9 @@ If you have a categorical construct you can also do SEM. Here it is called laten
 
 ## Setting the scale and defining variables
 
-<<<<<<< HEAD
 We are trying to measure clouds. How can we do this given that they are always moving? 
 
 Need to define a parameter a latent variable because there is no inherent scale of measurement. 
-=======
-Need to define the mean of a latent variable because there is no inherent scale of measurement. 
->>>>>>> adaed47aa3b6ae705ade898eb3ebb25511a0e3d1
 
 Largely irrelevant as to what scale is chosen. Serves to establish a point of reference in interpret other parameters. 
 
@@ -117,11 +108,7 @@ Largely irrelevant as to what scale is chosen. Serves to establish a point of re
 
 1. Fixed factor. Here you fix the variance of the latent variable to 1 (standardized)
 
-<<<<<<< HEAD
 2. Marker variable. Here you fix one factor loading to 1. All other loadings are relative to this loading. 
-=======
-2. Marker variable. Here you fix one factor loading to 1
->>>>>>> adaed47aa3b6ae705ade898eb3ebb25511a0e3d1
 
 3. Effect coding. Here you constrain loading to average to 1. This will be helpful for us as we can then put the scale of measurement into our original metric. For longitudinal models this is helpful in terms of how to interpret the amount of change. 
 
@@ -299,7 +286,7 @@ summary(fit.2, fit.measures=TRUE, standardized=TRUE)
 
 ## additional SEM details
 ### coding revisited
-<<<<<<< HEAD
+
 Marker variable: if you are lazy; default. Residual variances can change, but the loadings do as does the variance of the latent factor. The latent factors variance is the reliable variance of the marker variable, and the mean of the marker variable. 
 
 Fixed factor: standardized, unit-free estimates. Has some nice-ities. Does not arbitrarily give more weight to one indicator. If more than one latent factor is estimated, the estimates between the factors gives the correlation. If you square the loadings and add the residual it equals 1. 
@@ -336,14 +323,11 @@ semPaths(fit.3, what= "std")
 ```
 
 
-=======
-
 Fixed factor: standardized, unit-free estimates 
 Effects coding: if the original metric is meaningful
 Marker variable: if you are lazy. 
 
 Changes interpretation of some parameters. Will not change fit indices. 
->>>>>>> adaed47aa3b6ae705ade898eb3ebb25511a0e3d1
 
 ### Fit Indices
 
@@ -355,13 +339,8 @@ Changes interpretation of some parameters. Will not change fit indices.
 
 4. RMSEA or SRMR (Absolute fit). Does not compare to a null model. Judges distance from perfect fit. 
 
-<<<<<<< HEAD
- Above .10 poor fit
- Below .08 acceptable
-=======
-> .10 poor fit
-< .08 acceptable
->>>>>>> adaed47aa3b6ae705ade898eb3ebb25511a0e3d1
+Above .10 poor fit
+Below .08 acceptable
 
 5. CFI, TFI (Relative fit models). Compares relative to a null model. Judges distance from the worse fit ie a null model. Null models have no covariance among observed and latent variables. 
 
@@ -403,21 +382,19 @@ Bootstrapped estimates are also available with se = "bootstrap"
 
 ```
 
-## Measurement Invariance (MI)
-
-Configural
-
-Weak
-
-Strong
-
-Strict
-
-
-
-
 
 ## Types of models other than growth models (brief intro)
+
+
+```{r}
+long <- read_csv("~/Box Sync/5165 Applied Longitudinal Data Analysis/SEM_workshop/longitudinal.csv")
+
+summary(long)
+
+```
+
+
+
 ### Longitudinal CFA
 
 key concerns: 
@@ -426,12 +403,105 @@ key concerns:
 3. Are the loadings the same across time? (more on this later)
 
 
+
+```{r}
+long.cfa <- '
+## define latent variables
+Pos1 =~ PosAFF11 + PosAFF21 + PosAFF31
+Pos2 =~ PosAFF12 + PosAFF22 + PosAFF32
+Pos3 =~ PosAFF13 + PosAFF23 + PosAFF33
+Neg1 =~ NegAFF11 + NegAFF21 + NegAFF31
+Neg2 =~ NegAFF12 + NegAFF22 + NegAFF32
+Neg3 =~ NegAFF13 + NegAFF23 + NegAFF33
+
+## correlated residuals across time
+PosAFF11 ~~ PosAFF12 + PosAFF13
+PosAFF12 ~~ PosAFF13
+PosAFF21 ~~ PosAFF22 + PosAFF23
+PosAFF22 ~~ PosAFF23
+PosAFF31 ~~ PosAFF32 + PosAFF33
+PosAFF32 ~~ PosAFF33
+
+NegAFF11 ~~ NegAFF12 + NegAFF13
+NegAFF12 ~~ NegAFF13
+NegAFF21 ~~ NegAFF22 + NegAFF23
+NegAFF22 ~~ NegAFF23
+NegAFF31 ~~ NegAFF32 + NegAFF33
+NegAFF32 ~~ NegAFF33
+
+'
+
+fit.long.cfa <- cfa(long.cfa, data=long, std.lv=TRUE)
+
+summary(fit.long.cfa, standardized=TRUE, fit.measures=TRUE)
+```
+
+
+```{r}
+semPaths(fit.long.cfa)
+```
+
+
 ### Longitudinal Path Model
 
 key concerns: 
 1. Should the regressions be the same across time? 
 2. Should the error variances be correlated? 
 3. Are the loadings the same across time? (more on this later)
+
+
+```{r}
+long.path <- '
+## define latent variables
+Pos1 =~ L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31
+Pos2 =~ L1*PosAFF12 + L2*PosAFF22 + L3*PosAFF32
+Pos3 =~ L1*PosAFF13 + L2*PosAFF23 + L3*PosAFF33
+Neg1 =~ L4*NegAFF11 + L5*NegAFF21 + L6*NegAFF31
+Neg2 =~ L4*NegAFF12 + L5*NegAFF22 + L6*NegAFF32
+Neg3 =~ L4*NegAFF13 + L5*NegAFF23 + L6*NegAFF33
+
+## free latent variances at later times (only set the scale once)
+Pos2 ~~ NA*Pos2
+Pos3 ~~ NA*Pos3
+Neg2 ~~ NA*Neg2
+Neg3 ~~ NA*Neg3
+Pos1 ~~ Neg1
+Pos2 ~~ Neg2
+Pos3 ~~ Neg3
+
+## directional regression paths
+Pos2 ~ Pos1
+Pos3 ~ Pos2
+Neg2 ~ Neg1
+Neg3 ~ Neg2
+
+## correlated residuals across time
+PosAFF11 ~~ PosAFF12 + PosAFF13
+PosAFF12 ~~ PosAFF13
+PosAFF21 ~~ PosAFF22 + PosAFF23
+PosAFF22 ~~ PosAFF23
+PosAFF31 ~~ PosAFF32 + PosAFF33
+PosAFF32 ~~ PosAFF33
+
+NegAFF11 ~~ NegAFF12 + NegAFF13
+NegAFF12 ~~ NegAFF13
+NegAFF21 ~~ NegAFF22 + NegAFF23
+NegAFF22 ~~ NegAFF23
+NegAFF31 ~~ NegAFF32 + NegAFF33
+NegAFF32 ~~ NegAFF33
+'
+
+fit.long.path <- sem(long.path, data=long, std.lv=TRUE)
+
+summary(fit.long.path, standardized=TRUE, fit.measures=TRUE)
+```
+
+```{r}
+semPaths(fit.long.path, layout = "tree3")
+## layout can also be done manually to get publications worthy plots
+
+```
+
 
 ### Longitudinal Cross lagged model
 
@@ -444,37 +514,165 @@ key concerns:
 6. Are there more lagged effects? 
 
 
+```{r}
+long.cross <- '
+## define latent variables
+Pos1 =~ L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31
+Pos2 =~ L1*PosAFF12 + L2*PosAFF22 + L3*PosAFF32
+Pos3 =~ L1*PosAFF13 + L2*PosAFF23 + L3*PosAFF33
+Neg1 =~ L4*NegAFF11 + L5*NegAFF21 + L6*NegAFF31
+Neg2 =~ L4*NegAFF12 + L5*NegAFF22 + L6*NegAFF32
+Neg3 =~ L4*NegAFF13 + L5*NegAFF23 + L6*NegAFF33
+
+## free latent variances at later times (only set the scale once)
+Pos2 ~~ NA*Pos2
+Pos3 ~~ NA*Pos3
+Neg2 ~~ NA*Neg2
+Neg3 ~~ NA*Neg3
+
+Pos1 ~~ Neg1
+Pos2 ~~ Neg2
+Pos3 ~~ Neg3
+
+## directional regression paths
+Pos2 ~ Pos1 + Neg1
+Neg2 ~ Pos1 + Neg1
+Pos3 ~ Pos2 + Neg2
+Neg3 ~ Pos2 + Neg2
+
+## correlated residuals across time
+PosAFF11 ~~ PosAFF12 + PosAFF13
+PosAFF12 ~~ PosAFF13
+PosAFF21 ~~ PosAFF22 + PosAFF23
+PosAFF22 ~~ PosAFF23
+PosAFF31 ~~ PosAFF32 + PosAFF33
+PosAFF32 ~~ PosAFF33
+
+NegAFF11 ~~ NegAFF12 + NegAFF13
+NegAFF12 ~~ NegAFF13
+NegAFF21 ~~ NegAFF22 + NegAFF23
+NegAFF22 ~~ NegAFF23
+NegAFF31 ~~ NegAFF32 + NegAFF33
+NegAFF32 ~~ NegAFF33
+'
+
+fit.long.cross <- sem(long.cross,data=long, std.lv=TRUE)
+
+summary(fit.long.cross, standardized=TRUE, fit.measures=TRUE)
+
+```
+
+```{r}
+semPaths(fit.long.cross)
+```
+
+```{r}
+semPaths(fit.long.cross, layout = "tree3")
+```
 
 
 
 
+### Longitudinal mediation model
 
 
 
+```{r}
+#Do Self-Reported Social Experiences Mediate the Effect of Extraversion on Life Satisfaction and Happiness?
+#number close friends
+
+TSS_sub <- read_csv("~/Box Sync/5165 Applied Longitudinal Data Analysis/Longitudinal/TSS_sub.csv")
 
 
 
+Pscon.model3<-'
+#LV
+bfie =~ a1bfi01 + a1bfi06r + a1bfi11 + a1bfi16 + a1bfi21r + a1bfi26 + a1bfi31r + a1bfi36
+a1bfi11 ~~  a1bfi16
+a1bfi06r ~~ a1bfi21r + a1bfi31r
+a1bfi21r ~~ a1bfi31r + a1bfi01
+iscon=~ isosat + ipclrel + ifllon
+nscon=~ nsosat + npclrel + nfllon
+ipclrel~~npclrel
+#correlations
+bfie~~a1ced04
+#regressions
+iscon ~ a1*bfie + d1*a1ced04
+nscon ~ a2*bfie + d2*a1ced04 + m*iscon
+m1ced04 ~  b*iscon + c*bfie + y*a1ced04
+#effects
+indirect:= a1*b
+total:= indirect + c
+'
+Pscon3 <- sem(Pscon.model3, data=TSS_sub, missing = "ml", fixed.x = FALSE)
+summary(Pscon3, standardized=T, fit.measures=TRUE)
+```
+
+
+
+### Summary of panel SEM models. 
+
+These models are well suited to address between subjects questions, but does not get at a within subjects questions at all. To do so you need to turn to...
 
 ## SEM Growth models
 
 The implimentation of growth models in an SEM framework is very similar to the HLM framework. The major differences is how time is treated. Here, time variables must be the same for everyone in that each assessment point must have a particular variable name associated with it. That is, time is considered categorical in SEM, whereas in MLM it could be treated continuously. This requirment also makes a differences in how our data need to be structured. Whereas previously we had a time variable, now we indirectly include time into our model by specifying when variables were assessed. This has the consequence of necessitating a wide format, as opposed to the long format of MLM. 
 
-Other than time, the idea behind the growth model is exactly the same. 
+Other than time, the idea behind the growth model is exactly the same.
 
-```{r, eval=FALSE}
-model <- ' intercept =~ 1*time1 + 1*time2 + 1*time3 + 1*time4
-           slope =~ 0*time1 + 1*time2 + 2*time3 + 3*time4 '
-fit <- growth(model, data=example)
-summary(fit)
+### coding time
+One key these models is how you code time. Beause we are working with qualitative time rather than continuous everyone has to have the same time structure. 
+
+In terms of definiting a latent intercept and latent slope the intercept is defined as when the slope loading is zero. This idea can be thought of as the intercept is the mean of the DV when the predictor is 0, where we have time as the predictor. 
+
+More later. 
+
+
+```{r}
+model.1 <- '  i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4
+            s =~ 0*t1 + 1*t2 + 2*t3 + 3*t4'
+fit.1 <- growth(model.1, data=Demo.growth)
+summary(fit.1)
 ```
 
+```{r}
+semPaths(fit.1)
+```
+
+```{r}
+semPaths(fit.1, 'est')
+```
+
+
+### latent basis model 
+
+```{r}
+model.2 <- '  i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4
+            s =~ 0*t1 + t2 + t3 + 3*t4'
+fit.2 <- growth(model.2, data=Demo.growth)
+summary(fit.2)
+```
+
+Does not change the fit of the model nor the implied means, but it can change your parameters by changing the time scaling. 
+
+
+### constraining slope to be fixed only
+
+```{r}
+model.3 <- '  i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4
+            s =~ 0*t1 + t2 + t3 + 3*t4
+
+              s ~~0*s'
+fit.3 <- growth(model.3, data=Demo.growth)
+summary(fit.3)
+```
 
 ### introducing covariates/predictors
 
 ```{r}
-# a linear growth model with a time-varying covariate
+# a linear growth model with a time invariatnt covariate
 
-model <- '
+model.4 <- '
   # intercept and slope with fixed coefficients
     i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4
     s =~ 0*t1 + 1*t2 + 2*t3 + 3*t4
@@ -482,15 +680,36 @@ model <- '
     i ~ x1 + x2
     s ~ x1 + x2
 '
-fit <- growth(model, data = Demo.growth)
-summary(fit)
+fit.4 <- growth(model.4, data = Demo.growth)
+summary(fit.4)
 ```
+
+
+```{r}
+# centered predictor
+Demo.growth$x1.c <- scale(Demo.growth$x1, center=TRUE, scale = FALSE)
+Demo.growth$x2.c <- scale(Demo.growth$x2, center=TRUE, scale = FALSE)
+
+model.5 <- '
+  # intercept and slope with fixed coefficients
+    i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4
+    s =~ 0*t1 + 1*t2 + 2*t3 + 3*t4
+  # regressions
+    i ~ x1.c + x2.c
+    s ~ x1.c + x2.c
+'
+fit.5 <- growth(model.5, data = Demo.growth)
+summary(fit.5)
+```
+
+what is different what is the same? 
+
 
 
 ### introducing time varying covariates
 ```{r}
 # a linear growth model with a time-varying covariate
-model <- '
+model.6 <- '
   # intercept and slope with fixed coefficients
     i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4
     s =~ 0*t1 + 1*t2 + 2*t3 + 3*t4
@@ -503,11 +722,62 @@ model <- '
     t3 ~ c3
     t4 ~ c4
 '
-fit <- growth(model, data = Demo.growth)
-summary(fit)
+fit.6 <- growth(model.6, data = Demo.growth)
+summary(fit.6)
 ```
 
 
+
+
+
+### multivariate growth curves
+
+```{r}
+
+model.bi <- '
+    #create positive affect growth model
+    i.p =~ 1*PosAFF11 + 1*PosAFF12 + 1*PosAFF13 
+    s.p =~ 0*PosAFF11 + 1*PosAFF12 + 2*PosAFF13 
+# create negative affect growth model 
+
+   i.n =~ 1*NegAFF11 + 1*NegAFF12 + 1*NegAFF13 
+    s.n =~ 0*NegAFF11 + 1*NegAFF12 + 2*NegAFF13 
+
+'
+fit.bi <- growth(model.bi, data = long)
+summary(fit.bi)
+
+
+```
+
+
+
+```{r}
+semPaths(fit.bi)
+```
+
+```{r}
+inspect(fit.bi,"cor.lv")
+```
+
+
+EEEEeeeee that is not good. What happened? 
+
+
+
+
+
+
+
+## Measurement Invariance (MI)
+
+Configural
+
+Weak
+
+Strong
+
+Strict
 
 ### More on mean structures
 
@@ -535,13 +805,6 @@ to that item’s mean)
 
 
 
-### multivariate growth curves
-
-
-
-
-
-
 
 ## Multple groups
 
@@ -554,3 +817,15 @@ to that item’s mean)
 
 ## Power
 
+
+
+
+
+## Now you try
+
+
+1. Fit a measurement model to your constructs at one time point. Try out the different types of scaling discussed in class. What changes what stays the same? 
+
+2. What do the fit statistics say about your latent variable? Good/bad? Is your latent variable Just identified/saturdated, under identified or over identified? 
+
+3. 

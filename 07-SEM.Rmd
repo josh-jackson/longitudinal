@@ -827,5 +827,16 @@ to that item’s mean)
 1. Fit a measurement model to your constructs at one time point. Try out the different types of scaling discussed in class. What changes what stays the same? 
 
 2. What do the fit statistics say about your latent variable? Good/bad? Is your latent variable Just identified/saturdated, under identified or over identified? 
+3. Fit a longitudinal CFA model where you a) first correlate your latent factors across time and then b) a second model that predicts later times by a prevous time (ie auto regressive; t1 -> t2 -> t3). What are your conclusions? How does one differ from the other? 
 
-3. 
+4. Fit a longitdinal growth model in SEM and in HLM. Compare and contrast the differences. 
+
+5. Constrain the residual variances to be equal. Does this change the fit of your model? 
+
+6. Contrain your slope to be fixed, not random. How does this change your model? 
+
+7. Change the time metric in your SEM growth model. How does that change your estimates? Does it change your fit statistics? 
+
+8. Try a different type of estimation (see lavaan tutorial for details). How does that change your model? 
+
+9. Provide semplots for each of the models

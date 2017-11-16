@@ -387,7 +387,7 @@ Bootstrapped estimates are also available with se = "bootstrap"
 
 
 ```{r}
-long <- read_csv("~/Box Sync/5165 Applied Longitudinal Data Analysis/SEM_workshop/longitudinal.csv")
+long <- read.csv("~/Box Sync/5165 Applied Longitudinal Data Analysis/SEM_workshop/longitudinal.csv")
 
 summary(long)
 
@@ -1009,7 +1009,7 @@ fitmeasures(strict)['cfi']
 
 
 
-## second order growth model
+## Second order growth model
 
 Repeated measures are latent. Why would we want to do this? 
 
@@ -1064,25 +1064,164 @@ summary(fit.sec.order, fit.measures=TRUE)
 ```
 
 
-
-
-
-
-
-
-
 ## Multple groups
 
-### Cohort sequential designs
 
+```{r}
+
+group <- read_csv("~/Box Sync/5165 Applied Longitudinal Data Analysis/Longitudinal/group.csv")
+
+group1 <- 'Positive =~ P1 + P2 + P3
+Negative =~ N1 + N2 + N3 
+
+Positive ~~ 1*Positive
+Negative ~~ 1*Negative
+
+Positive ~~ Negative
+'
+
+fit.group.1 <- cfa(group1, data=group, std.lv=TRUE, group = "Grade")
+
+summary(fit.group.1, standardized=TRUE, fit.measures=TRUE)
+
+semPaths(fit.group.1,'est', panelGroups=TRUE)
+```
+
+Need to put in labels to fix the different parameters across models
+
+```{r}
+
+
+group2 <- 'Positive =~ c(L1,L1)*P1 + c(L2,L2)*P2 + c(L3,L3)*P3
+Negative =~ N1 + N2 + N3 
+
+Positive ~~ 1*Positive
+Negative ~~ 1*Negative
+
+Positive ~~ Negative
+'
+
+fit.group.2 <- cfa(group2, data=group, std.lv=TRUE, group = "Grade")
+
+summary(fit.group.2, standardized=TRUE, fit.measures=TRUE)
+
+
+```
+
+We could now test whether constraining the groups makes the fit worse (similar to how we did it for measurement invariance)
+
+```{r}
+anova(fit.group.1,fit.group.2)
+```
+
+What if you wanted to make everything the same for a particular type of parameter? Lavaan has an easier answer:
+
+```{r}
+group3 <- 'Positive =~ P1 + P2 + P3
+Negative =~ N1 + N2 + N3 
+
+Positive ~~ 1*Positive
+Negative ~~ 1*Negative
+
+Positive ~~ Negative
+'
+
+fit.group.3 <- cfa(group3, data=group, std.lv=TRUE, group = "Grade", group.equal = c("loadings", "intercepts"))
+
+summary(fit.group.3, standardized=TRUE, fit.measures=TRUE)
+
+```
+
+What is nice is that the output will label what parameters are constrained. Go ahead and look at the lavaan tutorial for more (residual variances, latent means, etc)
+
+### measurement invariance revisited
+
+Can you see how MI tests are just a special type of multiple group analysis? We could set up our data to have variables assessed at two different time points with the time demarcated by a group variable. The exact same findings from MI would be found with multiple group. It all depends on how you structure your data.  
+
+### When to use 
+
+For Longitudinal models you are faced with a choice: do you want to use group status to predit your slope, for example, or do you want to use multiple groups. The short answer is that it does not matter! The semi-longer answer is that including group as a predictor is simple while multiple groups analyses are more complex but also more flexible. Using one or the other depends on what your theory about where the group differences occur. If they occur in only the regression relationshop indicating group mean differences then go with the easy option. If you think that the measurement model also may differ for your groups you have a more nuanced theory that necessiates multiple groups.
+
+```{r}
+Demo.growth$group <- cut(Demo.growth$x1.c, breaks=c(-Inf, 0, Inf), labels=c("low", "high"))
+
+model.7 <- '
+  # intercept and slope with fixed coefficients
+    i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4
+    s =~ 0*t1 + 1*t2 + 2*t3 + 3*t4
+  # regressions
+    i ~ group
+    s ~ group
+'
+fit.7 <- growth(model.7, data = Demo.growth)
+summary(fit.7)
+
+```
+
+
+
+
+```{r}
+
+model.8 <- '
+  # intercept and slope with fixed coefficients
+    i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4
+    s =~ 0*t1 + 1*t2 + 2*t3 + 3*t4
+
+'
+fit.8 <- growth(model.8, data = Demo.growth, group = "group")
+summary(fit.8)
+
+```
+
+
+Notice how the slope and the intercept are larger for the high group, suggesting a difference between groups. 
+
+```{r}
+model.9 <- '
+  # intercept and slope with fixed coefficients
+    i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4
+    s =~ 0*t1 + 1*t2 + 2*t3 + 3*t4
+
+'
+fit.9 <- growth(model.9, data = Demo.growth, group = "group", group.equal = "means")
+summary(fit.9)
+
+```
+
+
+Does constraining the latent means lead to a worse fit? 
+
+```{r}
+anova(fit.8, fit.9)
+```
+
+
+testing just the slope difference without constraining anything else. 
+
+```{r}
+model.10 <- '
+  # intercept and slope with fixed coefficients
+    i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4
+    s =~ 0*t1 + 1*t2 + 2*t3 + 3*t4
+
+s ~  c(m1, m1)*1
+
+'
+fit.10 <- growth(model.10, data = Demo.growth, group = "group")
+summary(fit.10)
+
+```
+
+```{r}
+anova(fit.8, fit.10)
+```
 
 ## Missing data
 
 ### Planned missing data
 
 ## Power
-
-
 
 
 
@@ -1104,4 +1243,14 @@ summary(fit.sec.order, fit.measures=TRUE)
 
 8. Try a different type of estimation (see lavaan tutorial for details). How does that change your model? 
 
-9. Provide semplots for each of the models
+9. Provide semplots for each of the models. 
+
+
+----NEW QUESTIONS----
+
+10. Test measurement invariance across time for your construct. Can you run growth models? If there is evidence of non-invariance, what seems to be the problem? 
+
+11. Fit a second order growth model. Compare and contrast the estimates with the normal latent growth model. 
+
+12. Fit a series of multiple group models. Constrain some parameters and compare the fit. 
+

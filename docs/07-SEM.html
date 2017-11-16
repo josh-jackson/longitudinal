@@ -274,9 +274,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.9.2" data-path="07-SEM.html"><a href="07-SEM.html#testing-mi"><i class="fa fa-check"></i><b>7.9.2</b> Testing MI</a></li>
 <li class="chapter" data-level="7.9.3" data-path="07-SEM.html"><a href="07-SEM.html#comparing-the-models"><i class="fa fa-check"></i><b>7.9.3</b> Comparing the models</a></li>
 </ul></li>
-<li class="chapter" data-level="7.10" data-path="07-SEM.html"><a href="07-SEM.html#second-order-growth-model"><i class="fa fa-check"></i><b>7.10</b> second order growth model</a></li>
+<li class="chapter" data-level="7.10" data-path="07-SEM.html"><a href="07-SEM.html#second-order-growth-model"><i class="fa fa-check"></i><b>7.10</b> Second order growth model</a></li>
 <li class="chapter" data-level="7.11" data-path="07-SEM.html"><a href="07-SEM.html#multple-groups"><i class="fa fa-check"></i><b>7.11</b> Multple groups</a><ul>
-<li class="chapter" data-level="7.11.1" data-path="07-SEM.html"><a href="07-SEM.html#cohort-sequential-designs"><i class="fa fa-check"></i><b>7.11.1</b> Cohort sequential designs</a></li>
+<li class="chapter" data-level="7.11.1" data-path="07-SEM.html"><a href="07-SEM.html#measurement-invariance-revisited"><i class="fa fa-check"></i><b>7.11.1</b> measurement invariance revisited</a></li>
+<li class="chapter" data-level="7.11.2" data-path="07-SEM.html"><a href="07-SEM.html#when-to-use"><i class="fa fa-check"></i><b>7.11.2</b> When to use</a></li>
 </ul></li>
 <li class="chapter" data-level="7.12" data-path="07-SEM.html"><a href="07-SEM.html#missing-data-1"><i class="fa fa-check"></i><b>7.12</b> Missing data</a><ul>
 <li class="chapter" data-level="7.12.1" data-path="07-SEM.html"><a href="07-SEM.html#planned-missing-data"><i class="fa fa-check"></i><b>7.12.1</b> Planned missing data</a></li>
@@ -850,29 +851,9 @@ fit<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">cfa
 </div>
 <div id="types-of-longitudinal-models-other-than-growth-models-brief-intro" class="section level2">
 <h2><span class="header-section-number">7.7</span> Types of longitudinal models other than growth models (brief intro)</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">long &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;~/Box Sync/5165 Applied Longitudinal Data Analysis/SEM_workshop/longitudinal.csv&quot;</span>)</code></pre></div>
-<pre><code>## Parsed with column specification:
-## cols(
-##   PosAFF11 = col_double(),
-##   PosAFF21 = col_double(),
-##   PosAFF31 = col_double(),
-##   NegAFF11 = col_double(),
-##   NegAFF21 = col_double(),
-##   NegAFF31 = col_double(),
-##   PosAFF12 = col_double(),
-##   PosAFF22 = col_double(),
-##   PosAFF32 = col_double(),
-##   NegAFF12 = col_double(),
-##   NegAFF22 = col_double(),
-##   NegAFF32 = col_double(),
-##   PosAFF13 = col_double(),
-##   PosAFF23 = col_double(),
-##   PosAFF33 = col_double(),
-##   NegAFF13 = col_double(),
-##   NegAFF23 = col_double(),
-##   NegAFF33 = col_double()
-## )</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(long)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">long &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;~/Box Sync/5165 Applied Longitudinal Data Analysis/SEM_workshop/longitudinal.csv&quot;</span>)
+
+<span class="kw">summary</span>(long)</code></pre></div>
 <pre><code>##     PosAFF11        PosAFF21         PosAFF31        NegAFF11      
 ##  Min.   :1.365   Min.   :0.4152   Min.   :1.140   Min.   :-0.8584  
 ##  1st Qu.:2.739   1st Qu.:2.6343   1st Qu.:2.797   1st Qu.: 1.1035  
@@ -1433,7 +1414,7 @@ fit.long.cross &lt;-<span class="st"> </span><span class="kw">sem</span>(long.cr
 ##  .Pos2 ~~                                                               
 ##    .Neg2             -0.269    0.036   -7.567    0.000   -0.566   -0.566
 ##  .Pos3 ~~                                                               
-##    .Neg3             -0.127    0.027   -4.710    0.000   -0.308   -0.308
+##    .Neg3             -0.127    0.027   -4.711    0.000   -0.308   -0.308
 ##  .PosAFF11 ~~                                                           
 ##    .PosAFF12          0.004    0.007    0.529    0.597    0.004    0.039
 ##    .PosAFF13          0.002    0.007    0.371    0.711    0.002    0.028
@@ -3002,7 +2983,7 @@ strict &lt;-<span class="st"> </span><span class="kw">cfa</span>(strict, <span c
 </div>
 </div>
 <div id="second-order-growth-model" class="section level2">
-<h2><span class="header-section-number">7.10</span> second order growth model</h2>
+<h2><span class="header-section-number">7.10</span> Second order growth model</h2>
 <p>Repeated measures are latent. Why would we want to do this?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sec.order &lt;-<span class="st"> &#39;</span>
 <span class="st">## define latent variables</span>
@@ -3181,8 +3162,878 @@ fit.sec.order &lt;-<span class="st"> </span><span class="kw">growth</span>(sec.o
 </div>
 <div id="multple-groups" class="section level2">
 <h2><span class="header-section-number">7.11</span> Multple groups</h2>
-<div id="cohort-sequential-designs" class="section level3">
-<h3><span class="header-section-number">7.11.1</span> Cohort sequential designs</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">group &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;~/Box Sync/5165 Applied Longitudinal Data Analysis/Longitudinal/group.csv&quot;</span>)</code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   P1 = col_double(),
+##   P2 = col_double(),
+##   P3 = col_double(),
+##   N1 = col_double(),
+##   N2 = col_double(),
+##   N3 = col_double(),
+##   Grade = col_character()
+## )</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">group1 &lt;-<span class="st"> &#39;Positive =~ P1 + P2 + P3</span>
+<span class="st">Negative =~ N1 + N2 + N3 </span>
+
+<span class="st">Positive ~~ 1*Positive</span>
+<span class="st">Negative ~~ 1*Negative</span>
+
+<span class="st">Positive ~~ Negative</span>
+<span class="st">&#39;</span>
+
+fit.group<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">cfa</span>(group1, <span class="dt">data=</span>group, <span class="dt">std.lv=</span><span class="ot">TRUE</span>, <span class="dt">group =</span> <span class="st">&quot;Grade&quot;</span>)
+
+<span class="kw">summary</span>(fit.group<span class="fl">.1</span>, <span class="dt">standardized=</span><span class="ot">TRUE</span>, <span class="dt">fit.measures=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## lavaan (0.5-23.1097) converged normally after  44 iterations
+## 
+##   Number of observations per group         
+##   7th                                              380
+##   8th                                              379
+## 
+##   Estimator                                         ML
+##   Minimum Function Test Statistic               46.102
+##   Degrees of freedom                                16
+##   P-value (Chi-square)                           0.000
+## 
+## Chi-square for each group:
+## 
+##   7th                                           17.124
+##   8th                                           28.978
+## 
+## Model test baseline model:
+## 
+##   Minimum Function Test Statistic             3598.760
+##   Degrees of freedom                                30
+##   P-value                                        0.000
+## 
+## User model versus baseline model:
+## 
+##   Comparative Fit Index (CFI)                    0.992
+##   Tucker-Lewis Index (TLI)                       0.984
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)              -2901.633
+##   Loglikelihood unrestricted model (H1)      -2878.582
+## 
+##   Number of free parameters                         38
+##   Akaike (AIC)                                5879.267
+##   Bayesian (BIC)                              6055.283
+##   Sample-size adjusted Bayesian (BIC)         5934.617
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.070
+##   90 Percent Confidence Interval          0.047  0.095
+##   P-value RMSEA &lt;= 0.05                          0.072
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.029
+## 
+## Parameter Estimates:
+## 
+##   Information                                 Expected
+##   Standard Errors                             Standard
+## 
+## 
+## Group 1 [7th]:
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   Positive =~                                                           
+##     P1                0.571    0.028   20.208    0.000    0.571    0.856
+##     P2                0.605    0.029   21.201    0.000    0.605    0.884
+##     P3                0.628    0.029   21.416    0.000    0.628    0.890
+##   Negative =~                                                           
+##     N1                0.634    0.029   21.640    0.000    0.634    0.888
+##     N2                0.585    0.027   21.458    0.000    0.585    0.884
+##     N3                0.599    0.026   22.814    0.000    0.599    0.918
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   Positive ~~                                                           
+##     Negative         -0.069    0.056   -1.249    0.212   -0.069   -0.069
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .P1                3.136    0.034   91.663    0.000    3.136    4.702
+##    .P2                2.991    0.035   85.211    0.000    2.991    4.371
+##    .P3                3.069    0.036   84.777    0.000    3.069    4.349
+##    .N1                1.701    0.037   46.482    0.000    1.701    2.384
+##    .N2                1.527    0.034   44.944    0.000    1.527    2.306
+##    .N3                1.545    0.033   46.195    0.000    1.545    2.370
+##     Positive          0.000                               0.000    0.000
+##     Negative          0.000                               0.000    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##     Positive          1.000                               1.000    1.000
+##     Negative          1.000                               1.000    1.000
+##    .P1                0.119    0.012    9.705    0.000    0.119    0.267
+##    .P2                0.102    0.012    8.337    0.000    0.102    0.218
+##    .P3                0.103    0.013    8.006    0.000    0.103    0.207
+##    .N1                0.107    0.012    9.214    0.000    0.107    0.211
+##    .N2                0.096    0.010    9.468    0.000    0.096    0.219
+##    .N3                0.067    0.009    7.307    0.000    0.067    0.157
+## 
+## 
+## Group 2 [8th]:
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   Positive =~                                                           
+##     P1                0.638    0.028   22.652    0.000    0.638    0.909
+##     P2                0.639    0.029   21.938    0.000    0.639    0.892
+##     P3                0.713    0.030   23.800    0.000    0.713    0.937
+##   Negative =~                                                           
+##     N1                0.562    0.027   20.758    0.000    0.562    0.865
+##     N2                0.544    0.024   22.313    0.000    0.544    0.906
+##     N3                0.565    0.025   22.927    0.000    0.565    0.921
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   Positive ~~                                                           
+##     Negative         -0.321    0.050   -6.454    0.000   -0.321   -0.321
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .P1                3.073    0.036   85.224    0.000    3.073    4.378
+##    .P2                2.847    0.037   77.322    0.000    2.847    3.972
+##    .P3                2.979    0.039   76.197    0.000    2.979    3.914
+##    .N1                1.717    0.033   51.485    0.000    1.717    2.645
+##    .N2                1.580    0.031   51.175    0.000    1.580    2.629
+##    .N3                1.550    0.032   49.195    0.000    1.550    2.527
+##     Positive          0.000                               0.000    0.000
+##     Negative          0.000                               0.000    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##     Positive          1.000                               1.000    1.000
+##     Negative          1.000                               1.000    1.000
+##    .P1                0.085    0.009    9.009    0.000    0.085    0.173
+##    .P2                0.105    0.011   10.032    0.000    0.105    0.205
+##    .P3                0.071    0.010    6.908    0.000    0.071    0.123
+##    .N1                0.106    0.010   10.403    0.000    0.106    0.252
+##    .N2                0.065    0.008    8.293    0.000    0.065    0.180
+##    .N3                0.057    0.008    7.233    0.000    0.057    0.152</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">semPaths</span>(fit.group<span class="fl">.1</span>,<span class="st">&#39;est&#39;</span>, <span class="dt">panelGroups=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="Applied_Longitudinal_Data_Analysis_files/figure-html/unnamed-chunk-133-1.png" width="672" /></p>
+<p>Need to put in labels to fix the different parameters across models</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">group2 &lt;-<span class="st"> &#39;Positive =~ c(L1,L1)*P1 + c(L2,L2)*P2 + c(L3,L3)*P3</span>
+<span class="st">Negative =~ N1 + N2 + N3 </span>
+
+<span class="st">Positive ~~ 1*Positive</span>
+<span class="st">Negative ~~ 1*Negative</span>
+
+<span class="st">Positive ~~ Negative</span>
+<span class="st">&#39;</span>
+
+fit.group<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">cfa</span>(group2, <span class="dt">data=</span>group, <span class="dt">std.lv=</span><span class="ot">TRUE</span>, <span class="dt">group =</span> <span class="st">&quot;Grade&quot;</span>)
+
+<span class="kw">summary</span>(fit.group<span class="fl">.2</span>, <span class="dt">standardized=</span><span class="ot">TRUE</span>, <span class="dt">fit.measures=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## lavaan (0.5-23.1097) converged normally after  52 iterations
+## 
+##   Number of observations per group         
+##   7th                                              380
+##   8th                                              379
+## 
+##   Estimator                                         ML
+##   Minimum Function Test Statistic               51.058
+##   Degrees of freedom                                19
+##   P-value (Chi-square)                           0.000
+## 
+## Chi-square for each group:
+## 
+##   7th                                           19.934
+##   8th                                           31.124
+## 
+## Model test baseline model:
+## 
+##   Minimum Function Test Statistic             3598.760
+##   Degrees of freedom                                30
+##   P-value                                        0.000
+## 
+## User model versus baseline model:
+## 
+##   Comparative Fit Index (CFI)                    0.991
+##   Tucker-Lewis Index (TLI)                       0.986
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)              -2904.111
+##   Loglikelihood unrestricted model (H1)      -2878.582
+## 
+##   Number of free parameters                         35
+##   Akaike (AIC)                                5878.222
+##   Bayesian (BIC)                              6040.342
+##   Sample-size adjusted Bayesian (BIC)         5929.203
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.067
+##   90 Percent Confidence Interval          0.045  0.089
+##   P-value RMSEA &lt;= 0.05                          0.098
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.048
+## 
+## Parameter Estimates:
+## 
+##   Information                                 Expected
+##   Standard Errors                             Standard
+## 
+## 
+## Group 1 [7th]:
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   Positive =~                                                           
+##     P1        (L1)    0.607    0.020   30.548    0.000    0.607    0.871
+##     P2        (L2)    0.621    0.020   30.504    0.000    0.621    0.886
+##     P3        (L3)    0.674    0.021   32.232    0.000    0.674    0.906
+##   Negative =~                                                           
+##     N1                0.634    0.029   21.642    0.000    0.634    0.888
+##     N2                0.585    0.027   21.461    0.000    0.585    0.884
+##     N3                0.599    0.026   22.816    0.000    0.599    0.918
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   Positive ~~                                                           
+##     Negative         -0.074    0.055   -1.343    0.179   -0.074   -0.074
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .P1                3.136    0.036   87.656    0.000    3.136    4.497
+##    .P2                2.991    0.036   83.103    0.000    2.991    4.263
+##    .P3                3.069    0.038   80.434    0.000    3.069    4.126
+##    .N1                1.701    0.037   46.473    0.000    1.701    2.384
+##    .N2                1.527    0.034   44.936    0.000    1.527    2.305
+##    .N3                1.545    0.033   46.185    0.000    1.545    2.369
+##     Positive          0.000                               0.000    0.000
+##     Negative          0.000                               0.000    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##     Positive          1.000                               1.000    1.000
+##     Negative          1.000                               1.000    1.000
+##    .P1                0.118    0.012    9.839    0.000    0.118    0.242
+##    .P2                0.106    0.012    9.121    0.000    0.106    0.216
+##    .P3                0.099    0.012    7.968    0.000    0.099    0.179
+##    .N1                0.107    0.012    9.215    0.000    0.107    0.211
+##    .N2                0.096    0.010    9.467    0.000    0.096    0.219
+##    .N3                0.067    0.009    7.308    0.000    0.067    0.157
+## 
+## 
+## Group 2 [8th]:
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   Positive =~                                                           
+##     P1        (L1)    0.607    0.020   30.548    0.000    0.607    0.901
+##     P2        (L2)    0.621    0.020   30.504    0.000    0.621    0.888
+##     P3        (L3)    0.674    0.021   32.232    0.000    0.674    0.928
+##   Negative =~                                                           
+##     N1                0.559    0.027   20.740    0.000    0.559    0.864
+##     N2                0.542    0.024   22.303    0.000    0.542    0.905
+##     N3                0.563    0.025   22.922    0.000    0.563    0.920
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   Positive ~~                                                           
+##     Negative         -0.308    0.050   -6.180    0.000   -0.308   -0.308
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .P1                3.073    0.035   88.799    0.000    3.073    4.561
+##    .P2                2.847    0.036   79.220    0.000    2.847    4.069
+##    .P3                2.979    0.037   79.802    0.000    2.979    4.099
+##    .N1                1.717    0.033   51.640    0.000    1.717    2.653
+##    .N2                1.580    0.031   51.345    0.000    1.580    2.637
+##    .N3                1.550    0.031   49.363    0.000    1.550    2.536
+##     Positive          0.000                               0.000    0.000
+##     Negative          0.000                               0.000    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##     Positive          1.000                               1.000    1.000
+##     Negative          1.000                               1.000    1.000
+##    .P1                0.085    0.009    9.240    0.000    0.085    0.188
+##    .P2                0.104    0.010    9.940    0.000    0.104    0.212
+##    .P3                0.074    0.010    7.434    0.000    0.074    0.140
+##    .N1                0.106    0.010   10.399    0.000    0.106    0.254
+##    .N2                0.065    0.008    8.288    0.000    0.065    0.181
+##    .N3                0.057    0.008    7.227    0.000    0.057    0.153</code></pre>
+<p>We could now test whether constraining the groups makes the fit worse (similar to how we did it for measurement invariance)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(fit.group<span class="fl">.1</span>,fit.group<span class="fl">.2</span>)</code></pre></div>
+<pre><code>## Chi Square Difference Test
+## 
+##             Df    AIC    BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)
+## fit.group.1 16 5879.3 6055.3 46.102                              
+## fit.group.2 19 5878.2 6040.3 51.058     4.9557       3     0.1751</code></pre>
+<p>What if you wanted to make everything the same for a particular type of parameter? Lavaan has an easier answer:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">group3 &lt;-<span class="st"> &#39;Positive =~ P1 + P2 + P3</span>
+<span class="st">Negative =~ N1 + N2 + N3 </span>
+
+<span class="st">Positive ~~ 1*Positive</span>
+<span class="st">Negative ~~ 1*Negative</span>
+
+<span class="st">Positive ~~ Negative</span>
+<span class="st">&#39;</span>
+
+fit.group<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">cfa</span>(group3, <span class="dt">data=</span>group, <span class="dt">std.lv=</span><span class="ot">TRUE</span>, <span class="dt">group =</span> <span class="st">&quot;Grade&quot;</span>, <span class="dt">group.equal =</span> <span class="kw">c</span>(<span class="st">&quot;loadings&quot;</span>, <span class="st">&quot;intercepts&quot;</span>))
+
+<span class="kw">summary</span>(fit.group<span class="fl">.3</span>, <span class="dt">standardized=</span><span class="ot">TRUE</span>, <span class="dt">fit.measures=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## lavaan (0.5-23.1097) converged normally after  58 iterations
+## 
+##   Number of observations per group         
+##   7th                                              380
+##   8th                                              379
+## 
+##   Estimator                                         ML
+##   Minimum Function Test Statistic               64.155
+##   Degrees of freedom                                26
+##   P-value (Chi-square)                           0.000
+## 
+## Chi-square for each group:
+## 
+##   7th                                           26.771
+##   8th                                           37.384
+## 
+## Model test baseline model:
+## 
+##   Minimum Function Test Statistic             3598.760
+##   Degrees of freedom                                30
+##   P-value                                        0.000
+## 
+## User model versus baseline model:
+## 
+##   Comparative Fit Index (CFI)                    0.989
+##   Tucker-Lewis Index (TLI)                       0.988
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)              -2910.660
+##   Loglikelihood unrestricted model (H1)      -2878.582
+## 
+##   Number of free parameters                         28
+##   Akaike (AIC)                                5877.319
+##   Bayesian (BIC)                              6007.015
+##   Sample-size adjusted Bayesian (BIC)         5918.104
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.062
+##   90 Percent Confidence Interval          0.043  0.082
+##   P-value RMSEA &lt;= 0.05                          0.137
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.059
+## 
+## Parameter Estimates:
+## 
+##   Information                                 Expected
+##   Standard Errors                             Standard
+## 
+## 
+## Group 1 [7th]:
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   Positive =~                                                           
+##     P1      (.p1.)    0.607    0.020   30.559    0.000    0.607    0.870
+##     P2      (.p2.)    0.624    0.020   30.563    0.000    0.624    0.886
+##     P3      (.p3.)    0.675    0.021   32.293    0.000    0.675    0.906
+##   Negative =~                                                           
+##     N1      (.p4.)    0.596    0.020   29.973    0.000    0.596    0.873
+##     N2      (.p5.)    0.564    0.018   31.005    0.000    0.564    0.875
+##     N3      (.p6.)    0.581    0.018   32.359    0.000    0.581    0.916
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   Positive ~~                                                           
+##     Negative         -0.072    0.055   -1.305    0.192   -0.072   -0.072
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .P1      (.16.)    3.153    0.034   92.887    0.000    3.153    4.521
+##    .P2      (.17.)    2.966    0.035   85.406    0.000    2.966    4.211
+##    .P3      (.18.)    3.077    0.037   83.037    0.000    3.077    4.133
+##    .N1      (.19.)    1.697    0.033   50.786    0.000    1.697    2.485
+##    .N2      (.20.)    1.545    0.031   49.198    0.000    1.545    2.399
+##    .N3      (.21.)    1.535    0.032   48.359    0.000    1.535    2.420
+##     Positiv           0.000                               0.000    0.000
+##     Negativ           0.000                               0.000    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##     Positive          1.000                               1.000    1.000
+##     Negative          1.000                               1.000    1.000
+##    .P1                0.118    0.012    9.870    0.000    0.118    0.243
+##    .P2                0.107    0.012    9.109    0.000    0.107    0.215
+##    .P3                0.099    0.012    7.946    0.000    0.099    0.178
+##    .N1                0.111    0.011    9.751    0.000    0.111    0.237
+##    .N2                0.097    0.010    9.681    0.000    0.097    0.234
+##    .N3                0.065    0.009    7.382    0.000    0.065    0.162
+## 
+## 
+## Group 2 [8th]:
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   Positive =~                                                           
+##     P1      (.p1.)    0.607    0.020   30.559    0.000    0.607    0.900
+##     P2      (.p2.)    0.624    0.020   30.563    0.000    0.624    0.888
+##     P3      (.p3.)    0.675    0.021   32.293    0.000    0.675    0.928
+##   Negative =~                                                           
+##     N1      (.p4.)    0.596    0.020   29.973    0.000    0.596    0.879
+##     N2      (.p5.)    0.564    0.018   31.005    0.000    0.564    0.911
+##     N3      (.p6.)    0.581    0.018   32.359    0.000    0.581    0.923
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   Positive ~~                                                           
+##     Negative         -0.316    0.049   -6.434    0.000   -0.316   -0.316
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .P1      (.16.)    3.153    0.034   92.887    0.000    3.153    4.680
+##    .P2      (.17.)    2.966    0.035   85.406    0.000    2.966    4.222
+##    .P3      (.18.)    3.077    0.037   83.037    0.000    3.077    4.230
+##    .N1      (.19.)    1.697    0.033   50.786    0.000    1.697    2.502
+##    .N2      (.20.)    1.545    0.031   49.198    0.000    1.545    2.497
+##    .N3      (.21.)    1.535    0.032   48.359    0.000    1.535    2.440
+##     Positiv          -0.153    0.076   -2.028    0.043   -0.153   -0.153
+##     Negativ           0.040    0.075    0.527    0.598    0.040    0.040
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##     Positive          1.000                               1.000    1.000
+##     Negative          1.000                               1.000    1.000
+##    .P1                0.086    0.009    9.277    0.000    0.086    0.189
+##    .P2                0.104    0.010    9.930    0.000    0.104    0.211
+##    .P3                0.074    0.010    7.418    0.000    0.074    0.139
+##    .N1                0.104    0.010   10.299    0.000    0.104    0.227
+##    .N2                0.065    0.008    8.576    0.000    0.065    0.170
+##    .N3                0.058    0.008    7.722    0.000    0.058    0.147</code></pre>
+<p>What is nice is that the output will label what parameters are constrained. Go ahead and look at the lavaan tutorial for more (residual variances, latent means, etc)</p>
+<div id="measurement-invariance-revisited" class="section level3">
+<h3><span class="header-section-number">7.11.1</span> measurement invariance revisited</h3>
+<p>Can you see how MI tests are just a special type of multiple group analysis? We could set up our data to have variables assessed at two different time points with the time demarcated by a group variable. The exact same findings from MI would be found with multiple group. It all depends on how you structure your data.</p>
+</div>
+<div id="when-to-use" class="section level3">
+<h3><span class="header-section-number">7.11.2</span> When to use</h3>
+<p>For Longitudinal models you are faced with a choice: do you want to use group status to predit your slope, for example, or do you want to use multiple groups. The short answer is that it does not matter! The semi-longer answer is that including group as a predictor is simple while multiple groups analyses are more complex but also more flexible. Using one or the other depends on what your theory about where the group differences occur. If they occur in only the regression relationshop indicating group mean differences then go with the easy option. If you think that the measurement model also may differ for your groups you have a more nuanced theory that necessiates multiple groups.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Demo.growth$group &lt;-<span class="st"> </span><span class="kw">cut</span>(Demo.growth$x1.c, <span class="dt">breaks=</span><span class="kw">c</span>(-<span class="ot">Inf</span>, <span class="dv">0</span>, <span class="ot">Inf</span>), <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;low&quot;</span>, <span class="st">&quot;high&quot;</span>))
+
+model<span class="fl">.7</span> &lt;-<span class="st"> &#39;</span>
+<span class="st">  # intercept and slope with fixed coefficients</span>
+<span class="st">    i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4</span>
+<span class="st">    s =~ 0*t1 + 1*t2 + 2*t3 + 3*t4</span>
+<span class="st">  # regressions</span>
+<span class="st">    i ~ group</span>
+<span class="st">    s ~ group</span>
+<span class="st">&#39;</span>
+fit<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw">growth</span>(model<span class="fl">.7</span>, <span class="dt">data =</span> Demo.growth)
+<span class="kw">summary</span>(fit<span class="fl">.7</span>)</code></pre></div>
+<pre><code>## lavaan (0.5-23.1097) converged normally after  36 iterations
+## 
+##   Number of observations                           400
+## 
+##   Estimator                                         ML
+##   Minimum Function Test Statistic                8.925
+##   Degrees of freedom                                 7
+##   P-value (Chi-square)                           0.258
+## 
+## Parameter Estimates:
+## 
+##   Information                                 Expected
+##   Standard Errors                             Standard
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   i =~                                                
+##     t1                1.000                           
+##     t2                1.000                           
+##     t3                1.000                           
+##     t4                1.000                           
+##   s =~                                                
+##     t1                0.000                           
+##     t2                1.000                           
+##     t3                2.000                           
+##     t4                3.000                           
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   i ~                                                 
+##     group             1.155    0.142    8.115    0.000
+##   s ~                                                 
+##     group             0.568    0.079    7.226    0.000
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##  .i ~~                                                
+##    .s                 0.454    0.061    7.389    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .t1                0.000                           
+##    .t2                0.000                           
+##    .t3                0.000                           
+##    .t4                0.000                           
+##    .i                -1.120    0.225   -4.972    0.000
+##    .s                 0.153    0.124    1.227    0.220
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .t1                0.593    0.085    6.950    0.000
+##    .t2                0.679    0.061   11.104    0.000
+##    .t3                0.632    0.072    8.811    0.000
+##    .t4                0.510    0.123    4.153    0.000
+##    .i                 1.599    0.150   10.667    0.000
+##    .s                 0.506    0.046   10.935    0.000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model<span class="fl">.8</span> &lt;-<span class="st"> &#39;</span>
+<span class="st">  # intercept and slope with fixed coefficients</span>
+<span class="st">    i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4</span>
+<span class="st">    s =~ 0*t1 + 1*t2 + 2*t3 + 3*t4</span>
+
+<span class="st">&#39;</span>
+fit<span class="fl">.8</span> &lt;-<span class="st"> </span><span class="kw">growth</span>(model<span class="fl">.8</span>, <span class="dt">data =</span> Demo.growth, <span class="dt">group =</span> <span class="st">&quot;group&quot;</span>)
+<span class="kw">summary</span>(fit<span class="fl">.8</span>)</code></pre></div>
+<pre><code>## lavaan (0.5-23.1097) converged normally after  41 iterations
+## 
+##   Number of observations per group         
+##   low                                              199
+##   high                                             201
+## 
+##   Estimator                                         ML
+##   Minimum Function Test Statistic               10.644
+##   Degrees of freedom                                10
+##   P-value (Chi-square)                           0.386
+## 
+## Chi-square for each group:
+## 
+##   low                                            8.116
+##   high                                           2.528
+## 
+## Parameter Estimates:
+## 
+##   Information                                 Expected
+##   Standard Errors                             Standard
+## 
+## 
+## Group 1 [low]:
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   i =~                                                
+##     t1                1.000                           
+##     t2                1.000                           
+##     t3                1.000                           
+##     t4                1.000                           
+##   s =~                                                
+##     t1                0.000                           
+##     t2                1.000                           
+##     t3                2.000                           
+##     t4                3.000                           
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   i ~~                                                
+##     s                 0.465    0.092    5.036    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .t1                0.000                           
+##    .t2                0.000                           
+##    .t3                0.000                           
+##    .t4                0.000                           
+##     i                 0.032    0.104    0.309    0.757
+##     s                 0.722    0.058   12.495    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .t1                0.519    0.118    4.417    0.000
+##    .t2                0.680    0.087    7.827    0.000
+##    .t3                0.635    0.103    6.190    0.000
+##    .t4                0.505    0.178    2.838    0.005
+##     i                 1.754    0.224    7.824    0.000
+##     s                 0.559    0.070    7.999    0.000
+## 
+## 
+## Group 2 [high]:
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   i =~                                                
+##     t1                1.000                           
+##     t2                1.000                           
+##     t3                1.000                           
+##     t4                1.000                           
+##   s =~                                                
+##     t1                0.000                           
+##     t2                1.000                           
+##     t3                2.000                           
+##     t4                3.000                           
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   i ~~                                                
+##     s                 0.445    0.081    5.469    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .t1                0.000                           
+##    .t2                0.000                           
+##    .t3                0.000                           
+##    .t4                0.000                           
+##     i                 1.190    0.097   12.213    0.000
+##     s                 1.288    0.053   24.175    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .t1                0.671    0.124    5.419    0.000
+##    .t2                0.674    0.086    7.877    0.000
+##    .t3                0.628    0.100    6.263    0.000
+##    .t4                0.525    0.169    3.099    0.002
+##     i                 1.446    0.200    7.224    0.000
+##     s                 0.451    0.061    7.404    0.000</code></pre>
+<p>Notice how the slope and the intercept are larger for the high group, suggesting a difference between groups.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model<span class="fl">.9</span> &lt;-<span class="st"> &#39;</span>
+<span class="st">  # intercept and slope with fixed coefficients</span>
+<span class="st">    i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4</span>
+<span class="st">    s =~ 0*t1 + 1*t2 + 2*t3 + 3*t4</span>
+
+<span class="st">&#39;</span>
+fit<span class="fl">.9</span> &lt;-<span class="st"> </span><span class="kw">growth</span>(model<span class="fl">.9</span>, <span class="dt">data =</span> Demo.growth, <span class="dt">group =</span> <span class="st">&quot;group&quot;</span>, <span class="dt">group.equal =</span> <span class="st">&quot;means&quot;</span>)
+<span class="kw">summary</span>(fit<span class="fl">.9</span>)</code></pre></div>
+<pre><code>## lavaan (0.5-23.1097) converged normally after  46 iterations
+## 
+##   Number of observations per group         
+##   low                                              199
+##   high                                             201
+## 
+##   Estimator                                         ML
+##   Minimum Function Test Statistic               95.634
+##   Degrees of freedom                                12
+##   P-value (Chi-square)                           0.000
+## 
+## Chi-square for each group:
+## 
+##   low                                           55.362
+##   high                                          40.272
+## 
+## Parameter Estimates:
+## 
+##   Information                                 Expected
+##   Standard Errors                             Standard
+## 
+## 
+## Group 1 [low]:
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   i =~                                                
+##     t1                1.000                           
+##     t2                1.000                           
+##     t3                1.000                           
+##     t4                1.000                           
+##   s =~                                                
+##     t1                0.000                           
+##     t2                1.000                           
+##     t3                2.000                           
+##     t4                3.000                           
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   i ~~                                                
+##     s                 0.664    0.109    6.082    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .t1                0.000                           
+##    .t2                0.000                           
+##    .t3                0.000                           
+##    .t4                0.000                           
+##     i       (.20.)    0.665    0.077    8.684    0.000
+##     s       (.21.)    1.036    0.042   24.903    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .t1                0.526    0.118    4.442    0.000
+##    .t2                0.673    0.087    7.780    0.000
+##    .t3                0.641    0.104    6.174    0.000
+##    .t4                0.499    0.180    2.775    0.006
+##     i                 2.152    0.263    8.189    0.000
+##     s                 0.658    0.080    8.276    0.000
+## 
+## 
+## Group 2 [high]:
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   i =~                                                
+##     t1                1.000                           
+##     t2                1.000                           
+##     t3                1.000                           
+##     t4                1.000                           
+##   s =~                                                
+##     t1                0.000                           
+##     t2                1.000                           
+##     t3                2.000                           
+##     t4                3.000                           
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   i ~~                                                
+##     s                 0.578    0.092    6.253    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .t1                0.000                           
+##    .t2                0.000                           
+##    .t3                0.000                           
+##    .t4                0.000                           
+##     i       (.20.)    0.665    0.077    8.684    0.000
+##     s       (.21.)    1.036    0.042   24.903    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .t1                0.670    0.124    5.393    0.000
+##    .t2                0.675    0.086    7.862    0.000
+##    .t3                0.626    0.101    6.205    0.000
+##    .t4                0.527    0.171    3.081    0.002
+##     i                 1.722    0.227    7.599    0.000
+##     s                 0.514    0.067    7.685    0.000</code></pre>
+<p>Does constraining the latent means lead to a worse fit?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(fit<span class="fl">.8</span>, fit<span class="fl">.9</span>)</code></pre></div>
+<pre><code>## Chi Square Difference Test
+## 
+##       Df    AIC    BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)    
+## fit.8 10 5458.5 5530.3 10.644                                  
+## fit.9 12 5539.5 5603.3 95.634      84.99       2  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>testing just the slope difference without constraining anything else.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model<span class="fl">.10</span> &lt;-<span class="st"> &#39;</span>
+<span class="st">  # intercept and slope with fixed coefficients</span>
+<span class="st">    i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4</span>
+<span class="st">    s =~ 0*t1 + 1*t2 + 2*t3 + 3*t4</span>
+
+<span class="st">s ~  c(m1, m1)*1</span>
+
+<span class="st">&#39;</span>
+fit<span class="fl">.10</span> &lt;-<span class="st"> </span><span class="kw">growth</span>(model<span class="fl">.10</span>, <span class="dt">data =</span> Demo.growth, <span class="dt">group =</span> <span class="st">&quot;group&quot;</span>)
+<span class="kw">summary</span>(fit<span class="fl">.10</span>)</code></pre></div>
+<pre><code>## lavaan (0.5-23.1097) converged normally after  44 iterations
+## 
+##   Number of observations per group         
+##   low                                              199
+##   high                                             201
+## 
+##   Estimator                                         ML
+##   Minimum Function Test Statistic               59.434
+##   Degrees of freedom                                11
+##   P-value (Chi-square)                           0.000
+## 
+## Chi-square for each group:
+## 
+##   low                                           34.932
+##   high                                          24.502
+## 
+## Parameter Estimates:
+## 
+##   Information                                 Expected
+##   Standard Errors                             Standard
+## 
+## 
+## Group 1 [low]:
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   i =~                                                
+##     t1                1.000                           
+##     t2                1.000                           
+##     t3                1.000                           
+##     t4                1.000                           
+##   s =~                                                
+##     t1                0.000                           
+##     t2                1.000                           
+##     t3                2.000                           
+##     t4                3.000                           
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   i ~~                                                
+##     s                 0.505    0.099    5.110    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##     s         (m1)    1.032    0.042   24.792    0.000
+##    .t1                0.000                           
+##    .t2                0.000                           
+##    .t3                0.000                           
+##    .t4                0.000                           
+##     i                 0.174    0.102    1.706    0.088
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .t1                0.504    0.118    4.279    0.000
+##    .t2                0.686    0.088    7.835    0.000
+##    .t3                0.641    0.105    6.125    0.000
+##    .t4                0.495    0.184    2.692    0.007
+##     i                 1.781    0.226    7.871    0.000
+##     s                 0.657    0.079    8.295    0.000
+## 
+## 
+## Group 2 [high]:
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   i =~                                                
+##     t1                1.000                           
+##     t2                1.000                           
+##     t3                1.000                           
+##     t4                1.000                           
+##   s =~                                                
+##     t1                0.000                           
+##     t2                1.000                           
+##     t3                2.000                           
+##     t4                3.000                           
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   i ~~                                                
+##     s                 0.476    0.086    5.541    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##     s         (m1)    1.032    0.042   24.792    0.000
+##    .t1                0.000                           
+##    .t2                0.000                           
+##    .t3                0.000                           
+##    .t4                0.000                           
+##     i                 1.077    0.096   11.175    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .t1                0.677    0.125    5.416    0.000
+##    .t2                0.672    0.086    7.851    0.000
+##    .t3                0.623    0.101    6.161    0.000
+##    .t4                0.535    0.174    3.070    0.002
+##     i                 1.457    0.202    7.228    0.000
+##     s                 0.515    0.067    7.671    0.000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(fit<span class="fl">.8</span>, fit<span class="fl">.10</span>)</code></pre></div>
+<pre><code>## Chi Square Difference Test
+## 
+##        Df    AIC    BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)    
+## fit.8  10 5458.5 5530.3 10.644                                  
+## fit.10 11 5505.3 5573.1 59.434      48.79       1  2.849e-12 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 </div>
 <div id="missing-data-1" class="section level2">
@@ -3205,7 +4056,13 @@ fit.sec.order &lt;-<span class="st"> </span><span class="kw">growth</span>(sec.o
 <li><p>Contrain your slope to be fixed, not random. How does this change your model?</p></li>
 <li><p>Change the time metric in your SEM growth model. How does that change your estimates? Does it change your fit statistics?</p></li>
 <li><p>Try a different type of estimation (see lavaan tutorial for details). How does that change your model?</p></li>
-<li><p>Provide semplots for each of the models</p></li>
+<li><p>Provide semplots for each of the models.</p></li>
+</ol>
+<p>—-NEW QUESTIONS—-</p>
+<ol start="10" style="list-style-type: decimal">
+<li><p>Test measurement invariance across time for your construct. Can you run growth models? If there is evidence of non-invariance, what seems to be the problem?</p></li>
+<li><p>Fit a second order growth model. Compare and contrast the estimates with the normal latent growth model.</p></li>
+<li><p>Fit a series of multiple group models. Constrain some parameters and compare the fit.</p></li>
 </ol>
 
 </div>

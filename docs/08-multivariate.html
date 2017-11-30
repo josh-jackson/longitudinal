@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
+<link rel="prev" href="07-SEM.html">
 
-<link rel="next" href="01-Syllabus.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -312,20 +312,502 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Applied Longitudinal Data Analysis</h1>
-<h4 class="author"><em>Josh Jackson</em></h4>
-<h4 class="date"><em>Fall 2017</em></h4>
+<div id="advanced-multivariate-longitudinal-sem-designs" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Advanced Multivariate Longitudinal SEM designs</h1>
+<p>Thus far our longitudinal SEM designs have mostly dealt with single growth curves. These models assume and underlying trajectory that is unitary across time. In other words, the trajectory may not be linear but it is thought to be resulting from a singular process. What is somewhat unsatisfactory about this is that change in constructs may happen at a different timescale. With growth curves the time scale of change is the entire period.</p>
+<p>An alternative approach is to look at repeated processes of change, thereby getting at more complex theories that can look at a) what construct changes prior to another b) whether changes in a construct occur for the same reasons at different times and c) whether or not the dynamics of change among multiple constructs are similar across time. These more advanced questions necessarily involve breaking the change process down into smaller change quantities. Instead of one growth curve, there may be multiple change (difference) scores. Or there may be multiple regressions associating one construct to another.</p>
+<p>How are these different than the cross-lagged panel model that Josh said was mostly worthless prior in the semester? Well they still aren’t great, and that is because it is difficult to address chicken and egg questions that the cross-lag panel model gets used for. However, they do attempt to overcome some of the limitations of those models. Moreover, some of the questions that they attempt to answer side step the difficulties of cross-lagged panel models.</p>
+<div id="cross-lagged-panel-model" class="section level3">
+<h3><span class="header-section-number">8.0.1</span> Cross-lagged panel model</h3>
+<p>As an aside, what are the difficulties of cross-lagged panel models? To list a few:</p>
+<ol style="list-style-type: decimal">
+<li>Arbitrary starting point can change association.</li>
+<li>Time between lags can influence results because changes may not be aligned with assessment. Think of a wheel rolling and measuring the location of a point at at every quarter rotation compared to 2 rotations.</li>
+<li>Different constructs may change at different rates, influencing results.</li>
+<li>Theoretically, the model suggest that one point in time influences change in some other construct. Why would Tuesday at 2 be so important, why not Thursday at 4?</li>
+<li>typically need to constrain cross loadings to be the same to ensure quality estimates. But doing so makes it impossible to see if the association differ across time.</li>
+</ol>
 </div>
-<p>Applied Longitudinal Data Analysis</p>
+<div id="difference-scores" class="section level2">
+<h2><span class="header-section-number">8.1</span> Difference scores</h2>
+<p>The stepping stone to these more advanced models that move beyond cross lagged panel models are built on the humble difference score.</p>
+<p>A long time ago I said that these are not great. Indeed, there is a great history about how difference scores are problematic. This changed the way that experimental psychology analyzed and conducted their experiments in the 60s and early 70s. Cronbach of the alpha fame had a wonderful missive about the lack of utility of difference scores.</p>
+<p>He is right, every difference scores contain measurement error that cannot be separated from true change. In place, people have regressed t2 on t1 and used the residual for a residual change score. However, there are problems such as a loss of information where 2 variables become 1. Low reliability. And there might be a different factor structure at time 2 from that at time 1.</p>
+<p>What to do? Don’t use difference scores, use something else. Maybe latently?</p>
+</div>
+<div id="analyzing-change-with-two-time-points" class="section level2">
+<h2><span class="header-section-number">8.2</span> Analyzing change with two time points</h2>
+<p>This occurs a lot. Pre-post design. Only have enough money to follow up participants once. Getting an itchy publishing-finger while waiting for your longitudinal study to mature.</p>
+<p>There are a few options (See McArdle Annual Review of Psych for more details).</p>
+<p>The most basic (and most extendable) is really similar to a growth model. To understand where it is coming from:</p>
+<p>(delta T) = T2 - T1 delta T is going to be a latent variable, created by factor loading of 1 from T1 -&gt; T2, meaning that delta T is thought of as an error variance term; what is left over after saying T1 perfectly causes T2. Can now relate that to T1, something the difference score and residual change score models could not do simultaneously.</p>
+<pre><code>##     T1X1     T1X2     T1X3     T2X1     T2X2     T2X3 
+## 4.820205 5.470553 4.191088 5.483167 6.165787 4.832366</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">change &lt;-
 
+<span class="st">&#39;C_T1=~1*T1X1 + L2*T1X2  + L3*T1X3    </span>
+<span class="st">C_T2=~1*T2X1 + L2*T2X2 + L3*T2X3   </span>
+
+<span class="st">C_T2 ~ 1*C_T1     # Fixed regression of C_T2 on C_T1</span>
+<span class="st">dC =~ 1*C_T2     # Fixed regression of dC on C_T2</span>
+<span class="st">C_T2 ~ 0*1        # This line constrains the intercept of C_T2 to 0</span>
+<span class="st">C_T2 ~~ 0*C_T2    # This fixes the variance of the C_T2 to 0 </span>
+
+<span class="st">dC ~ 1             # This estimates the intercept of the change score </span>
+<span class="st">C_T1 ~  1           # This estimates the intercept of C_T1 </span>
+<span class="st">dC ~~  dC       # This estimates the variance of the change scores </span>
+<span class="st">C_T1 ~~ C_T1    # This estimates the variance of the COG_T1 </span>
+<span class="st">dC ~ C_T1          # This estimates the self-feedback parameter, which for now is just the covaration with change and T1</span>
+
+
+<span class="st">T1X1~~T2X1   # This allows residual covariance on indicator X1 across T1 and T2</span>
+<span class="st">T1X2~~T2X2   # This allows residual covariance on indicator X2 across T1 and T2</span>
+<span class="st">T1X3~~T2X3   # This allows residual covariance on indicator X3 across T1 and T2</span>
+
+<span class="st">T1X1~~T1X1   # This allows residual variance on indicator X1 </span>
+<span class="st">T1X2~~T1X2   # This allows residual variance on indicator X2</span>
+<span class="st">T1X3~~T1X3   # This allows residual variance on indicator X3</span>
+
+<span class="st">T2X1~~T2X1  # This allows residual variance on indicator X1 at T2 </span>
+<span class="st">T2X2~~T2X2  # This allows residual variance on indicator X2 at T2 </span>
+<span class="st">T2X3~~T2X3  # This allows residual variance on indicator X3 at T2</span>
+
+<span class="st">T1X1~0*1                 # This constrains the intercept of X1 to 0 at T1</span>
+<span class="st">T1X2~M2*1                   # This estimates the intercept of X2 at T1</span>
+<span class="st">T1X3~M3*1                   # This estimates the intercept of X3 at T1</span>
+<span class="st">T2X1~0*1                 # This constrains the intercept of X1 to 0 at T2</span>
+<span class="st">T2X2~M2*1   # This estimates the intercept of X2 at T2</span>
+<span class="st">T2X3~M3*1   # This estimates the intercept of X3 at T2</span>
+
+
+<span class="st">&#39;</span>
+
+change.fit &lt;-<span class="st"> </span><span class="kw">sem</span>(change, <span class="dt">data=</span>simdat, <span class="dt">missing=</span><span class="st">&quot;ML&quot;</span>)
+<span class="kw">summary</span>(change.fit, <span class="dt">fit.measures=</span><span class="ot">TRUE</span>, <span class="dt">standardized=</span><span class="ot">TRUE</span>, <span class="dt">rsquare=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## lavaan (0.5-23.1097) converged normally after  56 iterations
+## 
+##   Number of observations                           500
+## 
+##   Number of missing patterns                         1
+## 
+##   Estimator                                         ML
+##   Minimum Function Test Statistic                5.327
+##   Degrees of freedom                                 9
+##   P-value (Chi-square)                           0.805
+## 
+## Model test baseline model:
+## 
+##   Minimum Function Test Statistic             1003.549
+##   Degrees of freedom                                15
+##   P-value                                        0.000
+## 
+## User model versus baseline model:
+## 
+##   Comparative Fit Index (CFI)                    1.000
+##   Tucker-Lewis Index (TLI)                       1.006
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)              -4826.130
+##   Loglikelihood unrestricted model (H1)      -4823.467
+## 
+##   Number of free parameters                         18
+##   Akaike (AIC)                                9688.260
+##   Bayesian (BIC)                              9764.123
+##   Sample-size adjusted Bayesian (BIC)         9706.990
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.000
+##   90 Percent Confidence Interval          0.000  0.032
+##   P-value RMSEA &lt;= 0.05                          0.994
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.014
+## 
+## Parameter Estimates:
+## 
+##   Information                                 Observed
+##   Standard Errors                             Standard
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   C_T1 =~                                                               
+##     T1X1              1.000                               1.029    0.729
+##     T1X2      (L2)    1.022    0.048   21.300    0.000    1.051    0.721
+##     T1X3      (L3)    0.819    0.041   19.775    0.000    0.842    0.638
+##   C_T2 =~                                                               
+##     T2X1              1.000                               1.137    0.756
+##     T2X2      (L2)    1.022    0.048   21.300    0.000    1.161    0.780
+##     T2X3      (L3)    0.819    0.041   19.775    0.000    0.931    0.665
+##   dC =~                                                                 
+##     C_T2              1.000                               0.521    0.521
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   C_T2 ~                                                                
+##     C_T1              1.000                               0.905    0.905
+##   dC ~                                                                  
+##     C_T1             -0.055    0.059   -0.939    0.348   -0.096   -0.096
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##  .T1X1 ~~                                                               
+##    .T2X1             -0.123    0.060   -2.035    0.042   -0.123   -0.129
+##  .T1X2 ~~                                                               
+##    .T2X2             -0.098    0.061   -1.602    0.109   -0.098   -0.104
+##  .T1X3 ~~                                                               
+##    .T2X3             -0.065    0.056   -1.157    0.247   -0.065   -0.061
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .C_T2              0.000                               0.000    0.000
+##    .dC                0.963    0.285    3.376    0.001    1.625    1.625
+##     C_T1              4.803    0.058   82.284    0.000    4.669    4.669
+##    .T1X1              0.000                               0.000    0.000
+##    .T1X2      (M2)    0.555    0.251    2.210    0.027    0.555    0.381
+##    .T1X3      (M3)    0.292    0.217    1.350    0.177    0.292    0.222
+##    .T2X1              0.000                               0.000    0.000
+##    .T2X2      (M2)    0.555    0.251    2.210    0.027    0.555    0.373
+##    .T2X3      (M3)    0.292    0.217    1.350    0.177    0.292    0.209
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .C_T2              0.000                               0.000    0.000
+##    .dC                0.348    0.079    4.375    0.000    0.991    0.991
+##     C_T1              1.058    0.105   10.068    0.000    1.000    1.000
+##    .T1X1              0.934    0.081   11.535    0.000    0.934    0.469
+##    .T1X2              1.017    0.088   11.537    0.000    1.017    0.480
+##    .T1X3              1.033    0.077   13.340    0.000    1.033    0.593
+##    .T2X1              0.968    0.087   11.170    0.000    0.968    0.428
+##    .T2X2              0.865    0.082   10.539    0.000    0.865    0.391
+##    .T2X3              1.095    0.082   13.402    0.000    1.095    0.558
+## 
+## R-Square:
+##                    Estimate
+##     C_T2              1.000
+##     dC                0.009
+##     T1X1              0.531
+##     T1X2              0.520
+##     T1X3              0.407
+##     T2X1              0.572
+##     T2X2              0.609
+##     T2X3              0.442</code></pre>
+<p>This gives you everything you need for two time points. How would you introduce a predictor variable? Multiple group model? Bi-variate latent change model?</p>
+</div>
+<div id="multi-wave-latent-change-model" class="section level2">
+<h2><span class="header-section-number">8.3</span> multi wave latent change model</h2>
+<p>The real benefit of this type of framework is building on this type of change model to incorporate multiple change models simultanously. This allows one to look at multiple change processes in a single model, opening the door to analyzing more dynamic processes. One can fit two latent change scores (LCSs) with 3 repeated assessments, 3LCSs with 4 repeated measures, etcetera.</p>
+<p>This is similar to the Steyer Model’s that Leah will present.</p>
+<p>One top of this type of model you can fit a growth curve. Why? Can capture both general trends and more fine-grained temporal dynamics. This can be especially useful when trying to separate a known, more stable change occurring during development (e.g.natural agining process) from more specific fluctuations due to external factors (e.g., life events).</p>
+<pre><code>##    COG_T1    COG_T2    COG_T3    COG_T4    NEU_T1    NEU_T2    NEU_T3 
+##  2.122489  4.942527  9.222710 14.925048  1.894173  4.573540  8.417871 
+##    NEU_T4 
+## 13.275938</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">BDCS&lt;-<span class="st">&#39;</span>
+
+<span class="st">COGlv_T1=~1*COG_T1        # Defining the COG latent variables</span>
+<span class="st">COGlv_T2=~1*COG_T2        # Defining the COG latent variables</span>
+<span class="st">COGlv_T3=~1*COG_T3        # Defining the COG latent variables</span>
+<span class="st">COGlv_T4=~1*COG_T4        # Defining the COG latent variables</span>
+
+<span class="st">NEUlv_T1=~1*NEU_T1        # Defining the NEU latent variables</span>
+<span class="st">NEUlv_T2=~1*NEU_T2        # Defining the NEU latent variables</span>
+<span class="st">NEUlv_T3=~1*NEU_T3        # Defining the NEU latent variables</span>
+<span class="st">NEUlv_T4=~1*NEU_T4        # Defining the NEU latent variables</span>
+
+
+<span class="st">COGlv_T2 ~ 1*COGlv_T1     # This parameter regresses COG_T2 perfectly on COG_T1</span>
+<span class="st">COGlv_T3 ~ 1*COGlv_T2     # This parameter regresses COG_T3 perfectly on COG_T2</span>
+<span class="st">COGlv_T4 ~ 1*COGlv_T3     # This parameter regresses COG_T4 perfectly on COG_T3</span>
+
+<span class="st">NEUlv_T2 ~ 1*NEUlv_T1     # This parameter regresses NEU_T2 perfectly on NEU_T1</span>
+<span class="st">NEUlv_T3 ~ 1*NEUlv_T2     # This parameter regresses NEU_T3 perfectly on NEU_T2</span>
+<span class="st">NEUlv_T4 ~ 1*NEUlv_T3     # This parameter regresses NEU_T4 perfectly on NEU_T3</span>
+
+<span class="st">dCOG1 =~ 1*COGlv_T2       # This defines the change score as measured perfectly by scores on COG_T2</span>
+<span class="st">dCOG2 =~ 1*COGlv_T3       # This defines the change score as measured perfectly by scores on COG_T3</span>
+<span class="st">dCOG3 =~ 1*COGlv_T4       # This defines the change score as measured perfectly by scores on COG_T4</span>
+
+<span class="st">dNEU1 =~ 1*NEUlv_T2       # This defines the change score as measured perfectly by scores on NEU_T2</span>
+<span class="st">dNEU2 =~ 1*NEUlv_T3       # This defines the change score as measured perfectly by scores on NEU_T3</span>
+<span class="st">dNEU3 =~ 1*NEUlv_T4       # This defines the change score as measured perfectly by scores on NEU_T4</span>
+
+<span class="st">COG_T1~~COG_T1          # This estimates the COG residual variances </span>
+<span class="st">COG_T2~~COG_T2          # This estimates the COG residual variances </span>
+<span class="st">COG_T3~~COG_T3          # This estimates the COG residual variances </span>
+<span class="st">COG_T4~~COG_T4          # This estimates the COG residual variances </span>
+
+<span class="st">NEU_T1~~NEU_T1          # This estimates the NEU residual variances </span>
+<span class="st">NEU_T2~~NEU_T2          # This estimates the NEU residual variances </span>
+<span class="st">NEU_T3~~NEU_T3          # This estimates the NEU residual variances </span>
+<span class="st">NEU_T4~~NEU_T4          # This estimates the NEU residual variances </span>
+
+<span class="st">#Dynamics</span>
+
+<span class="st">dNEU1~B1*NEUlv_T1       # This estimates the NEU self-feedback parameter </span>
+<span class="st">dNEU2~B1*NEUlv_T2       # This estimates the NEU self-feedback parameter </span>
+<span class="st">dNEU3~B1*NEUlv_T3       # This estimates the NEU self-feedback parameter </span>
+
+<span class="st">dCOG1~B2*COGlv_T1       # This estimates the COG self-feedback parameter </span>
+<span class="st">dCOG2~B2*COGlv_T2       # This estimates the COG self-feedback parameter </span>
+<span class="st">dCOG3~B2*COGlv_T3       # This estimates the COG self-feedback parameter </span>
+
+<span class="st">dNEU1~C1*COGlv_T1         # This estimates the COG to NEU coupling parameter </span>
+<span class="st">dNEU2~C1*COGlv_T2         # This estimates the COG to NEU coupling parameter </span>
+<span class="st">dNEU3~C1*COGlv_T3         # This estimates the COG to NEU coupling parameter </span>
+
+<span class="st">dCOG1~C2*NEUlv_T1        # This estimates the NEU to COG coupling parameter </span>
+<span class="st">dCOG2~C2*NEUlv_T2        # This estimates the NEU to COG coupling parameter </span>
+<span class="st">dCOG3~C2*NEUlv_T3        # This estimates the NEU to COG coupling parameter </span>
+
+
+<span class="st">iCOG=~1*COGlv_T1                   # This defines the COG intercept measurement model</span>
+<span class="st">sCOG=~1*dCOG1+1*dCOG2+1*dCOG3      # This defines the COG slope measurement model</span>
+<span class="st">iCOG~1                             # This estimates the COG intercept intercept (mean)</span>
+<span class="st">iCOG~~iCOG                         # This estimates the COG intercept variance</span>
+<span class="st">sCOG~1                             # This estimates the COG slope intercept</span>
+<span class="st">sCOG~~sCOG                         # This estimates the COG slope variance</span>
+
+<span class="st">iNEU=~1*NEUlv_T1                   # This defines the NEU slope measurement model</span>
+<span class="st">sNEU=~1*dNEU1+1*dNEU2+1*dNEU3      # This defines the NEU slope measurement model</span>
+<span class="st">iNEU~1                             # This estimates the NEU intercept intercept (mean)</span>
+<span class="st">iNEU~~iNEU                         # This estimates the NEU intercept variance</span>
+<span class="st">sNEU~1                             # This estimates the NEU slope intercept</span>
+<span class="st">sNEU~~sNEU                         # This estimates the NEU slope variance</span>
+
+<span class="st">iNEU~~sNEU                      # This estimates the iNEU sNEU covariance</span>
+<span class="st">iNEU~~sCOG                      # This estimates the iNEU sCOG covariance</span>
+<span class="st">iNEU~~iCOG                      # This estimates the iNEU iCOG covariance</span>
+<span class="st">iCOG~~sCOG                      # This estimates the iCOG sCOG covariance        </span>
+<span class="st">iCOG~~sNEU                      # This estimates the iCOG sNEU covariance</span>
+<span class="st">sCOG~~sNEU                      # This estimates the sCOG sNEU covariance  </span>
+
+<span class="st">&#39;</span>
+
+fitBDCS &lt;-<span class="st"> </span><span class="kw">lavaan</span>(BDCS, <span class="dt">data=</span>simdatBD, <span class="dt">missing=</span><span class="st">&quot;ML&quot;</span>)</code></pre></div>
+<pre><code>## Warning in lav_object_post_check(object): lavaan WARNING: covariance matrix of latent variables
+##                 is not positive definite;
+##                 use inspect(fit,&quot;cov.lv&quot;) to investigate.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fitBDCS, <span class="dt">fit.measures=</span><span class="ot">TRUE</span>, <span class="dt">standardized=</span><span class="ot">TRUE</span>) </code></pre></div>
+<pre><code>## lavaan (0.5-23.1097) converged normally after 956 iterations
+## 
+##   Number of observations                           500
+## 
+##   Number of missing patterns                         1
+## 
+##   Estimator                                         ML
+##   Minimum Function Test Statistic              203.204
+##   Degrees of freedom                                18
+##   P-value (Chi-square)                           0.000
+## 
+## Model test baseline model:
+## 
+##   Minimum Function Test Statistic             3145.600
+##   Degrees of freedom                                28
+##   P-value                                        0.000
+## 
+## User model versus baseline model:
+## 
+##   Comparative Fit Index (CFI)                    0.941
+##   Tucker-Lewis Index (TLI)                       0.908
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)             -10755.946
+##   Loglikelihood unrestricted model (H1)     -10654.344
+## 
+##   Number of free parameters                         26
+##   Akaike (AIC)                               21563.891
+##   Bayesian (BIC)                             21673.471
+##   Sample-size adjusted Bayesian (BIC)        21590.946
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.143
+##   90 Percent Confidence Interval          0.126  0.162
+##   P-value RMSEA &lt;= 0.05                          0.000
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.068</code></pre>
+<pre><code>## Warning in sqrt(ETA2): NaNs produced</code></pre>
+<pre><code>## Warning in sqrt(ETA2): NaNs produced
+
+## Warning in sqrt(ETA2): NaNs produced</code></pre>
+<pre><code>## 
+## Parameter Estimates:
+## 
+##   Information                                 Observed
+##   Standard Errors                             Standard
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   COGlv_T1 =~                                                           
+##     COG_T1            1.000                               1.900    0.606
+##   COGlv_T2 =~                                                           
+##     COG_T2            1.000                               3.246    0.805
+##   COGlv_T3 =~                                                           
+##     COG_T3            1.000                               5.499    0.847
+##   COGlv_T4 =~                                                           
+##     COG_T4            1.000                               7.362    0.726
+##   NEUlv_T1 =~                                                           
+##     NEU_T1            1.000                               1.503    0.503
+##   NEUlv_T2 =~                                                           
+##     NEU_T2            1.000                               3.089    0.772
+##   NEUlv_T3 =~                                                           
+##     NEU_T3            1.000                               5.431    0.908
+##   NEUlv_T4 =~                                                           
+##     NEU_T4            1.000                               8.640    0.953
+##   dCOG1 =~                                                              
+##     COGlv_T2          1.000                               0.608    0.608
+##   dCOG2 =~                                                              
+##     COGlv_T3          1.000                               0.424    0.424
+##   dCOG3 =~                                                              
+##     COGlv_T4          1.000                                 NaN      NaN
+##   dNEU1 =~                                                              
+##     NEUlv_T2          1.000                               0.582    0.582
+##   dNEU2 =~                                                              
+##     NEUlv_T3          1.000                               0.444    0.444
+##   dNEU3 =~                                                              
+##     NEUlv_T4          1.000                               0.375    0.375
+##   iCOG =~                                                               
+##     COGlv_T1          1.000                               1.000    1.000
+##   sCOG =~                                                               
+##     dCOG1             1.000                               9.109    9.109
+##     dCOG2             1.000                               7.699    7.699
+##     dCOG3             1.000                                 NaN      NaN
+##   iNEU =~                                                               
+##     NEUlv_T1          1.000                               1.000    1.000
+##   sNEU =~                                                               
+##     dNEU1             1.000                               0.894    0.894
+##     dNEU2             1.000                               0.666    0.666
+##     dNEU3             1.000                               0.495    0.495
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   COGlv_T2 ~                                                            
+##     COGlv_T1          1.000                               0.585    0.585
+##   COGlv_T3 ~                                                            
+##     COGlv_T2          1.000                               0.590    0.590
+##   COGlv_T4 ~                                                            
+##     COGlv_T3          1.000                               0.747    0.747
+##   NEUlv_T2 ~                                                            
+##     NEUlv_T1          1.000                               0.487    0.487
+##   NEUlv_T3 ~                                                            
+##     NEUlv_T2          1.000                               0.569    0.569
+##   NEUlv_T4 ~                                                            
+##     NEUlv_T3          1.000                               0.629    0.629
+##   dNEU1 ~                                                               
+##     NEUlv_T1  (B1)    0.668    0.074    9.071    0.000    0.559    0.559
+##   dNEU2 ~                                                               
+##     NEUlv_T2  (B1)    0.668    0.074    9.071    0.000    0.856    0.856
+##   dNEU3 ~                                                               
+##     NEUlv_T3  (B1)    0.668    0.074    9.071    0.000    1.118    1.118
+##   dCOG1 ~                                                               
+##     COGlv_T1  (B2)   -7.279    0.094  -77.707    0.000   -7.009   -7.009
+##   dCOG2 ~                                                               
+##     COGlv_T2  (B2)   -7.279    0.094  -77.707    0.000  -10.124  -10.124
+##   dCOG3 ~                                                               
+##     COGlv_T3  (B2)   -7.279    0.094  -77.707    0.000      NaN      NaN
+##   dNEU1 ~                                                               
+##     COGlv_T1  (C1)   -0.295    0.052   -5.678    0.000   -0.312   -0.312
+##   dNEU2 ~                                                               
+##     COGlv_T2  (C1)   -0.295    0.052   -5.678    0.000   -0.397   -0.397
+##   dNEU3 ~                                                               
+##     COGlv_T3  (C1)   -0.295    0.052   -5.678    0.000   -0.500   -0.500
+##   dCOG1 ~                                                               
+##     NEUlv_T1  (C2)    8.380    0.273   30.656    0.000    6.387    6.387
+##   dCOG2 ~                                                               
+##     NEUlv_T2  (C2)    8.380    0.273   30.656    0.000   11.091   11.091
+##   dCOG3 ~                                                               
+##     NEUlv_T3  (C2)    8.380    0.273   30.656    0.000      NaN      NaN
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   iNEU ~~                                                               
+##     sNEU              0.556    0.211    2.629    0.009    0.230    0.230
+##   sCOG ~~                                                               
+##     iNEU            -15.778    2.365   -6.670    0.000   -0.584   -0.584
+##   iCOG ~~                                                               
+##     iNEU              0.134    0.014    9.806    0.000    0.047    0.047
+##     sCOG             26.658    2.449   10.884    0.000    0.781    0.781
+##     sNEU              2.318    0.247    9.382    0.000    0.760    0.760
+##   sCOG ~~                                                               
+##     sNEU             14.761    0.100  147.330    0.000    0.511    0.511
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##     iCOG              2.042    0.127   16.073    0.000    1.075    1.075
+##     sCOG              2.200    1.629    1.351    0.177    0.122    0.122
+##     iNEU              1.874    0.123   15.187    0.000    1.246    1.246
+##     sNEU              2.108    0.224    9.416    0.000    1.312    1.312
+##    .COG_T1            0.000                               0.000    0.000
+##    .COG_T2            0.000                               0.000    0.000
+##    .COG_T3            0.000                               0.000    0.000
+##    .COG_T4            0.000                               0.000    0.000
+##    .NEU_T1            0.000                               0.000    0.000
+##    .NEU_T2            0.000                               0.000    0.000
+##    .NEU_T3            0.000                               0.000    0.000
+##    .NEU_T4            0.000                               0.000    0.000
+##     COGlv_T1          0.000                               0.000    0.000
+##    .COGlv_T2          0.000                               0.000    0.000
+##    .COGlv_T3          0.000                               0.000    0.000
+##    .COGlv_T4          0.000                               0.000    0.000
+##     NEUlv_T1          0.000                               0.000    0.000
+##    .NEUlv_T2          0.000                               0.000    0.000
+##    .NEUlv_T3          0.000                               0.000    0.000
+##    .NEUlv_T4          0.000                               0.000    0.000
+##    .dCOG1             0.000                               0.000    0.000
+##    .dCOG2             0.000                               0.000    0.000
+##    .dCOG3             0.000                                 NaN      NaN
+##    .dNEU1             0.000                               0.000    0.000
+##    .dNEU2             0.000                               0.000    0.000
+##    .dNEU3             0.000                               0.000    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .COG_T1            6.216    0.512   12.142    0.000    6.216    0.633
+##    .COG_T2            5.727    0.503   11.375    0.000    5.727    0.352
+##    .COG_T3           11.932    0.719   16.602    0.000   11.932    0.283
+##    .COG_T4           48.543    0.511   94.934    0.000   48.543    0.472
+##    .NEU_T1            6.672    0.502   13.293    0.000    6.672    0.747
+##    .NEU_T2            6.466    0.496   13.031    0.000    6.466    0.404
+##    .NEU_T3            6.307    0.524   12.029    0.000    6.307    0.176
+##    .NEU_T4            7.462    0.967    7.716    0.000    7.462    0.091
+##     iCOG              3.608    0.329   10.966    0.000    1.000    1.000
+##     sCOG            322.867    0.041 7856.080    0.000    1.000    1.000
+##     iNEU              2.260    0.334    6.765    0.000    1.000    1.000
+##     sNEU              2.581    0.350    7.377    0.000    1.000    1.000
+##     COGlv_T1          0.000                               0.000    0.000
+##    .COGlv_T2          0.000                               0.000    0.000
+##    .COGlv_T3          0.000                               0.000    0.000
+##    .COGlv_T4          0.000                               0.000    0.000
+##     NEUlv_T1          0.000                               0.000    0.000
+##    .NEUlv_T2          0.000                               0.000    0.000
+##    .NEUlv_T3          0.000                               0.000    0.000
+##    .NEUlv_T4          0.000                               0.000    0.000
+##    .dCOG1             0.000                               0.000    0.000
+##    .dCOG2             0.000                               0.000    0.000
+##    .dCOG3             0.000                                 NaN      NaN
+##    .dNEU1             0.000                               0.000    0.000
+##    .dNEU2             0.000                               0.000    0.000
+##    .dNEU3             0.000                               0.000    0.000</code></pre>
+</div>
+<div id="alt-and-alt-sr" class="section level2">
+<h2><span class="header-section-number">8.4</span> ALT and ALT-SR</h2>
+<p>ANother way to build both a growth model and look at more specific time associations.</p>
+
+</div>
+</div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="07-SEM.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="01-Syllabus.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

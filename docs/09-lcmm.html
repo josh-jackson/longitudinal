@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="05-poly-splines.html">
-<link rel="next" href="07-SEM.html">
+<link rel="prev" href="08-multivariate.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -316,25 +316,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="intensive-longitudinal-designs" class="section level1">
-<h1><span class="header-section-number">Chapter 6</span> Intensive Longitudinal Designs</h1>
-<p>Often we are not interested in looking at trajectories across time. Instead we are interested in using time as a means to look at fluctuations in our DV. Fluctuations are especially helpful to understand within person processes versus between person processes.</p>
-<p>Typically, the focus of these sorts of analyses are with level 1 (time varying) covariates ie variables you have assessed more than once. The questions that can be answered with this design are: Are there associations between</p>
-<div id="within-versus-between-person-processes" class="section level2">
-<h2><span class="header-section-number">6.1</span> within versus between person processes</h2>
+<div id="lcmm" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> lcmm</h1>
+<div id="latent-class-mixture-models" class="section level2">
+<h2><span class="header-section-number">9.1</span> latent class / mixture models</h2>
+<p>Thus far we have been assuming that people are all coming from a single population, that change paremeters are normally distributed, and that people can differ from the normative trend conitnuously. But what if this wasn’t so? What if we were sampling people from different populations, that these different groups had different trajectories and that the variation in trajectories were explained by these groups?</p>
+<p>We can do this through something called latent class mixture models (among other names for a collection of these procedures). What they? Basically HLM + SEM + EFA/cluster analysis so as to “carve nature at its joints”. More seriously, this is a procedure that is not unlike what we have been doing where we estimate growth trajectories. From there we are going to see if groups differ in their trajectories. But unlike before when we had groups entered in as covariates or through a multiple group model, we rely on the model to find the groups. That is, we do not have a group variable in our dataset. Instead we are asking to find different “classes” of trajectories (e.g., one group starts high and stays flat, another group starts low and increases).</p>
+<p>These are are thought to identify qualtitative differences in the way people change and develop over time. In one sense it makes it easier to understand the trajetories. Instead of people varying continuously where no one has the same trajectory and everyone is unique you can simplify to these smaller numeber of groups. Awesome!</p>
 </div>
-<div id="centering" class="section level2">
-<h2><span class="header-section-number">6.2</span> Centering</h2>
-<div id="within-person" class="section level3">
-<h3><span class="header-section-number">6.2.1</span> within person</h3>
-<p>Useful for level 1, necessary for seperating within person and between person effects.</p>
-</div>
-<div id="grand-mean" class="section level3">
-<h3><span class="header-section-number">6.2.2</span> Grand mean</h3>
-<p>Useful for level 2, but is not necessary. If you grand mean center at level 2, then the interpretation is more closely related to regression. Here the slope would then be calculated as the average of the population whereas the intercept would be calcualted as the average (ie 0) for predictors.</p>
-<p>Can also grand mean center level 1.</p>
+<div id="longitudinal-mixture-models-and-latent-class-growth-models-what-is-the-difference" class="section level2">
+<h2><span class="header-section-number">9.2</span> Longitudinal Mixture models and Latent Class growth models– what is the difference?</h2>
+<p>Much like hlm, mlm, mixed models etcetera, there are a number of names to refer to these types of models.</p>
+<p>Basically, mixtures suggest that people have variability within a class whereas latent class would state that any variability within a class is noise and thus fix the variability to zero. That is, everything within a class/group is exactly the same.</p>
+<p>Other names get thrown around for these procedures, complicating interpretation e.g., latent profile analysis. Some of the differenes in terminology are the result of whether your measured variables are categorical vs continuous. But in broad strokes they all attempt to find groups based on the data.</p>
 
-</div>
 </div>
 </div>
             </section>
@@ -342,8 +337,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="05-poly-splines.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="07-SEM.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="08-multivariate.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
